@@ -11,7 +11,6 @@ Gem::Specification.new do |spec| # -rubocop:disable Metrics/BlockLength
   spec.email         = ['i.j.dickinson@gmail.com']
 
   spec.summary       = 'Adds Ruby support for interacting with a SAPI-NT API'
-  spec.description   = 'TODO: Write a longer description or delete this line.'
   spec.license       = 'MIT'
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
@@ -19,9 +18,9 @@ Gem::Specification.new do |spec| # -rubocop:disable Metrics/BlockLength
   if spec.respond_to?(:metadata)
     spec.metadata['allowed_push_host'] = "TODO: Set to 'http://mygemserver.com'"
 
-    spec.metadata['homepage_uri'] = spec.homepage
-    spec.metadata['source_code_uri'] = "TODO: Put your gem's public repo URL here."
-    spec.metadata['changelog_uri'] = "TODO: Put your gem's CHANGELOG.md URL here."
+    # spec.metadata['homepage_uri'] = 'TODO'
+    # spec.metadata['source_code_uri'] = "TODO: Put your gem's public repo URL here."
+    # spec.metadata['changelog_uri'] = "TODO: Put your gem's CHANGELOG.md URL here."
   else
     raise 'RubyGems 2.0 or newer is required to protect against ' \
       'public gem pushes.'
@@ -39,4 +38,5 @@ Gem::Specification.new do |spec| # -rubocop:disable Metrics/BlockLength
   spec.add_development_dependency 'bundler', '~> 1.17'
   spec.add_development_dependency 'minitest', '~> 5.0'
   spec.add_development_dependency 'rake', '~> 10.0'
+  spec.add_development_dependency 'simplecov', '~> 0.16.1'
 end

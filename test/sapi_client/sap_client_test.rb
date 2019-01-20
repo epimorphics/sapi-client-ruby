@@ -4,8 +4,10 @@ require 'test_helper'
 
 module SapiClient
   class VersionTest < Minitest::Test
-    def test_that_it_has_a_version_number
-      refute_nil ::SapiClient::VERSION
+    describe 'this library' do
+      it 'should have a version number' do
+        ::SapiClient::VERSION.wont_be_nil
+      end
     end
   end
 end
