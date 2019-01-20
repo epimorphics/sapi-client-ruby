@@ -9,14 +9,33 @@ module SapiClient
     ENDPOINT_TYPE_ITEM = 'item'
     ENDPOINT_TYPES = [ENDPOINT_TYPE_LIST, ENDPOINT_TYPE_ITEM].freeze
 
-    def initialize(specification)
-      raise(SapiClient::Error, 'Missing specification type') unless specification.key?(:type)
+    def initialize(base_url, specification)
+      raise(SapiClient::Error, 'Missing specification type') unless specification.key?('type')
 
+      @base_url = base_url
       @specification = specification
-      @type = specification[:type]
+      @type = specification['type']
       return if ENDPOINT_TYPES.include?(@type)
 
       raise(SapiClient::Error, "Unknown endpoint type: #{@type}")
+    end
+
+    attr_reader :base_url
+
+    def item_endpoint?
+      @type == ENDPOINT_TYPE_ITEM
+    end
+
+    def list_endpoint?
+      @type == ENDPOINT_TYPE_LIST
+    end
+
+    def path
+      @specification['url']
+    end
+
+    def url
+      "#{base_url}#{path}"
     end
   end
 end
