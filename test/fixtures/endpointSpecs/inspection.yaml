@@ -1,0 +1,22 @@
+---
+name: inspectionList
+type: list
+url: "/food-businesses/inspection"
+query: "?id a :InspectionResult"
+views:
+  default: inspectionListView
+  detail: inspectionDetailView
+
+description: "List of inspections"
+---
+name: inspectionListView
+type: view
+view:
+  class: ":InspectionResult"
+  projection: "*,rating.*,establishment(approvalAuthority.prefLabel,registrationAuthority.prefLabel,authorityEstablishmentID,tradingName,establishmentType)"
+---
+name: inspectionDetailView
+type: view
+view:
+  class: ":InspectionResult"
+  projection: "*,rating.*,establishment(approvalAuthority.prefLabel,registrationAuthority.prefLabel,authorityEstablishmentID,tradingName,establishmentType,ceasedTradingDateTime,premises(label,premisesRN,givenAddress.extended_address))"

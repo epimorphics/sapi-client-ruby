@@ -1,0 +1,32 @@
+---
+name: foodBusinessOperatorList
+type: list
+url: /food-businesses/food-business-operator
+query: "?id a :FoodBusinessOperator"
+views:
+  default: foodBusinessOperatorListView
+geoFilters:
+  - CircleFilter
+  - BoxFilter
+
+description: "List of food business operators"
+---
+name: foodBusinessOperatorItem
+type: item
+url: /food-businesses/food-business-operator/{__id}
+views:
+  default: foodBusinessOperatorItemView
+
+description: "A food business operator"
+---
+name: foodBusinessOperatorListView
+type: view
+view:
+  class: ":FoodBusinessOperator"
+  projection: "*,establishment(tradingName,premises.label,establishmentType,establishmentRN,authorityEstablishmentID,approvalAuthority(authorityID,prefLabel),registrationAuthority(authorityID,prefLabel))"
+---
+name: foodBusinessOperatorItemView
+type: view
+view:
+  class: ":FoodBusinessOperator"
+  projection: "*,establishment(tradingName,establishmentType,establishmentRN,authorityEstablishmentID,approvalAuthority(authorityID,prefLabel),registrationAuthority(authorityID,prefLabel),premises(label,premisesRN,lat,long,givenAddress.extended_address))"

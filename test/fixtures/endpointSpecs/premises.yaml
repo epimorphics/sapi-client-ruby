@@ -1,0 +1,14 @@
+name: premises
+type: list
+url: /food-businesses/premises
+query: "?id a :Premises"
+views:
+  default:
+    class: ":Premises"
+    projection: "*,establishment(establishmentRN,tradingName,authorityEstablishmentID,approvalAuthority(authorityID,prefLabel),registrationAuthority(authorityID,prefLabel))"
+geoFilters:
+  - CircleFilter
+  - BoxFilter
+textSearch: true
+
+description: List of premises

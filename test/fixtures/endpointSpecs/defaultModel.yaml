@@ -1,0 +1,752 @@
+type: model
+prefixes:
+  "": "http://data.food.gov.uk/vocabularies/def/core/"
+  rs: "http://data.food.gov.uk/vocabularies/def/core/rating-schemes/"
+  term-afe: "http://data.food.gov.uk/codes/business/eu-approved-establishments/def/terms/"
+  owl: "http://www.w3.org/2002/07/owl#"
+  org: "http://www.w3.org/ns/org#"
+  xsd: "http://www.w3.org/2001/XMLSchema#"
+  skos: "http://www.w3.org/2004/02/skos/core#"
+  rdfs: "http://www.w3.org/2000/01/rdf-schema#"
+  vcard: "http://www.w3.org/2006/vcard/ns#"
+  code-business: "http://data.food.gov.uk/codes/business/"
+  es: "http://data.food.gov.uk/vocabularies/def/establishment-status/"
+  ds: "http://data.food.gov.uk/vocabularies/def/display-status/"
+  geo: "http://www.w3.org/2003/01/geo/wgs84_pos#"
+  rec: "http://data.food.gov.uk/vocabularies/def/reconciliation/"
+  geosparql: "http://www.opengis.net/ont/geosparql#"
+  rdf: "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  sr: "http://data.ordnancesurvey.co.uk/ontology/spatialrelations/"
+
+properties:
+  - prop: "rdfs:label"
+    type: "xsd:string"
+    optional: true
+    multi: false
+
+classes:
+- class: ":Address"
+  properties:
+  - name: "organization_name"
+    prop: "vcard:organization-name"
+    type: "xsd:string"
+    optional: true
+    multi: false
+    comment: "To specify the organizational name associated with the object"
+  - name: "reconciledAddress"
+    prop: ":reconciledAddress"
+    type: ":Address"
+    optional: true
+    multi: false
+  - name: "reconciliationStatus"
+    prop: "rec:reconciliationStatus"
+    type: "rec:ReconciliationStatus"
+    optional: true
+    multi: false
+  - name: "postal_code"
+    prop: "vcard:postal-code"
+    type: "xsd:string"
+    optional: false
+    multi: false
+    comment: "The postal code associated with the address of the object"
+  - name: "extended_address"
+    prop: "vcard:extended-address"
+    type: "rdfs:Literal"
+    optional: true
+    multi: false
+  - name: "country_name"
+    prop: "vcard:country-name"
+    type: "xsd:string"
+    optional: false
+    multi: false
+    comment: "The country name associated with the address of the object"
+- class: ":Establishment"
+  properties:
+  - "rdfs:label"
+  - name: "foodBusiness"
+    prop: ":foodBusiness"
+    type: ":FoodBusiness"
+    optional: true
+    multi: false
+  - name: "reconciledEstablishment"
+    prop: ":reconciledEstablishment"
+    type: ":Establishment"
+    optional: true
+    multi: false
+  - name: "displayStatus"
+    prop: "ds:displayStatus"
+    type: "ds:DisplayStatus"
+    optional: true
+    multi: false
+  - name: "tradingName"
+    prop: ":tradingName"
+    type: "xsd:string"
+    optional: true
+    multi: false
+  - name: "establishmentRegistration"
+    prop: ":establishmentRegistration"
+    type: ":EstablishmentRegistration"
+    optional: false
+    multi: true
+  - name: "establishmentRN"
+    prop: ":establishmentRN"
+    type: ":fsa-rn"
+    optional: true
+    multi: false
+  - name: "startedTradingDateTime"
+    prop: ":startedTradingDateTime"
+    type: "xsd:dateTime"
+    optional: true
+    multi: false
+  - name: "reconciliationStatus"
+    prop: "rec:reconciliationStatus"
+    type: "rec:ReconciliationStatus"
+    optional: true
+    multi: false
+  - name: "establishmentType"
+    prop: ":establishmentType"
+    type: ":EstablishmentType"
+    optional: false
+    multi: false
+    valueBase: "http://data.food.gov.uk/codes/business/establishment/"
+  - name: "registrationAuthority"
+    prop: ":registrationAuthority"
+    type: ":Authority"
+    optional: false
+    multi: false
+    valueBase: "http://data.food.gov.uk/codes/reference-number/authority/"
+  - name: "authorityID"
+    prop: ":authorityID"
+    type: "xsd:string"
+    optional: false
+    multi: false
+  - name: "approvalAuthority"
+    prop: ":approvalAuthority"
+    type: ":Authority"
+    optional: true
+    multi: false
+    valueBase: "http://data.food.gov.uk/codes/reference-number/authority/"
+  - name: "authorityEstablishmentID"
+    prop: ":authorityEstablishmentID"
+    type: "xsd:string"
+    optional: true
+    multi: false
+  - name: "ceasedTradingDateTime"
+    prop: ":ceasedTradingDateTime"
+    type: "xsd:dateTime"
+    optional: true
+    multi: false
+  - name: "establishmentApproval"
+    prop: ":establishmentApproval"
+    type: ":EstablishmentApproval"
+    optional: true
+    multi: true
+  - name: "premises"
+    prop: ":premises"
+    type: ":Premises"
+    optional: false
+    multi: true
+  - name: "ratingScheme"
+    prop: ":ratingScheme"
+    type: ":RatingScheme"
+    optional: true
+    multi: false
+  - name: "foodBusinessOperator"
+    prop: ":foodBusinessOperator"
+    type: ":FoodBusinessOperator"
+    optional: false
+    multi: false
+  - name: "establishmentStatus"
+    prop: "es:establishmentStatus"
+    type: "es:EstablishmentStatus"
+    optional: true
+    multi: false
+  - name: "latestInspectionResult"
+    prop: ":latestInspectionResult"
+    type: ":InspectionResult"
+    optional: true
+    multi: false
+  - "rdfs:label"
+- class: ":ApprovalStatus"
+  properties: []
+- class: ":RegisteredOffice"
+  properties:
+  - name: "address"
+    prop: ":address"
+    type: ":Address"
+    optional: true
+    multi: false
+- class: ":EstablishmentType"
+  properties:
+  - name: "inScheme"
+    prop: "skos:inScheme"
+    type: "skos:ConceptScheme"
+    optional: true
+    multi: true
+  - "rdfs:label"
+- class: ":NaturalPerson"
+  properties:
+  - name: "lastName"
+    prop: "http://xmlns.com/foaf/0.1/lastName"
+    type: "rdfs:Literal"
+    optional: true
+    multi: true
+  - name: "title"
+    prop: "http://xmlns.com/foaf/0.1/title"
+    type: "rdfs:Literal"
+    optional: true
+    multi: true
+  - name: "givenName"
+    prop: "http://xmlns.com/foaf/0.1/givenName"
+    type: "rdfs:Literal"
+    optional: true
+    multi: true
+  - name: "firstName"
+    prop: "http://xmlns.com/foaf/0.1/firstName"
+    type: "rdfs:Literal"
+    optional: true
+    multi: true
+  - name: "name"
+    prop: "http://xmlns.com/foaf/0.1/name"
+    type: "xsd:string"
+    optional: true
+    multi: true
+- class: ":Person"
+  properties:
+  - name: "name"
+    prop: "http://xmlns.com/foaf/0.1/name"
+    type: "xsd:string"
+    optional: true
+    multi: true
+- class: ":ApprovedActivity"
+  properties:
+  - name: "activities"
+    prop: "term-afe:activities"
+    type: "term-afe:Activity"
+    optional: false
+    multi: false
+    comment: "An open domained property for making reference to one or more EU Approved\
+      \ Establisment Activities"
+  - name: "remarks"
+    prop: "term-afe:remarks"
+    type: "term-afe:Remark"
+    optional: true
+    multi: false
+    comment: "An open domained property for making reference to one or more EU Approved\
+      \ Establisment Remarks"
+  - name: "categories"
+    prop: "term-afe:categories"
+    type: "term-afe:Category"
+    optional: false
+    multi: false
+    comment: "An open domained property for making reference to one or more EU Approved\
+      \ Establisment Categories"
+  - name: "species"
+    prop: "term-afe:species"
+    type: "term-afe:Species"
+    optional: true
+    multi: false
+    comment: "An open domained property for making reference to one or more EU Approved\
+      \ Establisment Species"
+  - name: "sectors"
+    prop: "term-afe:sectors"
+    type: "term-afe:Sector"
+    optional: true
+    multi: false
+    comment: "An open domained property for making reference to one or more EU Approved\
+      \ Establisment Food Sectors"
+- class: ":RatingScheme"
+  properties:
+  - name: "prefLabel"
+    prop: "skos:prefLabel"
+    type: "rdfs:Resource"
+    optional: true
+    multi: true
+    comment: "skos:prefLabel, skos:altLabel and skos:hiddenLabel are pairwise\n  \
+      \    disjoint properties."
+  - name: "hasTopConcept"
+    prop: "skos:hasTopConcept"
+    type: ":Rating"
+    optional: true
+    multi: true
+  - name: "label"
+    prop: "rdfs:label"
+    type: "rdfs:Literal"
+    optional: true
+    multi: true
+  - name: "comment"
+    prop: "rdfs:comment"
+    type: "rdfs:Literal"
+    optional: true
+    multi: true
+- class: ":EstablishmentRegistration"
+  properties:
+  - name: "registrationRN"
+    prop: ":registrationRN"
+    type: ":fsa-rn"
+    optional: true
+    multi: false
+  - name: "hasStart"
+    prop: ":hasStart"
+    type: "xsd:dateTime"
+    optional: true
+    multi: false
+  - name: "registrationAuthority"
+    prop: ":registrationAuthority"
+    type: ":Authority"
+    optional: false
+    multi: false
+  - name: "registrationDate"
+    prop: ":registrationDate"
+    type: "xsd:dateTime"
+    optional: true
+    multi: false
+  - name: "establishmentType"
+    prop: ":establishmentType"
+    type: ":EstablishmentType"
+    optional: false
+    multi: false
+  - name: "establishment"
+    prop: ":establishment"
+    type: ":Establishment"
+    optional: false
+    multi: false
+  - name: "premisesAddress"
+    prop: ":premisesAddress"
+    type: ":Address"
+    optional: true
+    multi: false
+  - name: "registrationContact"
+    prop: ":registrationContact"
+    type: ":Contact"
+    optional: true
+    multi: true
+  - name: "startedTradingDateTime"
+    prop: ":startedTradingDateTime"
+    type: "xsd:dateTime"
+    optional: true
+    multi: false
+  - name: "foodBusinessOperatorName"
+    prop: ":foodBusinessOperatorName"
+    type: "xsd:string"
+    optional: true
+    multi: false
+  - name: "hasEnd"
+    prop: ":hasEnd"
+    type: "xsd:dateTime"
+    optional: true
+    multi: false
+  - name: "ceasedTradingDateTime"
+    prop: ":ceasedTradingDateTime"
+    type: "xsd:dateTime"
+    optional: true
+    multi: false
+- class: ":FoodBusiness"
+  properties:
+  - name: "reconciledFoodBusiness"
+    prop: ":reconciledFoodBusiness"
+    type: ":FoodBusiness"
+    optional: true
+    multi: false
+  - name: "establishment"
+    prop: ":establishment"
+    type: ":Establishment"
+    optional: false
+    multi: false
+  - name: "subOrganizationOf"
+    prop: "org:subOrganizationOf"
+    type: "org:Organization"
+    optional: true
+    multi: true
+    comment: "Represents hierarchical containment of Organizations or OrganizationalUnits;\
+      \ indicates an Organization which contains this Organization. Inverse of `org:hasSubOrganization`."
+  - name: "hasRegisteredSite"
+    prop: "org:hasRegisteredSite"
+    type: ":RegisteredOffice"
+    optional: true
+    multi: false
+    comment: "Indicates the legally registered site for the organization, in many\
+      \ legal jurisdictions there is a requirement that FormalOrganizations such as\
+      \ Companies or Charities have such a primary designed site. "
+  - name: "name"
+    prop: "http://xmlns.com/foaf/0.1/name"
+    type: "xsd:string"
+    optional: true
+    multi: true
+  - name: "tradingName"
+    prop: ":tradingName"
+    type: "xsd:string"
+    optional: true
+    multi: false
+  - name: "reconciliationStatus"
+    prop: "rec:reconciliationStatus"
+    type: "rec:ReconciliationStatus"
+    optional: true
+    multi: false
+  - name: "businessRN"
+    prop: ":businessRN"
+    type: ":fsa-rn"
+    optional: true
+    multi: false
+- class: ":Authority"
+  properties:
+  - name: "reconciledAuthority"
+    prop: ":reconciledAuthority"
+    type: ":Authority"
+    optional: true
+    multi: false
+  - name: "ratingScheme"
+    prop: ":ratingScheme"
+    type: ":RatingScheme"
+    optional: true
+    multi: false
+  - name: "authorityID"
+    prop: ":authorityID"
+    type: "xsd:string"
+    optional: true
+    multi: false
+  - prop: "skos:prefLabel"
+    type: "xsd:string"
+    optional: true
+    multi: false
+- class: ":Premises"
+  properties:
+  - name: "reconciledPremises"
+    prop: ":reconciledPremises"
+    type: ":Premises"
+    optional: true
+    multi: false
+  - name: "easting"
+    prop: "sr:easting"
+    type: "xsd:double"
+    optional: true
+    multi: false
+  - name: "premisesRN"
+    prop: ":premisesRN"
+    type: ":fsa-rn"
+    optional: true
+    multi: false
+  - name: "givenAddress"
+    prop: ":givenAddress"
+    type: ":Address"
+    optional: true
+    multi: true
+  - name: "reconciledAddress"
+    prop: ":reconciledAddress"
+    type: ":Address"
+    optional: true
+    multi: false
+  - name: "lat"
+    prop: "geo:lat"
+    type: "xsd:double"
+    optional: true
+    multi: false
+  - name: "establishment"
+    prop: ":establishment"
+    type: ":Establishment"
+    optional: false
+    multi: false
+  - name: "northing"
+    prop: "sr:northing"
+    type: "xsd:double"
+    optional: true
+    multi: false
+  - name: "reconciliationStatus"
+    prop: "rec:reconciliationStatus"
+    type: "rec:ReconciliationStatus"
+    optional: true
+    multi: false
+  - name: "address"
+    prop: ":address"
+    type: ":Address"
+    optional: true
+    multi: false
+  - name: "long"
+    prop: "geo:long"
+    type: "xsd:double"
+    optional: true
+    multi: false
+  - "rdfs:label"
+- class: ":InspectionResult"
+  properties:
+  - name: "overallAnnex5Score"
+    prop: ":overallAnnex5Score"
+    type: "xsd:integer"
+    optional: true
+    multi: false
+  - name: "hygieneScore"
+    prop: ":hygieneScore"
+    type: "xsd:integer"
+    optional: true
+    multi: false
+  - name: "structuralScore"
+    prop: ":structuralScore"
+    type: "xsd:integer"
+    optional: true
+    multi: false
+  - name: "confidenceScore"
+    prop: ":confidenceScore"
+    type: "xsd:integer"
+    optional: true
+    multi: false
+  - name: "publicationDateTime"
+    prop: ":publicationDateTime"
+    type: "xsd:dateTime"
+    optional: true
+    multi: false
+  - name: "inspectionDate"
+    prop: ":inspectionDate"
+    type: "xsd:date"
+    optional: false
+    multi: false
+  - name: "rating"
+    prop: ":rating"
+    type: ":Rating"
+    optional: true
+    multi: false
+  - name: "establishment"
+    prop: ":establishment"
+    type: ":Establishment"
+    optional: false
+    multi: false
+    valueBase: ":food-businesses/establishment/"
+  - name: "ratingScheme"
+    prop: ":ratingScheme"
+    type: ":RatingScheme"
+    optional: true
+    multi: false
+  - name: "ratingValue"
+    prop: ":ratingValue"
+    type: "xsd:string"
+    optional: true
+    multi: false
+- class: ":Rating"
+  properties:
+  - name: "ratingValue"
+    prop: ":ratingValue"
+    type: "xsd:string"
+    optional: true
+    multi: false
+  - name: "ratingScheme"
+    prop: ":ratingScheme"
+    type: ":RatingScheme"
+    optional: false
+    multi: false
+  - name: "prefLabel"
+    prop: "skos:prefLabel"
+    type: "rdfs:Resource"
+    optional: true
+    multi: true
+    comment: "skos:prefLabel, skos:altLabel and skos:hiddenLabel are pairwise\n  \
+      \    disjoint properties."
+  - name: "label"
+    prop: "rdfs:label"
+    type: "rdfs:Literal"
+    optional: true
+    multi: true
+  - name: "numericValue"
+    prop: ":numericValue"
+    type: "xsd:integer"
+    optional: true
+    multi: false
+- class: ":Contact"
+  properties:
+  - name: "telephoneNumber"
+    prop: ":telephoneNumber"
+    type: "xsd:string"
+    optional: true
+    multi: true
+  - name: "emailAddress"
+    prop: ":emailAddress"
+    type: "xsd:string"
+    optional: true
+    multi: true
+  - name: "person"
+    prop: ":person"
+    type: ":Person"
+    optional: true
+    multi: false
+  - name: "address"
+    prop: ":address"
+    type: ":Address"
+    optional: true
+    multi: false
+- class: ":FoodBusinessOperator"
+  properties:
+  - name: "reconciledOperator"
+    prop: ":reconciledOperator"
+    type: ":FoodBusinessOperator"
+    optional: true
+    multi: false
+  - name: "establishment"
+    prop: ":establishment"
+    type: ":Establishment"
+    optional: false
+    multi: false
+  - name: "name"
+    prop: "http://xmlns.com/foaf/0.1/name"
+    type: "xsd:string"
+    optional: true
+    multi: true
+  - name: "operatorRN"
+    prop: ":operatorRN"
+    type: "rdfs:Literal"
+    optional: true
+    multi: false
+  - name: "reconciliationStatus"
+    prop: "rec:reconciliationStatus"
+    type: "rec:ReconciliationStatus"
+    optional: true
+    multi: false
+- class: ":EstablishmentApproval"
+  properties:
+  - name: "approvalRN"
+    prop: ":approvalRN"
+    type: ":fsa-rn"
+    optional: true
+    multi: true
+  - name: "approvalCodeEu"
+    prop: ":approvalCodeEu"
+    type: "xsd:string"
+    optional: false
+    multi: false
+  - name: "foodBusinessOperatorName"
+    prop: ":foodBusinessOperatorName"
+    type: "xsd:string"
+    optional: true
+    multi: false
+  - name: "establishment"
+    prop: ":establishment"
+    type: ":Establishment"
+    optional: false
+    multi: false
+  - name: "premisesAddress"
+    prop: ":premisesAddress"
+    type: ":Address"
+    optional: false
+    multi: false
+  - name: "approvalDateTime"
+    prop: ":approvalDateTime"
+    type: "xsd:dateTime"
+    optional: false
+    multi: false
+  - name: "approvalAuthority"
+    prop: ":approvalAuthority"
+    type: ":Authority"
+    optional: false
+    multi: false
+    valueBase: ":food-businesses/establishment/"
+  - name: "approvalStatus"
+    prop: ":approvalStatus"
+    type: ":ApprovalStatus"
+    optional: true
+    multi: false
+    comment: "Indicates the status of an approval, whether it is full, partial/conditional\
+      \ or whether it has been withdrawn."
+  - name: "approvedActivity"
+    prop: ":approvedActivity"
+    type: ":ApprovedActivity"
+    optional: false
+    multi: true
+  - name: "hasEnd"
+    prop: ":hasEnd"
+    type: "xsd:dateTime"
+    optional: true
+    multi: false
+  - name: "approvalContact"
+    prop: ":approvalContact"
+    type: ":Contact"
+    optional: true
+    multi: true
+  - name: "hasStart"
+    prop: ":hasStart"
+    type: "xsd:dateTime"
+    optional: false
+    multi: false
+- class: ":LegalPerson"
+  properties:
+  - name: "name"
+    prop: "http://xmlns.com/foaf/0.1/name"
+    type: "xsd:string"
+    optional: true
+    multi: true
+- class: "owl:Thing"
+  properties: []
+- class: "rec:ReconciliationStatus"
+  properties:
+  - name: "inScheme"
+    prop: "skos:inScheme"
+    type: "skos:ConceptScheme"
+    optional: true
+    multi: true
+- class: "es:EstablishmentStatus"
+  properties:
+  - name: "ratingScheme"
+    prop: ":ratingScheme"
+    type: ":RatingScheme"
+    optional: false
+    multi: false
+  - name: "displayStatus"
+    prop: "ds:displayStatus"
+    type: "ds:DisplayStatus"
+    optional: true
+    multi: false
+- class: "term-afe:Category"
+  properties: []
+- class: "term-afe:Species"
+  properties: []
+- class: "term-afe:Activity"
+  properties: []
+- class: "term-afe:Sector"
+  properties: []
+- class: "term-afe:Remark"
+  properties: []
+- class: "org:Site"
+  properties: []
+- class: "org:Organization"
+  properties:
+  - name: "hasSite"
+    prop: "org:hasSite"
+    type: "org:Site"
+    optional: true
+    multi: true
+    comment: "Indicates a site at which the Organization has some presence even if\
+      \ only indirect (e.g. virtual office or a professional service which is acting\
+      \ as the registered address for a company). Inverse of `org:siteOf`."
+  - name: "subOrganizationOf"
+    prop: "org:subOrganizationOf"
+    type: "org:Organization"
+    optional: true
+    multi: true
+    comment: "Represents hierarchical containment of Organizations or OrganizationalUnits;\
+      \ indicates an Organization which contains this Organization. Inverse of `org:hasSubOrganization`."
+- class: "http://xmlns.com/foaf/0.1/Agent"
+  properties: []
+- class: "http://xmlns.com/foaf/0.1/Person"
+  properties:
+  - name: "firstName"
+    prop: "http://xmlns.com/foaf/0.1/firstName"
+    type: "rdfs:Literal"
+    optional: true
+    multi: true
+  - name: "lastName"
+    prop: "http://xmlns.com/foaf/0.1/lastName"
+    type: "rdfs:Literal"
+    optional: true
+    multi: true
+- class: "ds:DisplayStatus"
+  properties:
+  - name: "ratingScheme"
+    prop: ":ratingScheme"
+    type: ":RatingScheme"
+    optional: false
+    multi: false
+- class: "skos:ConceptScheme"
+  properties:
+  - name: "hasTopConcept"
+    prop: "skos:hasTopConcept"
+    type: ":Rating"
+    optional: true
+    multi: true
+- class: "skos:Concept"
+  properties: []

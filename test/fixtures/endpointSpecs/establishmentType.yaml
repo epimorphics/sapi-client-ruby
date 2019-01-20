@@ -1,0 +1,9 @@
+name: establishmentType
+type: list
+url: /food-businesses/establishment-types
+query: "?id skos:inScheme code-business:establishment"
+view:
+  class: ":EstablishmentType"
+  projection: "*"
+
+description: "List of establishment types"

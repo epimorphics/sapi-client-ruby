@@ -1,0 +1,49 @@
+---
+name: establishmentList
+type: list
+url: /food-businesses/establishment
+query: "?id a :Establishment"
+views:
+  default: establishmentListView
+  compact: establishmentCompactView
+geoFilters:
+  - CircleFilter
+  - BoxFilter
+textSearch: true
+
+description: "List of establishments"
+---
+name: establishmentItem
+type: item
+url: /food-businesses/establishment/{__id}
+isDescribe: false
+views:
+  default: establishmentItemView
+  compact: establishmentCompactView
+
+description: "A single establishment"
+---
+name: establishmentInspection
+type: forward
+url: /food-businesses/establishment/{establishment}/inspection
+forwardTo: inspection
+
+description: "A list of all inspections of a single establishment"
+---
+name: establishmentListView
+type: view
+view:
+  class: ":Establishment"
+  projection: "label,tradingName,premises(label,premisesRN,givenAddress.extended_address,lat,long),establishmentType,establishmentRN,ceasedTradingDateTime,establishmentStatus,displayStatus,authorityEstablishmentID,approvalAuthority(authorityID,prefLabel),registrationAuthority(authorityID,prefLabel),latestInspectionResult(*,rating(numericValue,ratingValue)),startedTradingDateTime,establishmentRegistration(registrationDate,hasStart,hasEnd,registrationContact.person.name)"
+---
+name: establishmentCompactView
+type: view
+view:
+  class: ":Establishment"
+  projection: "label,tradingName,premises(label,premisesRN,givenAddress.extended_address),establishmentType,establishmentRN,ceasedTradingDateTime,establishmentStatus,displayStatus,authorityEstablishmentID,approvalAuthority(authorityID,prefLabel),registrationAuthority(authorityID,prefLabel)"
+---
+name: establishmentItemView
+type: view
+view:
+  class: ":Establishment"
+  projection: "*,premises(*,givenAddress.*,reconciledAddress.*,lat,long),establishmentRegistration(registrationDate,hasStart,hasEnd,registrationDate,registrationContact.person.name),establishmentStatus.*,displayStatus.*,approvalAuthority.*,registrationAuthority.*,establishmentApproval.*,latestInspectionResult(*,rating.*)"

@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: fsa-unified-view-sapi
+  resources:
+    addMappings: false
+  mvc:
+    pathmatch:
+      useSuffixPattern: true
+
+sapi-nt:
+  api:
+    apiName: ${spring.application.name}
+    baseURI: http://data.food.gov.uk/food-businesses
+    defaultEndpointName: "item"
+    comment: "FSA Unified View API"
+    maxAge: 300
+    defaultItemTemplate: item
+    defaultListTemplate: list
+    pebbleCache: true
+    pebbleStrict: false
+    contentTypes:
+      html: "text/html"
+      json: "application/json"
+      rdf: "application/rdf+xml"
+      ttl: "text/turtle"
+  config:
+    loadSpecPath: classpath:endpointSpecs
+    docSpecPath: classpath:documentation
+    enableSpecMonitoring: true
+
+server:
+  port: 8080
