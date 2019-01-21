@@ -41,6 +41,10 @@ module SapiClient
         .downcase
     end
 
+    def description
+      specification['description']
+    end
+
     def raw_path
       specification['url']
     end

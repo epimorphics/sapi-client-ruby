@@ -10,7 +10,7 @@ Ruby metaprogramming
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'sapi-nt-client-ruby'
+gem 'sapi-client-ruby'
 ```
 
 And then execute:
@@ -19,11 +19,47 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install sapi-nt-client-ruby
+    $ gem install sapi-client-ruby
 
-## Usage
+## Command line usage
 
-TODO: Write usage instructions here
+To aid debugging and exploring a SAPI endpoint, this library has a command-line
+tool `bin/sapi`.  As required inputs, the tool needs both the base URL for the
+SAPI API instance (e.g. `http://localhost:8080`), and the location of the SAPI
+configuration root file. These can either be passed as command-line arguments, or
+as environment variables:
+
+    bin/sapi -b http://localhost:8080 -s test/fixtures/application.yaml inspect
+
+    SAPI_BASE_URL=http://localhost:8080 bin/sapi -s test/fixtures/application.yaml inspect
+
+See `bin/sapi -h` for more details.
+
+### Commands: inspect
+
+Inspect is used to list the available endpoints for a SAPI instance, together with the
+Ruby-ified name that can be used to refer to them. E.g:
+
+    $ export SAPI_BASE_URL=http://localhost:8080
+    $ export SAPI_SPEC_FILE=./test/fixtures/application.yaml
+    $ bin/sapi inspect
+    authority_list
+     /food-businesses/authority
+     'List of authorities'
+
+    establishment_list
+     /food-businesses/establishment
+     'List of establishments'
+
+    establishment_type
+     /food-businesses/establishment-types
+     'List of establishment types'
+
+    establishment_item
+     /food-businesses/establishment/{__id}
+     'A single establishment'
+     vars: id
+
 
 ## Development
 

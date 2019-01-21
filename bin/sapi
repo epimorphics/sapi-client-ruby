@@ -1,0 +1,81 @@
+#!/usr/bin/env ruby
+# frozen-string-literal: true
+
+require 'bundler/setup'
+require 'optparse'
+require 'sapi_client'
+
+options = {
+  base: ENV['SAPI_BASE_URL'],
+  spec: ENV['SAPI_SPEC_FILE']
+}
+
+def spec_file(options)
+  unless File.exist?(options[:spec])
+    puts "Could not find spec file #{options[:spec]}"
+    exit(1)
+  end
+
+  options[:spec]
+end
+
+def usage
+  <<~USAGE
+    Usage:
+      sapi [-b SAPI_BASE_URL] [-s SAPI_SPEC_FILE] inspect
+
+    Base URL and spec file can also be set as environment variables.
+
+  USAGE
+end
+
+def inspect_sapi(options) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  SapiClient::Application
+    .new(options[:base], spec_file(options))
+    .endpoints
+    .select(&:raw_path)
+    .sort_by(&:raw_path)
+    .each do |endpoint|
+      puts endpoint.name
+      puts "  #{endpoint.raw_path}"
+      puts "  '#{endpoint.description}'"
+
+      variables = endpoint.path_variables(endpoint.raw_path).map { |pv| pv[:name] }
+      puts "  vars: #{variables.join(', ')}" unless variables.empty?
+      puts ''
+    end
+end
+
+OptionParser.new do |parser|
+  parser.banner = usage
+
+  parser.on('-h', '--help', 'Show this help message') do
+    puts parser
+    exit(0)
+  end
+
+  parser.on('-b', '--base-url SAPI_BASE_URL', 'Set the base URL for the API') do |url|
+    options[:base] = url
+  end
+
+  parser.on('-s', '--spec-file SAPI_SPEC_FILE', 'The location of the specification file') do |file_name|
+    options[:spec] = file_name
+  end
+end.parse!
+
+unless options[:base] && options[:spec]
+  puts usage
+  exit(1)
+end
+
+command = ARGV.pop
+unless command
+  puts usage
+  exit(1)
+end
+
+if command == 'inspect'
+  inspect_sapi(options)
+else
+  invoke_sapi(command)
+end
