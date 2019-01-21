@@ -11,6 +11,7 @@ Metrics/LineLength:
     - bin/**
     - Gemfile
     - sapi-client.gemspec
+    - test/**/*
 
 Metrics/BlockLength:
   Enabled: true

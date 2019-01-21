@@ -34,13 +34,31 @@ module SapiClient
       @specification['url']
     end
 
-    def path
-      # TODO
-      raw_path
+    def path_variables(path)
+      path
+        .scan(/{[^}]+}/)
+        .map do |match|
+          {
+            substitution: match,
+            name: match[1..-2].sub(/^_*/, '')
+          }
+        end
     end
 
-    def url
-      "#{base_url}#{path}"
+    def path(options)
+      path_variables(raw_path)
+        .reduce(raw_path) do |pth, path_var|
+          var_name = path_var[:name]
+          unless options[var_name]
+            raise(SapiClient::Error, "Missing #{var_name} for endpoint path: #{raw_path}}")
+          end
+
+          pth.sub(path_var[:substitution], options[var_name].to_s)
+        end
+    end
+
+    def url(options)
+      "#{base_url}#{path(options)}"
     end
   end
 end
