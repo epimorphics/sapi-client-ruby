@@ -30,8 +30,13 @@ module SapiClient
       @type == ENDPOINT_TYPE_LIST
     end
 
-    def path
+    def raw_path
       @specification['url']
+    end
+
+    def path
+      # TODO
+      raw_path
     end
 
     def url

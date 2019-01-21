@@ -42,7 +42,7 @@ module SapiClient
       describe '#path' do
         it 'should return the relative URI path, as given' do
           ep = SapiClient::SapiEndpoint.new('http://foo.bar', 'type' => 'item', 'url' => '/womble')
-          ep.path.must_equal('/womble')
+          ep.raw_path.must_equal('/womble')
         end
       end
 
