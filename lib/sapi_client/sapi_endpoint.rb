@@ -21,6 +21,7 @@ module SapiClient
     end
 
     attr_reader :base_url
+    attr_reader :specification
 
     def item_endpoint?
       @type == ENDPOINT_TYPE_ITEM
@@ -30,8 +31,18 @@ module SapiClient
       @type == ENDPOINT_TYPE_LIST
     end
 
+    # The name of the endpoint is based on the configured name from the Sapi-NT spec,
+    # but we adopt Ruby case conventions
+    def name
+      specification['name']
+        .gsub(/([A-Z]+)([A-Z][a-z])/, '\1_\2')
+        .gsub(/([a-z\d])([A-Z])/, '\1_\2')
+        .tr('-', '_')
+        .downcase
+    end
+
     def raw_path
-      @specification['url']
+      specification['url']
     end
 
     def path_variables(path)

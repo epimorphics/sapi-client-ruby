@@ -32,6 +32,15 @@ module SapiClient
         end
       end
 
+      describe 'name' do
+        it 'should convert the endpoint name to Ruby conventions' do
+          SapiClient::SapiEndpoint
+            .new('', 'type' => 'item', 'name' => 'establishmentList')
+            .name
+            .must_equal('establishment_list')
+        end
+      end
+
       describe 'base URL' do
         it 'should report the base URL that was passed' do
           ep = SapiClient::SapiEndpoint.new('http://foo.bar', 'type' => 'item')
