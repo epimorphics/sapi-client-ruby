@@ -3,6 +3,7 @@
 require 'yaml'
 require 'faraday_middleware'
 require 'json'
+require 'logger'
 
 require 'sapi_client/version'
 require 'sapi_client/sapi_endpoint'

@@ -53,7 +53,8 @@ module SapiClient
       isnt = SapiClient::Instance.new
 
       endpoints.each do |endpoint|
-        isnt.define_singleton_method(:"#{endpoint.name}", call_api_proc(endpoint, isnt))
+        isnt.define_singleton_method(:"#{endpoint.name}", get_items_proc(endpoint, isnt))
+        isnt.define_singleton_method(:"#{endpoint.name}_json", get_json_proc(endpoint, isnt))
         isnt.define_singleton_method(:"#{endpoint.name}_spec") { endpoint }
       end
 
@@ -62,10 +63,17 @@ module SapiClient
 
     private
 
-    def call_api_proc(endpoint, isnt)
+    def get_items_proc(endpoint, isnt)
       proc do |options|
         endpoint_url = endpoint.url(options)
         isnt.get_items(endpoint_url, options)
+      end
+    end
+
+    def get_json_proc(endpoint, isnt)
+      proc do |options|
+        endpoint_url = endpoint.url(options)
+        isnt.get_json(endpoint_url, options)
       end
     end
   end

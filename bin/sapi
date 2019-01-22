@@ -16,7 +16,7 @@ def spec_file(options)
     exit(1)
   end
 
-  options[:spec]
+  options.delete(:spec)
 end
 
 def usage
@@ -40,9 +40,13 @@ def describe_endpoint(endpoint) # rubocop:disable Metrics/AbcSize
   puts "  URL vars: #{variables.join(', ')}" unless variables.empty?
 end
 
-def inspect_sapi(options)
+def sapi_application(options)
   SapiClient::Application
-    .new(options[:base], spec_file(options))
+    .new(options.delete(:base), spec_file(options))
+end
+
+def inspect_sapi(options)
+  sapi_application(options)
     .endpoints
     .select(&:raw_path)
     .sort_by(&:raw_path)
@@ -52,20 +56,18 @@ def inspect_sapi(options)
     end
 end
 
-def invoke_sapi(options, endpoint, args) # rubocop:disable Metrics/MethodLength
-  instance = SapiClient::Application
-             .new(options[:base], spec_file(options))
-             .instance
+def invoke_sapi(options, endpoint, args)
+  instance = sapi_application(options).instance
 
   endpoint_spec = instance.send(:"#{endpoint}_spec")
   endpoint_spec.bind(options, args)
 
   if options.delete(:json)
-    puts 'Would print JSON'
+    puts JSON.pretty_generate(instance.send(:"#{endpoint}_json", options))
   else
     pp instance.send(:"#{endpoint}", options)
   end
-rescue => e
+rescue StandardError => e
   puts "Failed to call SAPI endpoint: #{e}"
 end
 

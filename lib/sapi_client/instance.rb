@@ -1,4 +1,5 @@
 # frozen-string-literal: true
+
 require 'logger'
 
 module SapiClient
@@ -23,7 +24,7 @@ module SapiClient
 
       begin
         r = conn.get do |req|
-          req.headers['Accept'] = 'application/ld+json'
+          req.headers['Accept'] = 'application/json'
           req.params.merge! options
         end
 
@@ -37,7 +38,7 @@ module SapiClient
       @base_url
     end
 
-    # private
+    private
 
     def absolute_url?(url)
       url.start_with?(/https?:/)
@@ -47,12 +48,7 @@ module SapiClient
       Faraday.new(url: url) do |faraday|
         faraday.request :url_encoded
         faraday.use FaradayMiddleware::FollowRedirects
-
-        # if defined?(Rails) && defined?(Rails.logger)
-        #   faraday.response :logger, Rails.logger
-        # else
-        faraday.response :logger, ::Logger.new(STDOUT), bodies: true
-        # end
+        faraday.response(:logger, Rails.logger) if defined?(Rails) && defined?(Rails.logger)
 
         faraday.adapter :net_http
       end
