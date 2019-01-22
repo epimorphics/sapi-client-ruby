@@ -52,6 +52,23 @@ def inspect_sapi(options)
     end
 end
 
+def invoke_sapi(options, endpoint, args) # rubocop:disable Metrics/MethodLength
+  instance = SapiClient::Application
+             .new(options[:base], spec_file(options))
+             .instance
+
+  endpoint_spec = instance.send(:"#{endpoint}_spec")
+  endpoint_spec.bind(options, args)
+
+  if options.delete(:json)
+    puts 'Would print JSON'
+  else
+    pp instance.send(:"#{endpoint}", options)
+  end
+rescue => e
+  puts "Failed to call SAPI endpoint: #{e}"
+end
+
 OptionParser.new do |parser|
   parser.banner = usage
 
@@ -67,6 +84,14 @@ OptionParser.new do |parser|
   parser.on('-s', '--spec-file SAPI_SPEC_FILE', 'The location of the specification file') do |file_name|
     options[:spec] = file_name
   end
+
+  parser.on('-l', '--limit LIMIT', 'The maximum number of results to return') do |limit|
+    options[:_limit] = limit.to_i
+  end
+
+  parser.on('-j', '--json', 'View results as raw JSON') do
+    options[:json] = true
+  end
 end.parse!
 
 unless options[:base] && options[:spec]
@@ -74,7 +99,7 @@ unless options[:base] && options[:spec]
   exit(1)
 end
 
-command = ARGV.pop
+command = ARGV.shift
 unless command
   puts usage
   exit(1)
@@ -83,5 +108,5 @@ end
 if command == 'inspect'
   inspect_sapi(options)
 else
-  invoke_sapi(command)
+  invoke_sapi(options, command, ARGV)
 end

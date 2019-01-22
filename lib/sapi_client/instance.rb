@@ -1,4 +1,5 @@
 # frozen-string-literal: true
+require 'logger'
 
 module SapiClient
   # Denotes a particular instance of a Sapi-NT API. The instance has the basic
@@ -22,7 +23,7 @@ module SapiClient
 
       begin
         r = conn.get do |req|
-          req.headers['Accept'] = 'application/json'
+          req.headers['Accept'] = 'application/ld+json'
           req.params.merge! options
         end
 
@@ -47,11 +48,11 @@ module SapiClient
         faraday.request :url_encoded
         faraday.use FaradayMiddleware::FollowRedirects
 
-        if defined?(Rails) && defined?(Rails.logger)
-          faraday.response :logger, Rails.logger
-        else
-          faraday.response :logger
-        end
+        # if defined?(Rails) && defined?(Rails.logger)
+        #   faraday.response :logger, Rails.logger
+        # else
+        faraday.response :logger, ::Logger.new(STDOUT), bodies: true
+        # end
 
         faraday.adapter :net_http
       end
