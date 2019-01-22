@@ -9,9 +9,11 @@ views:
 geoFilters:
   - CircleFilter
   - BoxFilter
+geoParameter: premises
 textSearch: true
 
 description: "List of establishments"
+example: /food-businesses/establishment?_limit=10
 ---
 name: establishmentItem
 type: item
@@ -22,13 +24,15 @@ views:
   compact: establishmentCompactView
 
 description: "A single establishment"
+example: /food-businesses/establishment/MBTM1R-A8K4VZ-2FJCYJ
 ---
 name: establishmentInspection
 type: forward
 url: /food-businesses/establishment/{establishment}/inspection
-forwardTo: inspection
+forwardTo: inspectionList
 
 description: "A list of all inspections of a single establishment"
+example: /food-businesses/establishment/MBTM1R-A8K4VZ-2FJCYJ/inspection
 ---
 name: establishmentListView
 type: view

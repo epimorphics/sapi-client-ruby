@@ -18,15 +18,16 @@ sapi-nt:
     defaultListTemplate: list
     pebbleCache: true
     pebbleStrict: false
-    contentTypes:
-      html: "text/html"
-      json: "application/json"
-      rdf: "application/rdf+xml"
-      ttl: "text/turtle"
   config:
     loadSpecPath: classpath:endpointSpecs
     docSpecPath: classpath:documentation
-    enableSpecMonitoring: true
+  defaults:
+    spec:
+      endpoint:
+        list:
+          softLimit: 1000
 
 server:
   port: 8080
+  servlet:
+    context-path: /food-businesses

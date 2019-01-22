@@ -1,23 +1,26 @@
 ---
 name: foodBusinessOperatorList
 type: list
-url: /food-businesses/food-business-operator
+url: /food-businesses/operator
 query: "?id a :FoodBusinessOperator"
 views:
   default: foodBusinessOperatorListView
 geoFilters:
   - CircleFilter
   - BoxFilter
+geoParameter: establishment_premises
 
 description: "List of food business operators"
+example: /food-businesses/operator?_limit=10
 ---
 name: foodBusinessOperatorItem
 type: item
-url: /food-businesses/food-business-operator/{__id}
+url: /food-businesses/operator/{__id}
 views:
   default: foodBusinessOperatorItemView
 
 description: "A food business operator"
+example: /food-businesses/operator/eb112639-36a7-3117-8ba2-cf59b44d8fe0
 ---
 name: foodBusinessOperatorListView
 type: view

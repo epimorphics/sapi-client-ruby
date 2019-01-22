@@ -494,9 +494,9 @@ classes:
     type: "xsd:dateTime"
     optional: true
     multi: false
-  - name: "inspectionDate"
-    prop: ":inspectionDate"
-    type: "xsd:date"
+  - name: "inspectionDateTime"
+    prop: ":inspectionDateTime"
+    type: "xsd:datetime"
     optional: false
     multi: false
   - name: "rating"
@@ -509,7 +509,7 @@ classes:
     type: ":Establishment"
     optional: false
     multi: false
-    valueBase: ":food-businesses/establishment/"
+    valueBase: "http://data.food.gov.uk/food-businesses/establishment/"
   - name: "ratingScheme"
     prop: ":ratingScheme"
     type: ":RatingScheme"
@@ -581,7 +581,7 @@ classes:
   - name: "establishment"
     prop: ":establishment"
     type: ":Establishment"
-    optional: false
+    optional: true
     multi: false
   - name: "name"
     prop: "http://xmlns.com/foaf/0.1/name"

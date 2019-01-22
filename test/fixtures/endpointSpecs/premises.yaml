@@ -1,4 +1,4 @@
-name: premises
+name: premisesList
 type: list
 url: /food-businesses/premises
 query: "?id a :Premises"
@@ -12,3 +12,4 @@ geoFilters:
 textSearch: true
 
 description: List of premises
+example: /food-businesses/premises?_limit=10
