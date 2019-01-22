@@ -116,6 +116,14 @@ module SapiClient
           v.must_be_nil
         end
       end
+
+      describe '#resource_type' do
+        it 'should report the default resource type' do
+          mock_views = { 'womble' => SapiClient::View.new('name' => 'wombleView', 'view' => { 'class' => ':Womble' }) }
+          ep = SapiClient::SapiEndpoint.new('http://foo.bar', mock_views, 'type' => 'item', 'views' => { 'default' => 'womble' })
+          ep.resource_type.must_equal('Womble')
+        end
+      end
     end
   end
 end

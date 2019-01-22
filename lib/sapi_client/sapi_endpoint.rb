@@ -86,5 +86,11 @@ module SapiClient
       view_key = specification['views']&.[](name)
       view_key && views[view_key]
     end
+
+    # We take the resource type of the endpoint to be the resource type of the default
+    # view, if defined
+    def resource_type
+      view('default')&.resource_type
+    end
   end
 end

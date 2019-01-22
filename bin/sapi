@@ -34,9 +34,10 @@ def describe_endpoint(endpoint) # rubocop:disable Metrics/AbcSize
   puts "  #{endpoint.raw_path}"
   puts "  '#{endpoint.description}'"
   puts "  Views: #{endpoint.view_names ? endpoint.view_names.join(', ') : 'n/a'}"
+  puts "  Resource class: #{endpoint.resource_type}" if endpoint.resource_type
 
   variables = endpoint.path_variables(endpoint.raw_path).map { |pv| pv[:name] }
-  puts "  vars: #{variables.join(', ')}" unless variables.empty?
+  puts "  URL vars: #{variables.join(', ')}" unless variables.empty?
 end
 
 def inspect_sapi(options)
