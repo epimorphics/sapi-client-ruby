@@ -24,5 +24,15 @@ module SapiClient
 
       endpoint_specs.map { |spec| SapiEndpoint.new(base_url, spec) }
     end
+
+    # Returns a hash of view name to view spec object
+    def views
+      specification
+        .select { |spec| spec['type'] == 'view' }
+        .each_with_object({}) do |view_spec, hash|
+          view = SapiClient::View.new(view_spec)
+          hash[view.name] = view
+        end
+    end
   end
 end

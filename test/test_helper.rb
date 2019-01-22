@@ -18,6 +18,7 @@ require 'sapi_client'
 
 require 'minitest/autorun'
 require 'minitest/mock'
+require 'minitest/reporters'
 require 'vcr'
 
 VCR.configure do |config|
@@ -33,3 +34,5 @@ VCR.configure do |config|
 
   config.default_cassette_options = default_cassette_options
 end
+
+Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new

@@ -31,6 +31,18 @@ module SapiClient
           eps.first.must_be_kind_of(SapiClient::SapiEndpoint)
         end
       end
+
+      describe '#views' do
+        it 'should collate the views in an endpoint spec' do
+          es = SapiClient::EndpointSpec.new(base_url, spec_file)
+          ev = es.views
+
+          ev.keys.length.must_equal 3
+          ev.keys.each do |key|
+            ev[key].name.must_equal key
+          end
+        end
+      end
     end
   end
 end
