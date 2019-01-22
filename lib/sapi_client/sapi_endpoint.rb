@@ -9,10 +9,11 @@ module SapiClient
     ENDPOINT_TYPE_ITEM = 'item'
     ENDPOINT_TYPES = [ENDPOINT_TYPE_LIST, ENDPOINT_TYPE_ITEM].freeze
 
-    def initialize(base_url, specification)
+    def initialize(base_url, views, specification)
       raise(SapiClient::Error, 'Missing specification type') unless specification.key?('type')
 
       @base_url = base_url
+      @views = views
       @specification = specification
       @type = specification['type']
       return if ENDPOINT_TYPES.include?(@type)
@@ -22,6 +23,7 @@ module SapiClient
 
     attr_reader :base_url
     attr_reader :specification
+    attr_reader :views
 
     def item_endpoint?
       @type == ENDPOINT_TYPE_ITEM
@@ -74,6 +76,15 @@ module SapiClient
 
     def url(options)
       "#{base_url}#{path(options)}"
+    end
+
+    def view_names
+      specification['views']&.keys
+    end
+
+    def view(name)
+      view_key = specification['views']&.[](name)
+      view_key && views[view_key]
     end
   end
 end
