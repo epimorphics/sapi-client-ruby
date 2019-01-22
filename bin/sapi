@@ -29,19 +29,24 @@ def usage
   USAGE
 end
 
-def inspect_sapi(options) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+def describe_endpoint(endpoint) # rubocop:disable Metrics/AbcSize
+  puts endpoint.name
+  puts "  #{endpoint.raw_path}"
+  puts "  '#{endpoint.description}'"
+  puts "  Views: #{endpoint.view_names ? endpoint.view_names.join(', ') : 'n/a'}"
+
+  variables = endpoint.path_variables(endpoint.raw_path).map { |pv| pv[:name] }
+  puts "  vars: #{variables.join(', ')}" unless variables.empty?
+end
+
+def inspect_sapi(options)
   SapiClient::Application
     .new(options[:base], spec_file(options))
     .endpoints
     .select(&:raw_path)
     .sort_by(&:raw_path)
     .each do |endpoint|
-      puts endpoint.name
-      puts "  #{endpoint.raw_path}"
-      puts "  '#{endpoint.description}'"
-
-      variables = endpoint.path_variables(endpoint.raw_path).map { |pv| pv[:name] }
-      puts "  vars: #{variables.join(', ')}" unless variables.empty?
+      describe_endpoint(endpoint)
       puts ''
     end
 end
