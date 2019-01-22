@@ -124,6 +124,24 @@ module SapiClient
           ep.resource_type.must_equal('Womble')
         end
       end
+
+      describe '#bind' do
+        it 'should bind values to var names' do
+          ep = SapiClient::SapiEndpoint.new('http://foo.bar', {}, 'type' => 'item', 'url' => '/womble/{__id}/clan/{clan}')
+
+          options = {}
+          ep.bind(options, [42, 'wimbledon'])
+
+          options.must_equal('id' => 42, 'clan' => 'wimbledon')
+        end
+
+        it 'should raise if vars and values arrays are different lengths in bind' do
+          ep = SapiClient::SapiEndpoint.new('http://foo.bar', {}, 'type' => 'item', 'url' => '/womble/{__id}/clan/{clan}')
+
+          options = {}
+          -> { ep.bind(options, [42]) }.must_raise(SapiClient::Error)
+        end
+      end
     end
   end
 end

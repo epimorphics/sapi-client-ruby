@@ -92,5 +92,19 @@ module SapiClient
     def resource_type
       view('default')&.resource_type
     end
+
+    # Bind the given array of variable values to the path variable names
+    def bind(options, arg_values)
+      vars = path_variables(raw_path)
+      if vars.length != arg_values.length
+        raise(SapiClient::Error, "Mismatched args to bind: #{vars.inspect} / #{arg_values.inspect}")
+      end
+
+      vars.zip(arg_values).each do |var_name, value|
+        options[var_name[:name]] = value
+      end
+
+      options
+    end
   end
 end
