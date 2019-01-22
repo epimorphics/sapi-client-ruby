@@ -44,5 +44,29 @@ module SapiClient
         .map(&:endpoints)
         .flatten
     end
+
+    # Create an instance of this endpoint specification, which has methods
+    # already defined that correspond to the endpoints in the spec. Specifically,
+    # and endpoint `e` will have a methdod `e()` to get the JSON items for
+    # that endpoint, and a method `e_spec()` to get the endpoint specification
+    def instance
+      isnt = SapiClient::Instance.new
+
+      endpoints.each do |endpoint|
+        isnt.define_singleton_method(:"#{endpoint.name}", call_api_proc(endpoint, isnt))
+        isnt.define_singleton_method(:"#{endpoint.name}_spec") { endpoint }
+      end
+
+      isnt
+    end
+
+    private
+
+    def call_api_proc(endpoint, isnt)
+      proc do |options|
+        endpoint_url = endpoint.url(options)
+        isnt.get_items(endpoint_url, options)
+      end
+    end
   end
 end

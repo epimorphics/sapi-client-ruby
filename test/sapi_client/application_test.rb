@@ -52,6 +52,16 @@ module SapiClient
           eps.map(&:raw_path).must_include '/food-businesses/establishment'
         end
       end
+
+      describe '#instance' do
+        it 'should create an instance with methods corresponding to endpoints' do
+          app = SapiClient::Application.new(base_url, spec)
+          inst = app.instance
+          methods = inst.public_methods
+          methods.must_include(:establishment_list)
+          methods.must_include(:establishment_list_spec)
+        end
+      end
     end
   end
 end
