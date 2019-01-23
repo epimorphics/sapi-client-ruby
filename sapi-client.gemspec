@@ -38,6 +38,7 @@ Gem::Specification.new do |spec| # -rubocop:disable Metrics/BlockLength
   spec.add_dependency 'faraday_middleware', '~> 0.12.2'
 
   spec.add_development_dependency 'bundler', '~> 1.17'
+  spec.add_development_dependency 'byebug', '~> 9.0.5'
   spec.add_development_dependency 'minitest', '~> 5.0'
   spec.add_development_dependency 'rake', '~> 10.0'
   spec.add_development_dependency 'simplecov', '~> 0.16.1'

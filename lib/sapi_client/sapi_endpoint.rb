@@ -70,7 +70,7 @@ module SapiClient
             raise(SapiClient::Error, "Missing #{var_name} for endpoint path: #{raw_path}}")
           end
 
-          pth.sub(path_var[:substitution], options[var_name].to_s)
+          pth.sub(path_var[:substitution], options.delete(var_name).to_s)
         end
     end
 

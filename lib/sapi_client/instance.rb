@@ -1,6 +1,7 @@
 # frozen-string-literal: true
 
 require 'logger'
+require 'byebug'
 
 module SapiClient
   # Denotes a particular instance of a Sapi-NT API. The instance has the basic
@@ -19,7 +20,7 @@ module SapiClient
     end
 
     # Get parsed JSON from the given URL
-    def get_json(url, options = {})
+    def get_json(url, options = {}) # rubocop:disable Metrics/MethodLength
       conn = faraday_connection(url)
 
       begin
@@ -28,7 +29,10 @@ module SapiClient
           req.params.merge! options
         end
 
-        raise "Failed to read from #{url}: #{r.status.inspect}" unless (200..207).cover?(r.status)
+        unless (200..207).cover?(r.status)
+          STDERR.puts r.body
+          raise "Failed to read from #{url}: #{r.status.inspect}"
+        end
 
         JSON.parse(r.body)
       end
@@ -50,6 +54,7 @@ module SapiClient
         faraday.use FaradayMiddleware::FollowRedirects
         faraday.response(:logger, Rails.logger) if defined?(Rails) && defined?(Rails.logger)
 
+        # faraday.response(:logger, ::Logger.new(STDOUT), bodies: true)
         faraday.adapter :net_http
       end
     end
