@@ -1,0 +1,43 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://localhost:8080/food-businesses/establishment?_limit=1
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.15.4
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      vary:
+      - Accept
+      cache-control:
+      - max-age=300
+      content-type:
+      - application/json
+      content-length:
+      - '1838'
+      date:
+      - Tue, 22 Jan 2019 00:18:48 GMT
+      connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: '{"meta":{"@id":"http://data.food.gov.uk/food-businesses/establishment?_limit=1","comment":"FSA
+        Unified View API","hasFormat":["http://data.food.gov.uk/food-businesses/establishment.geojson?_limit=1","http://data.food.gov.uk/food-businesses/establishment.csv?_limit=1","http://data.food.gov.uk/food-businesses/establishment.ttl?_limit=1","http://data.food.gov.uk/food-businesses/establishment.html?_limit=1","http://data.food.gov.uk/food-businesses/establishment.rdf?_limit=1"],"license":"","licenseName":"","limit":1,"publisher":"","version":"0.1"},"items":[{"@id":"http://data.food.gov.uk/food-businesses/establishment/MBTM1R-A8K4VZ-2FJCYJ","authorityEstablishmentID":"S10JWMPARK/1","establishmentRegistration":[{"@id":"http://data.food.gov.uk/food-businesses/establishmentRegistration/MBTM1R-A8K4VZ-2FJCYJ"}],"establishmentStatus":{"@id":"http://data.food.gov.uk/vocabularies/def/establishment-status/fhrs-included"},"establishmentType":{"@id":"http://data.food.gov.uk/codes/business/establishment/RC-CE"},"label":"Establishment:
+        Park House (WSM) Ltd Residential Home, PARK HOUSE RESIDENTIAL HOME, PARK PLACE,
+        WESTON-SUPER-MARE, NORTH SOMERSET, BS23 2BA","premises":[{"@id":"http://data.food.gov.uk/food-businesses/premises/EVM35S-AWXGSP-QRF6CF","givenAddress":[{"@id":"http://data.food.gov.uk/food-businesses/address/1d87c4be-0472-3e23-9625-f4931e045168","extended_address":"PARK
+        HOUSE RESIDENTIAL HOME, PARK PLACE, WESTON-SUPER-MARE, NORTH SOMERSET, BS23
+        2BA"}],"label":"Premises: Park House (WSM) Ltd Residential Home, PARK HOUSE
+        RESIDENTIAL HOME, PARK PLACE, WESTON-SUPER-MARE, NORTH SOMERSET, BS23 2BA","lat":5.1352837E1,"long":-2.984003E0}],"registrationAuthority":{"@id":"http://data.food.gov.uk/codes/reference-number/authority/4308","prefLabel":"North
+        Somerset Council"},"tradingName":"Park House (WSM) Ltd Residential Home"}]}'
+    http_version: 
+  recorded_at: Tue, 22 Jan 2019 00:18:48 GMT
+recorded_with: VCR 4.0.0
