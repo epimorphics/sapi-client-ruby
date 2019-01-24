@@ -24,16 +24,35 @@ Or install it yourself as:
 ## Command line usage
 
 To aid debugging and exploring a SAPI endpoint, this library has a command-line
-tool `bin/sapi`.  As required inputs, the tool needs both the base URL for the
+tool `sapi`.  As required inputs, the tool needs both the base URL for the
 SAPI API instance (e.g. `http://localhost:8080`), and the location of the SAPI
 configuration root file. These can either be passed as command-line arguments, or
 as environment variables:
 
-    bin/sapi -b http://localhost:8080 -s test/fixtures/application.yaml inspect
+    sapi -b http://localhost:8080 -s test/fixtures/application.yaml inspect
 
-    SAPI_BASE_URL=http://localhost:8080 bin/sapi -s test/fixtures/application.yaml inspect
+    export SAPI_BASE_URL=http://localhost:8080
+    export SAPI_SPEC_FILE=test/fixtures/application.yaml
+    sapi inspect
 
-See `bin/sapi --help` for more details.
+See `sapi --help` for more details.
+
+Within a project that depends on `sapi-client-ruby` in the Gemfile, the `sapi` command
+should just work. However, it may be helpful to install it outside of a specific
+project, so that the `sapi` command may also be used from anywhere. Normally, `gem install`
+will normally only install a Rubygem from the `rubygems.org` directory. To install a
+specific gem from a Github URL, use the `specific_install` gem:
+
+    gem install specific_install
+    gem specific_install -l 'git@github.com:epimorphics/sapi-client-ruby.git'
+
+Then `sapi` should be on your `$PATH`:
+
+    ian@ian-desktop-2 $ cd $HOME
+    ian@ian-desktop-2 $ sapi -h
+    Usage:
+      sapi [-b SAPI_BASE_URL] [-s SAPI_SPEC_FILE] inspect
+    ....
 
 ### Command: inspect
 
@@ -42,7 +61,7 @@ Ruby-ified name that can be used to refer to them. E.g:
 
     $ export SAPI_BASE_URL=http://localhost:8080
     $ export SAPI_SPEC_FILE=./test/fixtures/application.yaml
-    $ bin/sapi inspect
+    $ sapi inspect
     authority_list
       /food-businesses/authority
       'List of authorities'
@@ -66,7 +85,7 @@ CLI:
 
     $ export SAPI_BASE_URL=http://localhost:8080
     $ export SAPI_SPEC_FILE=./test/fixtures/application.yaml
-    $ bin/sapi inspection_list
+    $ sapi inspection_list
     [{"@id"=>
        "http://data.food.gov.uk/food-businesses/establishment/NL7L5Y-547WTK-2N8P8W/inspection/2009-04-22",
       "confidenceScore"=>0,
@@ -101,7 +120,7 @@ CLI:
 By default, the output will be the list of items in Ruby hash format. To view
 the raw JSON output, use the `-j` option:
 
-    $ bin/sapi inspection_list -j
+    $ sapi inspection_list -j
     {
       "meta": {
         "@id": "http://data.food.gov.uk/food-businesses/inspection",
@@ -144,7 +163,7 @@ the raw JSON output, use the `-j` option:
 To limit the number of returned results, set the query limit with the `-l`
 parameter:
 
-    $ bin/sapi establishment_list -l 1
+    $ sapi establishment_list -l 1
     [{"@id"=>
        "http://data.food.gov.uk/food-businesses/establishment/MBTM1R-A8K4VZ-2FJCYJ",
       "authorityEstablishmentID"=>"S10JWMPARK/1",
@@ -160,7 +179,7 @@ parameter:
 Where a URL path expects one or more variables, these can be passed by adding
 more parameters:
 
-    $ bin/sapi establishment_item MBTM1R-A8K4VZ-2FJCYJ -j
+    $ sapi establishment_item MBTM1R-A8K4VZ-2FJCYJ -j
     {
       "meta": {
         "@id": "http://data.food.gov.uk/food-businesses/establishment/MBTM1R-A8K4VZ-2FJCYJ",
