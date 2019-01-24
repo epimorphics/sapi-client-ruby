@@ -1,7 +1,7 @@
-# SAPI-NT client ruby
+# Sapi-NT client ruby
 
-This is a simple client library for interacting with SAPI-NT APIs in a Ruby
-or Rails project. The client is initialised with a reference to the SAPI-NT
+This is a simple client library for interacting with Sapi-NT APIs in a Ruby
+or Rails project. The client is initialised with a reference to the Sapi-NT
 modelspec for the API, which is used to generate a custom API class using
 Ruby metaprogramming
 
@@ -10,22 +10,18 @@ Ruby metaprogramming
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'sapi-client-ruby'
+gem 'sapi-client', git: 'git@github.com:epimorphics/sapi-client-ruby.git'
 ```
 
 And then execute:
 
     $ bundle
 
-Or install it yourself as:
-
-    $ gem install sapi-client-ruby
-
 ## Command line usage
 
-To aid debugging and exploring a SAPI endpoint, this library has a command-line
+To aid debugging and exploring a Sapi-NT endpoint, this library has a command-line
 tool `sapi`.  As required inputs, the tool needs both the base URL for the
-SAPI API instance (e.g. `http://localhost:8080`), and the location of the SAPI
+Sapi-NT API instance (e.g. `http://localhost:8080`), and the location of the Sapi-NT
 configuration root file. These can either be passed as command-line arguments, or
 as environment variables:
 
