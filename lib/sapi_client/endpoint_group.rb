@@ -1,12 +1,12 @@
 # frozen-string-literal: true
 
 module SapiClient
-  # Encapsulates the specification of a collection of SAPI endpoints, and some
+  # Encapsulates the specification of a group of SAPI endpoints, and some
   # other features that are useful to the server but not to the client
-  class EndpointSpec
+  class EndpointGroup
     def initialize(base_url, spec_file_name)
       unless File.exist?(spec_file_name)
-        raise(SapiClient::Error, "No such specification: #{spec_file_name}")
+        raise(SapiClient::Error, "No such specification file: #{spec_file_name}")
       end
 
       @specification = YAML.load_stream(File.read(spec_file_name))

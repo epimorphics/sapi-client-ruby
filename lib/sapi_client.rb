@@ -7,7 +7,7 @@ require 'logger'
 
 require 'sapi_client/version'
 require 'sapi_client/sapi_endpoint'
-require 'sapi_client/endpoint_spec'
+require 'sapi_client/endpoint_group'
 require 'sapi_client/application'
 require 'sapi_client/instance'
 require 'sapi_client/view'

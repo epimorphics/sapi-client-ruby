@@ -33,10 +33,10 @@ module SapiClient
         end
       end
 
-      describe '#endpoint_spec_files' do
+      describe '#endpoint_group_files' do
         it 'should return the names of all of the endpoint specification files' do
           app = SapiClient::Application.new(base_url, spec)
-          file_names = app.endpoint_spec_files
+          file_names = app.endpoint_group_files
           file_names.length.must_be :>, 5
           file_names.must_include('test/fixtures/endpointSpecs/establishment.yaml')
         end

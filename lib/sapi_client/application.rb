@@ -34,13 +34,13 @@ module SapiClient
       configuration['loadSpecPath'].sub(/^classpath:/, '')
     end
 
-    def endpoint_spec_files
+    def endpoint_group_files
       Dir["#{application_spec_dir}/#{load_spec_path}/*.yaml"]
     end
 
     def endpoints
-      endpoint_spec_files
-        .map { |spec| SapiClient::EndpointSpec.new(base_url, spec) }
+      endpoint_group_files
+        .map { |spec| SapiClient::EndpointGroup.new(base_url, spec) }
         .map(&:endpoints)
         .flatten
     end
