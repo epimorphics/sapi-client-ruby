@@ -3,6 +3,8 @@
 require 'test_helper'
 require 'sapi_client'
 
+class MockWomble; end
+
 module SapiClient
   class SapiEndpointTest < Minitest::Test
     describe 'SapiEndpoint' do
@@ -122,6 +124,23 @@ module SapiClient
           mock_views = { 'womble' => SapiClient::View.new('name' => 'wombleView', 'view' => { 'class' => ':Womble' }) }
           ep = SapiClient::SapiEndpoint.new('http://foo.bar', mock_views, 'type' => 'item', 'views' => { 'default' => 'womble' })
           ep.resource_type.must_equal('Womble')
+        end
+      end
+
+      describe '#resource_type_wrapper_class' do
+        it 'should report the wrapper class for the resource type, if defined' do
+          mock_views = { 'womble' => SapiClient::View.new('name' => 'wombleView', 'view' => { 'class' => ':MockWomble' }) }
+          ep = SapiClient::SapiEndpoint.new('http://foo.bar', mock_views, 'type' => 'item', 'views' => { 'default' => 'womble' })
+          rt_cls = ep.resource_type_wrapper_class
+          rt_cls.must_be_kind_of(Class)
+          rt_cls.must_equal MockWomble
+        end
+
+        it 'should return nil with no error if there is no wrapper class defined' do
+          mock_views = { 'womble' => SapiClient::View.new('name' => 'wombleView', 'view' => { 'class' => ':Wombles' }) }
+          ep = SapiClient::SapiEndpoint.new('http://foo.bar', mock_views, 'type' => 'item', 'views' => { 'default' => 'womble' })
+          rt_cls = ep.resource_type_wrapper_class
+          rt_cls.must_be_nil
         end
       end
 
