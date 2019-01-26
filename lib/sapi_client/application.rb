@@ -65,6 +65,7 @@ module SapiClient
 
     def get_items_proc(endpoint, isnt)
       proc do |options|
+        options[:wrapper] ||= endpoint.resource_type_wrapper_class
         endpoint_url = endpoint.url(options)
         isnt.get_items(endpoint_url, options)
       end

@@ -61,6 +61,24 @@ module SapiClient
           methods.must_include(:establishment_list)
           methods.must_include(:establishment_list_spec)
         end
+
+        it 'should wrap a list of instances' do
+          class ::Establishment # rubocop:disable Style/ClassAndModuleChildren
+            def initialize(_json)
+              @invoked = true
+            end
+            attr_reader :invoked
+          end
+
+          app = SapiClient::Application.new(base_url, spec)
+          inst = app.instance
+
+          VCR.use_cassette('application.test_instance_wrapping') do
+            establishments = inst.establishment_list(_limit: 1)
+            establishments.first.must_be_kind_of(Establishment)
+            assert establishments.first.invoked
+          end
+        end
       end
     end
   end
