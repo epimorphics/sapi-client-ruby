@@ -3,6 +3,9 @@
 All notable changes will be documented in this file.
 
 ## [Unreleased]
+- no changes yet
+
+## [0.4.0]
 ### Changed
 
 - Renamed EndpointSpec to EndpointGroup to reduce confusion. Even though the
