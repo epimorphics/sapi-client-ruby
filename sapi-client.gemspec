@@ -35,7 +35,8 @@ Gem::Specification.new do |spec| # rubocop:disable Metrics/BlockLength
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
-  spec.add_dependency 'faraday_middleware', '~> 0.12.2'
+  spec.add_dependency 'faraday_middleware', '~> 0.12'
+  spec.add_dependency 'i18n', '~> 1.5'
 
   spec.add_development_dependency 'bundler', '~> 1.17'
   spec.add_development_dependency 'byebug', '~> 9.0.5'
