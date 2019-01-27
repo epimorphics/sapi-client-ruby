@@ -209,11 +209,40 @@ to the API endpoints:
     => [:inspection_list, :inspection_list_json, :inspection_list_spec,
         :establishment_list, :establishment_list_json, ...
 
-The `_json` variant of the method will return the raw JSON output. The `_spec`
+The `*_json` variant of the method will return the raw JSON output. The `*_spec`
 variant will return the specification of the API endpoint (including the name,
 description, etc), while the unadorned version will return the item as a Ruby object.
 
-TODO: wrapping the returned item in a facade-pattern class
+### Wrapper classes
+
+When calling the `*_json` methods, the return value is just JSON, expressed as a
+Ruby `Hash`. Hash presents a fairly low-level API to interact with the data, so
+when calling the main item-getting API methods, the return value will be wrapped
+via some facade class. The base facade is `SapiClient::SapiResource`. SapiResource
+has methods to:
+
+* traverse paths through the structure (e.g. `establishment.authority.name`)
+* provide convenience access to common fields, e.g. `uri`
+* map Ruby method calls to fields in the underlying JSON (e.g. a resource with a
+  `name` property in JSON will respond to a `.name()` method call)
+* pick the best option from a list of language-tagged literals, given a preferred language.
+
+SapiResource is designed to function well as a base class for more domain-specific
+facade classes, such as `Establishment` for establishment resources.
+
+To associate the values of an endpoint with a facade class, there are a number
+of options:
+
+- a class may be be passed via the `wrapper` option when invoking an API endpoint
+  method. E.g: `myEndpoint.establishment_list(_limit: 1, wrapper: MyClass)`
+- if no explicit `wrapper option is available`, the endpoint will look for a
+  class that has the same name as the resource-type for the endpoint (e.g. an
+  establishments endpoint will have a resource type of `:Establishment`, which
+  will then look for an `Establishment` class in Ruby's root namespace)
+- if no matching resource-type class can be found, `SapiClient::SapiResource`
+  will be used as a default.
+
+### Options
 
 The endpoint methods that actually call the endpoint (i.e. not `_spec`) take
 a hash of options, e.g. the query limit:

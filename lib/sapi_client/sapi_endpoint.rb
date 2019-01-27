@@ -106,7 +106,7 @@ module SapiClient
         end
       end
     rescue NameError => _e
-      nil
+      SapiClient::SapiResource
     end
 
     # Bind the given array of variable values to the path variable names
