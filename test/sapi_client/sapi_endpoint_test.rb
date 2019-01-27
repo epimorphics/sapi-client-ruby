@@ -136,11 +136,11 @@ module SapiClient
           rt_cls.must_equal MockWomble
         end
 
-        it 'should return nil with no error if there is no wrapper class defined' do
+        it 'should return the default class with no error if there is no explicit wrapper class defined' do
           mock_views = { 'womble' => SapiClient::View.new('name' => 'wombleView', 'view' => { 'class' => ':Wombles' }) }
           ep = SapiClient::SapiEndpoint.new('http://foo.bar', mock_views, 'type' => 'item', 'views' => { 'default' => 'womble' })
           rt_cls = ep.resource_type_wrapper_class
-          rt_cls.must_be_nil
+          rt_cls.must_equal(SapiClient::SapiResource)
         end
       end
 
