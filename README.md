@@ -253,6 +253,25 @@ Where an API URL takes a path parameter, also pass this using the options:
 
     inst.establishment_item(id: 'MBTM1R-A8K4VZ-2FJCYJ')
 
+### Pagination
+
+It is convenient to have a proxy-pattern object that denotes a collection of
+value from the endpoint. This proxy can change its parameters, such as the limit
+or offset into the list of values, sort parameter, etc, before being manifested
+as an actual set of endpoint items by invoking the API. This pattern has been
+designed to work comfortably with pagination gems such as
+[Pagy](https://github.com/ddnexus/pagy)
+
+Example:
+
+    instance = ....
+    endpoint_values =
+      SapiClient::EndpointValues.new(instance, :establishment_list)
+      .limit(25)
+      .offset(400)
+      .sort('tradingName')
+    collection = endpoint_values.to_a
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.

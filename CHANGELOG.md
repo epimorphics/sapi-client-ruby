@@ -3,7 +3,10 @@
 All notable changes will be documented in this file.
 
 ## [Unreleased]
-- no changes yet
+### Added
+
+- SapiClient::EndpointValues as a proxy for a collection of values that is
+  designed to play well with pagination
 
 ## [0.4.0]
 ### Changed

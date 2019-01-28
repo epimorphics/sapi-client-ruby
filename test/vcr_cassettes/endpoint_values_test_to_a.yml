@@ -1,0 +1,40 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://localhost:8080/food-businesses/establishment?_limit=1
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.15.4
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      vary:
+      - Accept
+      cache-control:
+      - max-age=300
+      content-type:
+      - application/json
+      content-length:
+      - '2186'
+      date:
+      - Mon, 28 Jan 2019 17:46:25 GMT
+      connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: '{"meta":{"@id":"http://data.food.gov.uk/food-businesses/establishment?_limit=1","comment":"FSA
+        Unified View API","hasFormat":["http://data.food.gov.uk/food-businesses/establishment.geojson?_limit=1","http://data.food.gov.uk/food-businesses/establishment.csv?_limit=1","http://data.food.gov.uk/food-businesses/establishment.ttl?_limit=1","http://data.food.gov.uk/food-businesses/establishment.html?_limit=1","http://data.food.gov.uk/food-businesses/establishment.rdf?_limit=1"],"license":"","licenseName":"","limit":1,"publisher":"","version":"0.1"},"items":[{"@id":"http://data.food.gov.uk/food-businesses/establishment/RK7LVZ-J690YS-42CHBW","authorityEstablishmentID":"S10JWM81LO/1","establishmentRegistration":[{"@id":"http://data.food.gov.uk/food-businesses/establishmentRegistration/RK7LVZ-J690YS-42CHBW","registrationDate":"2011-01-21T17:07:22"}],"establishmentStatus":{"@id":"http://data.food.gov.uk/vocabularies/def/establishment-status/fhrs-included"},"establishmentType":{"@id":"http://data.food.gov.uk/codes/business/establishment/RC-CE"},"label":"Establishment:
+        Rosamar, 81 LOCKING ROAD, WESTON-SUPER-MARE, NORTH SOMERSET, BS23 3DW","latestInspectionResult":{"@id":"http://data.food.gov.uk/food-businesses/establishment/RK7LVZ-J690YS-42CHBW/inspection/2017-03-01","confidenceScore":10,"establishment":{"@id":"http://data.food.gov.uk/food-businesses/establishment/RK7LVZ-J690YS-42CHBW"},"hygieneScore":5,"inspectionDateTime":"2017-03-01T00:00:00","overallAnnex5Score":50,"publicationDateTime":"2017-04-06T00:00:21","rating":{"@id":"http://data.food.gov.uk/vocabularies/def/core/rating-schemes/fhrs-4"},"ratingValue":"4","structuralScore":0},"premises":[{"@id":"http://data.food.gov.uk/food-businesses/premises/RJ39Q0-NR74LC-YHGQ0E","givenAddress":[{"@id":"http://data.food.gov.uk/food-businesses/address/4cfb1d30-4813-3cac-91cf-605ea10e347a","extended_address":"81
+        LOCKING ROAD, WESTON-SUPER-MARE, NORTH SOMERSET, BS23 3DW"}],"label":"Premises:
+        Rosamar, 81 LOCKING ROAD, WESTON-SUPER-MARE, NORTH SOMERSET, BS23 3DW","lat":5.1346275E1,"long":-2.96738E0}],"registrationAuthority":{"@id":"http://data.food.gov.uk/codes/reference-number/authority/4308"},"tradingName":"Rosamar"}]}'
+    http_version: 
+  recorded_at: Mon, 28 Jan 2019 17:46:25 GMT
+recorded_with: VCR 4.0.0
