@@ -101,6 +101,12 @@ module SapiClient
           ep.view_names.must_include 'default'
           ep.view_names.must_include 'womble'
         end
+
+        it 'should return a default name for anonymous view' do
+          ep = SapiClient::SapiEndpoint.new('http://foo.bar', {}, 'type' => 'item', 'view' => { 'class' => ':Womble' })
+          ep.view_names.length.must_equal 1
+          ep.view_names.must_include 'default'
+        end
       end
 
       describe '#view' do
@@ -116,6 +122,18 @@ module SapiClient
           ep = SapiClient::SapiEndpoint.new('http://foo.bar', mock_views, 'type' => 'item', 'views' => { 'default' => 'womble' })
           v = ep.view('not_a_view')
           v.must_be_nil
+        end
+
+        it 'should return an inline named view' do
+          ep = SapiClient::SapiEndpoint.new('http://foo.bar', {}, 'type' => 'item', 'views' => { 'default' => { 'class' => ':Womble' } })
+          v = ep.view('default')
+          v.resource_type.must_equal 'Womble'
+        end
+
+        it 'should return an inline anonymous view' do
+          ep = SapiClient::SapiEndpoint.new('http://foo.bar', {}, 'type' => 'item', 'view' => { 'class' => ':Womble' })
+          v = ep.view('default')
+          v.resource_type.must_equal 'Womble'
         end
       end
 

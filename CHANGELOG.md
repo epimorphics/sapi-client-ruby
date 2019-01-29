@@ -3,10 +3,19 @@
 All notable changes will be documented in this file.
 
 ## [Unreleased]
+
+No changes yet
+
+## [0.4.2]
 ### Added
 
 - SapiClient::EndpointValues as a proxy for a collection of values that is
   designed to play well with pagination
+
+### Fixed
+
+- Issue GH-6: Sapi-NT endpoint views can be specified inline, as well as
+  indirectly by name.
 
 ## [0.4.0]
 ### Changed

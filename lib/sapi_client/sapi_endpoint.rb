@@ -9,11 +9,11 @@ module SapiClient
     ENDPOINT_TYPE_ITEM = 'item'
     ENDPOINT_TYPES = [ENDPOINT_TYPE_LIST, ENDPOINT_TYPE_ITEM].freeze
 
-    def initialize(base_url, views, specification)
+    def initialize(base_url, views_register, specification)
       raise(SapiClient::Error, 'Missing specification type') unless specification.key?('type')
 
       @base_url = base_url
-      @views = views
+      @views_register = views_register
       @specification = specification
       @type = specification['type']
       return if ENDPOINT_TYPES.include?(@type)
@@ -23,7 +23,7 @@ module SapiClient
 
     attr_reader :base_url
     attr_reader :specification
-    attr_reader :views
+    attr_reader :views_register
 
     def item_endpoint?
       @type == ENDPOINT_TYPE_ITEM
@@ -79,18 +79,33 @@ module SapiClient
     end
 
     def view_names
-      specification['views']&.keys
+      views.keys
     end
 
-    def view(name)
-      view_key = specification['views']&.[](name)
-      view_key && views[view_key]
+    def named_view(name)
+      views_register[name]
+    end
+
+    # @return A hash of all of the known views to the view specifications
+    def views
+      if specification['view']
+        { 'default' => specification['view'] }
+      else
+        specification['views'] || {}
+      end
+    end
+
+    # @return The view object named by the given key. Use `'default'` for the default view
+    def view(name = 'default')
+      return nil unless (view = views[name])
+
+      view.is_a?(String) ? named_view(view) : SapiClient::View.new('view' => view)
     end
 
     # We take the resource type of the endpoint to be the resource type of the default
     # view, if defined
     def resource_type
-      view('default')&.resource_type
+      view&.resource_type
     end
 
     # Introspect whether there is a wrapper class that can be used to encapsulate
