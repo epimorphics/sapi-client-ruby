@@ -7,7 +7,7 @@ module SapiClient
   class ApplicationTest < Minitest::Test
     describe 'Application' do
       let(:spec) { 'test/fixtures/application.yaml' }
-      let(:base_url) { 'http://localhost:8080' }
+      let(:base_url) { "http://localhost:#{sapi_api_port}" }
 
       describe '#initialize' do
         it 'should load the application specification given' do
@@ -49,7 +49,7 @@ module SapiClient
           eps.must_be_kind_of Array
           eps.length.must_be :>, 5
 
-          eps.map(&:raw_path).must_include '/food-businesses/establishment'
+          eps.map(&:raw_path).must_include '/business/id/establishment'
         end
       end
 

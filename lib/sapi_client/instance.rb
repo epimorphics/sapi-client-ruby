@@ -14,7 +14,7 @@ module SapiClient
       raise(SapiClient::Error, "Unexpected relative URL #{url}") unless absolute_url?(url)
 
       json = get_json(url, options)
-      items = json['items'] || []
+      items = json['error'] ? [json] : json['items'] || []
 
       wrapper ? items.map { |item| wrapper.new(item) } : items
     end
@@ -29,7 +29,7 @@ module SapiClient
           req.params.merge! options
         end
 
-        unless (200..207).cover?(r.status)
+        unless permissible_response_code?(r)
           STDERR.puts r.body
           raise "Failed to read from #{url}: #{r.status.inspect}"
         end
@@ -43,6 +43,16 @@ module SapiClient
     end
 
     private
+
+    def permissible_response_code?(response)
+      permissible_response_codes.include?(response.status)
+    end
+
+    # Any 2xx code is permissible, but we also allow 404 on the assumption that
+    # the response includes a JSON description of the error
+    def permissible_response_codes
+      (200..207).to_a.push(404)
+    end
 
     def absolute_url?(url)
       url.start_with?(/https?:/)

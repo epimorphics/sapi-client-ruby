@@ -36,3 +36,8 @@ VCR.configure do |config|
 end
 
 Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
+
+# Helper to get the test API port number from the environment, or return a default
+def sapi_api_port
+  ENV['SAPI_API_PORT'] || 8090
+end
