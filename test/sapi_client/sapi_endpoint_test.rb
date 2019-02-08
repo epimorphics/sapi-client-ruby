@@ -70,6 +70,11 @@ module SapiClient
           ep = SapiClient::SapiEndpoint.new('http://foo.bar', {}, 'type' => 'item', 'url' => '/womble/{__id}')
           -> { ep.path(ID: 42) }.must_raise(SapiClient::Error)
         end
+
+        it 'should allow path params to be either symbols or strings' do
+          ep = SapiClient::SapiEndpoint.new('http://foo.bar', {}, 'type' => 'item', 'url' => '/womble/{__id1}/{__id2}')
+          ep.path('id1' => 42, id2: 999).must_equal('/womble/42/999')
+        end
       end
 
       describe '#url' do

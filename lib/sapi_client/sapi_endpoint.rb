@@ -62,10 +62,12 @@ module SapiClient
         end
     end
 
-    def path(options)
+    def path(options) # rubocop:disable Metrics/AbcSize
       path_variables(raw_path)
         .reduce(raw_path) do |pth, path_var|
           var_name = path_var[:name]
+          var_name = var_name.to_sym if !options[var_name] && options[var_name.to_sym]
+
           unless options[var_name]
             raise(SapiClient::Error, "Missing #{var_name} for endpoint path: #{raw_path}}")
           end
