@@ -6,6 +6,15 @@ All notable changes will be documented in this file.
 
 No changes yet
 
+## [0.4.3]
+### Fixed
+
+- Issue GH-7: allow bindings for path variables to be passed as either string
+  keys or symbol keys
+- Issue GH-8: don't raise if the API returns HTTP 404. Instead, wrap the JSON
+  return value as the item to be returned, which contains various structured
+  messages describing the problem.
+
 ## [0.4.2]
 ### Added
 
