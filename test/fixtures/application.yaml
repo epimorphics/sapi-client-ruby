@@ -10,9 +10,10 @@ spring:
 sapi-nt:
   api:
     apiName: ${spring.application.name}
-    baseURI: http://data.food.gov.uk/food-businesses
+    baseURI: http://data.food.gov.uk/business
     defaultEndpointName: "item"
     comment: "FSA Unified View API"
+    version: 0.2.0
     maxAge: 300
     defaultItemTemplate: item
     defaultListTemplate: list
@@ -28,6 +29,6 @@ sapi-nt:
           softLimit: 1000
 
 server:
-  port: 8080
+  port: 8090
   servlet:
-    context-path: /food-businesses
+    context-path: /business

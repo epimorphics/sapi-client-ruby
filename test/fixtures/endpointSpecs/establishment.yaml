@@ -1,7 +1,7 @@
 ---
 name: establishmentList
 type: list
-url: /food-businesses/establishment
+url: /business/id/establishment
 query: "?id a :Establishment"
 views:
   default: establishmentListView
@@ -13,41 +13,41 @@ geoParameter: premises
 textSearch: true
 
 description: "List of establishments"
-example: /food-businesses/establishment?_limit=10
+example: /business/id/establishment?_limit=10
 ---
 name: establishmentItem
 type: item
-url: /food-businesses/establishment/{__id}
-isDescribe: false
+url: /business/id/establishment/{__id}
+#isDescribe: false
 views:
   default: establishmentItemView
   compact: establishmentCompactView
 
 description: "A single establishment"
-example: /food-businesses/establishment/MBTM1R-A8K4VZ-2FJCYJ
+example: /business/id/establishment/MBTM1R-A8K4VZ-2FJCYJ
 ---
 name: establishmentInspection
 type: forward
-url: /food-businesses/establishment/{establishment}/inspection
+url: /business/id/establishment/{establishment}/inspection
 forwardTo: inspectionList
 
 description: "A list of all inspections of a single establishment"
-example: /food-businesses/establishment/MBTM1R-A8K4VZ-2FJCYJ/inspection
+example: /business/id/establishment/MBTM1R-A8K4VZ-2FJCYJ/inspection
 ---
 name: establishmentListView
 type: view
 view:
   class: ":Establishment"
-  projection: "label,tradingName,premises(label,premisesRN,givenAddress.extended_address,lat,long),establishmentType,establishmentRN,ceasedTradingDateTime,establishmentStatus,displayStatus,authorityEstablishmentID,approvalAuthority(authorityID,prefLabel),registrationAuthority(authorityID,prefLabel),latestInspectionResult(*,rating(numericValue,ratingValue)),startedTradingDateTime,establishmentRegistration(registrationDate,hasStart,hasEnd,registrationContact.person.name)"
+  projection: "label,tradingName,premises(label,premisesRN,prefAddress.extendedAddress,lat,long),establishmentType.label,establishmentRN,ceasedTradingDateTime,establishmentStatus.prefLabel,inspectionStatus.prefLabel,displayStatus.prefLabel,authorityEstablishmentID,approvalAuthority(notation,prefLabel),registrationAuthority(notation,prefLabel),latestInspectionResult(*,rating(numericValue,ratingValue)),startedTradingDateTime,establishmentRegistration(registrationDate,hasStart,hasEnd),foodBusinessOperator.name"
 ---
 name: establishmentCompactView
 type: view
 view:
   class: ":Establishment"
-  projection: "label,tradingName,premises(label,premisesRN,givenAddress.extended_address),establishmentType,establishmentRN,ceasedTradingDateTime,establishmentStatus,displayStatus,authorityEstablishmentID,approvalAuthority(authorityID,prefLabel),registrationAuthority(authorityID,prefLabel)"
+  projection: "label,tradingName,premises(label,premisesRN,prefAddress.extendedAddress),establishmentType,establishmentRN,ceasedTradingDateTime,establishmentStatus.preLabel,inspectionStatus,displayStatus,authorityEstablishmentID,approvalAuthority(notation,prefLabel),registrationAuthority(notation,prefLabel),foodBusinessOperator.name"
 ---
 name: establishmentItemView
 type: view
 view:
   class: ":Establishment"
-  projection: "*,premises(*,givenAddress.*,reconciledAddress.*,lat,long),establishmentRegistration(registrationDate,hasStart,hasEnd,registrationDate,registrationContact.person.name),establishmentStatus.*,displayStatus.*,approvalAuthority.*,registrationAuthority.*,establishmentApproval.*,latestInspectionResult(*,rating.*)"
+  projection: "*,premises(*,givenAddress,prefAddress,reconciledAddress,lat,long),establishmentRegistration(registrationDate,hasStart,hasEnd,registrationDate,registrationContact.person.name),establishmentStatus.*,displayStatus.*,approvalAuthority.*,registrationAuthority.*,establishmentApproval.*,latestInspectionResult(*,rating.*)"

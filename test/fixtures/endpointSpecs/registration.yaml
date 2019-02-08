@@ -1,0 +1,19 @@
+name: registrationList
+type: list
+url: /business/data/establishmentRegistration
+query: "?id a :EstablishmentRegistration"
+views:
+  default:
+    class: ":EstablishmentRegistration"
+    projection: "*,establishment(establishmentRN,tradingName,authorityEstablishmentID),registrationAuthority(authorityID,prefLabel),establishmentType.label"
+description: List of Registrations of Establishments
+example: /business/data/establishmentRegistration?_limit=10
+---
+name: registrationItem
+type: item
+url:  /business/data/establishmentRegistration/{__id}
+views:
+  default:
+    class: ":EstablishmentRegistration"
+    projection: "establishment,establishment.premises.prefAddress,registrationAuthority,establishmentType"
+description: Details of a single registration

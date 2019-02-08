@@ -1,6 +1,6 @@
 name: establishmentTypeList
 type: list
-url: /food-businesses/establishment-type
+url: /business/def/establishment-type
 query: "?id skos:inScheme code-business:establishment"
 view:
   class: ":EstablishmentType"

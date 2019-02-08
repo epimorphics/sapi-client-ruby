@@ -1,15 +1,27 @@
 name: premisesList
 type: list
-url: /food-businesses/premises
+url: /business/id/premises
 query: "?id a :Premises"
 views:
-  default:
-    class: ":Premises"
-    projection: "*,establishment(establishmentRN,tradingName,authorityEstablishmentID,approvalAuthority(authorityID,prefLabel),registrationAuthority(authorityID,prefLabel))"
+  default: premisesDefaultView
 geoFilters:
   - CircleFilter
   - BoxFilter
 textSearch: true
 
 description: List of premises
-example: /food-businesses/premises?_limit=10
+example: /business/id/premises?_limit=10
+---
+name: premisesDefaultView
+type: view
+view:
+  class: ":Premises"
+  projection: "*,establishment(establishmentRN,tradingName,authorityEstablishmentID,approvalAuthority(authorityID,prefLabel),registrationAuthority(authorityID,prefLabel)),reconciliationStatus.prefLabel,prefAddress.*"
+---
+name: premisesItem
+type: item
+url: /business/id/premises/{__id}
+views:
+  default:
+    class: ":Premises"
+    projection: "*,establishment(approvalAuthority,registrationAuthority)"

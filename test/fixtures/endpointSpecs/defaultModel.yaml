@@ -1,7 +1,11 @@
 type: model
+
+showLangTags: true
+
 prefixes:
-  "": "http://data.food.gov.uk/vocabularies/def/core/"
-  rs: "http://data.food.gov.uk/vocabularies/def/core/rating-schemes/"
+  "": "http://data.food.gov.uk/business/def/core/"
+  core: "http://data.food.gov.uk/business/def/core/"
+  rs: "http://data.food.gov.uk/business/def/core/rating-schemes/"
   term-afe: "http://data.food.gov.uk/codes/business/eu-approved-establishments/def/terms/"
   owl: "http://www.w3.org/2002/07/owl#"
   org: "http://www.w3.org/ns/org#"
@@ -10,24 +14,35 @@ prefixes:
   rdfs: "http://www.w3.org/2000/01/rdf-schema#"
   vcard: "http://www.w3.org/2006/vcard/ns#"
   code-business: "http://data.food.gov.uk/codes/business/"
-  es: "http://data.food.gov.uk/vocabularies/def/establishment-status/"
-  ds: "http://data.food.gov.uk/vocabularies/def/display-status/"
+  es: "http://data.food.gov.uk/business/def/establishment-status/"
+  is: "http://data.food.gov.uk/business/def/inspection-status/"
+  ds: "http://data.food.gov.uk/business/def/display-status/"
   geo: "http://www.w3.org/2003/01/geo/wgs84_pos#"
-  rec: "http://data.food.gov.uk/vocabularies/def/reconciliation/"
+  rec: "http://data.food.gov.uk/business/def/reconciliation/"
   geosparql: "http://www.opengis.net/ont/geosparql#"
   rdf: "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
   sr: "http://data.ordnancesurvey.co.uk/ontology/spatialrelations/"
+  # Manual edits for metadata trial
+  dct: "http://purl.org/dc/terms/"
+  qb: "http://purl.org/linked-data/cube#"
+  dcat: "http://www.w3.org/ns/dcat#"
+  local: "http://localhost/def#"
 
 properties:
   - prop: "rdfs:label"
     type: "xsd:string"
     optional: true
     multi: false
+  - name: "prefLabel"
+    prop: "skos:prefLabel"
+    type: "rdf:langString"
+    optional: true
+    multi: true
 
 classes:
 - class: ":Address"
   properties:
-  - name: "organization_name"
+  - name: "organizationName"
     prop: "vcard:organization-name"
     type: "xsd:string"
     optional: true
@@ -43,21 +58,21 @@ classes:
     type: "rec:ReconciliationStatus"
     optional: true
     multi: false
-  - name: "postal_code"
+  - name: "postalCode"
     prop: "vcard:postal-code"
     type: "xsd:string"
     optional: false
     multi: false
     comment: "The postal code associated with the address of the object"
-  - name: "extended_address"
+  - name: "extendedAddress"
     prop: "vcard:extended-address"
     type: "rdfs:Literal"
     optional: true
     multi: false
-  - name: "country_name"
+  - name: "countryName"
     prop: "vcard:country-name"
     type: "xsd:string"
-    optional: false
+    optional: true
     multi: false
     comment: "The country name associated with the address of the object"
 - class: ":Establishment"
@@ -154,11 +169,16 @@ classes:
   - name: "foodBusinessOperator"
     prop: ":foodBusinessOperator"
     type: ":FoodBusinessOperator"
-    optional: false
+    optional: true
     multi: false
   - name: "establishmentStatus"
     prop: "es:establishmentStatus"
-    type: "es:EstablishmentStatus"
+    type: "skos:Concept"
+    optional: true
+    multi: false
+  - name: "inspectionStatus"
+    prop: "is:inspectionStatus"
+    type: "is:InspectionStatus"
     optional: true
     multi: false
   - name: "latestInspectionResult"
@@ -166,7 +186,6 @@ classes:
     type: ":InspectionResult"
     optional: true
     multi: false
-  - "rdfs:label"
 - class: ":ApprovalStatus"
   properties: []
 - class: ":RegisteredOffice"
@@ -257,13 +276,7 @@ classes:
       \ Establisment Food Sectors"
 - class: ":RatingScheme"
   properties:
-  - name: "prefLabel"
-    prop: "skos:prefLabel"
-    type: "rdfs:Resource"
-    optional: true
-    multi: true
-    comment: "skos:prefLabel, skos:altLabel and skos:hiddenLabel are pairwise\n  \
-      \    disjoint properties."
+  - "skos:prefLabel"
   - name: "hasTopConcept"
     prop: "skos:hasTopConcept"
     type: ":Rating"
@@ -405,10 +418,12 @@ classes:
     type: "xsd:string"
     optional: true
     multi: false
-  - prop: "skos:prefLabel"
+  - name: "notation"
+    prop: "skos:notation"
     type: "xsd:string"
     optional: true
     multi: false
+  - "skos:prefLabel"
 - class: ":Premises"
   properties:
   - name: "reconciledPremises"
@@ -456,8 +471,8 @@ classes:
     type: "rec:ReconciliationStatus"
     optional: true
     multi: false
-  - name: "address"
-    prop: ":address"
+  - name: "prefAddress"
+    prop: ":prefAddress"
     type: ":Address"
     optional: true
     multi: false
@@ -509,7 +524,7 @@ classes:
     type: ":Establishment"
     optional: false
     multi: false
-    valueBase: "http://data.food.gov.uk/food-businesses/establishment/"
+    valueBase: "http://data.food.gov.uk/business/id/establishment/"
   - name: "ratingScheme"
     prop: ":ratingScheme"
     type: ":RatingScheme"
@@ -532,13 +547,7 @@ classes:
     type: ":RatingScheme"
     optional: false
     multi: false
-  - name: "prefLabel"
-    prop: "skos:prefLabel"
-    type: "rdfs:Resource"
-    optional: true
-    multi: true
-    comment: "skos:prefLabel, skos:altLabel and skos:hiddenLabel are pairwise\n  \
-      \    disjoint properties."
+  - "skos:prefLabel"
   - name: "label"
     prop: "rdfs:label"
     type: "rdfs:Literal"
@@ -635,7 +644,7 @@ classes:
     type: ":Authority"
     optional: false
     multi: false
-    valueBase: ":food-businesses/establishment/"
+    valueBase: "http://data.food.gov.uk/codes/reference-number/authority/"
   - name: "approvalStatus"
     prop: ":approvalStatus"
     type: ":ApprovalStatus"
@@ -679,7 +688,9 @@ classes:
     type: "skos:ConceptScheme"
     optional: true
     multi: true
-- class: "es:EstablishmentStatus"
+  - "rdfs:label"
+  - "skos:prefLabel"
+- class: "is:InspectionStatus"
   properties:
   - name: "ratingScheme"
     prop: ":ratingScheme"
@@ -691,6 +702,7 @@ classes:
     type: "ds:DisplayStatus"
     optional: true
     multi: false
+  - "skos:prefLabel"
 - class: "term-afe:Category"
   properties: []
 - class: "term-afe:Species"
@@ -741,6 +753,7 @@ classes:
     type: ":RatingScheme"
     optional: false
     multi: false
+  - "skos:prefLabel"
 - class: "skos:ConceptScheme"
   properties:
   - name: "hasTopConcept"
@@ -749,4 +762,45 @@ classes:
     optional: true
     multi: true
 - class: "skos:Concept"
-  properties: []
+  properties:
+    - "rdfs:label"
+    - "skos:prefLabel"
+
+# Manual edits for metadata trial
+- class: "core:Dataset"
+  properties:
+    - "dct:title"
+    - { prop: "dct:description", optional: true }
+    - prop: "dcat:distribution"
+      optional: true
+      comment: "Access information for the dataset"
+      nested:
+        - prop: "dcat:accessURL"
+          comment: "URL for API for accessing the dataset"
+    - prop: "qb:structure"
+      comment: "The structure of the dataset expressed as a Data Cube"
+      type: "qb:DataStructureDefinition"
+    - { prop: "skos:notation", optional: true }
+- class: "qb:DataStructureDefinition"
+  properties:
+    - prop: "qb:component"
+      comment: "A component of the data cube - a dimension, a measure (data value) or attribute (support for interpreting the data value)"
+      type: "qb:ComponentProperty"
+- class: "qb:ComponentProperty"
+  properties:
+    - {prop: "qb:dimension", optional: true, type: "local:Property"}
+    - {prop: "qb:measure", optional: true, type: "local:Property"}
+    - {prop: "qb:attribute", optional: true, type: "local:Property"}
+    - {prop: "rdfs:comment", optional: true}
+    - {prop: "qb:codeList", optional: true}
+    - {prop: "qb:order", optional: true, type: "xsd:int"}
+- class: "local:Property"
+  properties:
+    - {prop: "rdfs:label", optional: true}
+    - {prop: "rdfs:range", optional: true}
+- class: "skos:ConceptScheme"
+  properties:
+    - { prop: "dct:title", optional: true }
+    - { prop: "rdfs:label", optional: true }
+    - { prop: "dct:description", optional: true }
+    - { prop: "rdfs:comment", optional: true }

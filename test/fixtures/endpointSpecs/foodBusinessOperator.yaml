@@ -1,7 +1,7 @@
 ---
 name: foodBusinessOperatorList
 type: list
-url: /food-businesses/operator
+url: /business/id/operator
 query: "?id a :FoodBusinessOperator"
 views:
   default: foodBusinessOperatorListView
@@ -11,16 +11,16 @@ geoFilters:
 geoParameter: establishment_premises
 
 description: "List of food business operators"
-example: /food-businesses/operator?_limit=10
+example: /business/id/operator?_limit=10
 ---
 name: foodBusinessOperatorItem
 type: item
-url: /food-businesses/operator/{__id}
+url: /business/id/operator/{__id}
 views:
   default: foodBusinessOperatorItemView
 
 description: "A food business operator"
-example: /food-businesses/operator/eb112639-36a7-3117-8ba2-cf59b44d8fe0
+example: /business/id/operator/eb112639-36a7-3117-8ba2-cf59b44d8fe0
 ---
 name: foodBusinessOperatorListView
 type: view
@@ -32,4 +32,4 @@ name: foodBusinessOperatorItemView
 type: view
 view:
   class: ":FoodBusinessOperator"
-  projection: "*,establishment(tradingName,establishmentType,establishmentRN,authorityEstablishmentID,approvalAuthority(authorityID,prefLabel),registrationAuthority(authorityID,prefLabel),premises(label,premisesRN,lat,long,givenAddress.extended_address))"
+  projection: "*,establishment(tradingName,establishmentType,establishmentRN,authorityEstablishmentID,approvalAuthority(authorityID,prefLabel),registrationAuthority(authorityID,prefLabel),premises(label,premisesRN,lat,long,givenAddress.extendedAddress))"

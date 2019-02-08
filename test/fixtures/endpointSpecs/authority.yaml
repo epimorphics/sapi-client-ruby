@@ -1,21 +1,21 @@
 ---
 name: authorityList
 type: list
-url: "/food-businesses/authority"
+url: "/business/id/authority"
 query: "?id skos:inScheme <http://data.food.gov.uk/codes/reference-number/authority>"
 views:
   default: authorityDefaultView
 
 description: "List of authorities"
-example: /food-businesses/authority?_limit=10
+example: /business/id/authority?_limit=10
 ---
 name: authorityEstablishment
 type: forward
-url: /food-businesses/authority/{registrationAuthority}/establishment
+url: /business/id/authority/{registrationAuthority}/establishment
 forwardTo: establishmentList
 
 description: "List of establishments for an authority"
-example: /food-businesses/authority/4308/establishment
+example: /business/id/authority/4308/establishment
 ---
 name: authorityDefaultView
 type: view

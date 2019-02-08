@@ -1,23 +1,24 @@
 ---
 name: inspectionList
 type: list
-url: /food-businesses/inspection
+url: /business/data/inspection
 query: "?id a :InspectionResult"
 views:
   default: inspectionListView
   detail: inspectionDetailView
 
 description: "List of inspections"
-example: /food-businesses/inspection?_limit=10
+example: /business/data/inspection?_limit=10
 ---
 name: inspectionListView
 type: view
 view:
   class: ":InspectionResult"
-  projection: "*,rating.*,establishment(approvalAuthority.prefLabel,registrationAuthority.prefLabel,authorityEstablishmentID,tradingName,establishmentType)"
+  projection: "*,establishment(approvalAuthority.prefLabel,registrationAuthority.prefLabel,authorityEstablishmentID,tradingName,establishmentType)"
 ---
 name: inspectionDetailView
 type: view
 view:
   class: ":InspectionResult"
-  projection: "*,rating.*,establishment(approvalAuthority.prefLabel,registrationAuthority.prefLabel,authorityEstablishmentID,tradingName,establishmentType,ceasedTradingDateTime,premises(label,premisesRN,givenAddress.extended_address))"
+  projection: "*,rating.*,establishment(approvalAuthority.prefLabel,registrationAuthority.prefLabel,authorityEstablishmentID,tradingName,establishmentType,ceasedTradingDateTime,premises(label,premisesRN,givenAddress.extendedAddress))"
+description: "Detailed view of an individual inspection"

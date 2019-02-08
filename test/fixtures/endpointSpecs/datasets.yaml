@@ -1,0 +1,22 @@
+---
+name: datasetList
+type: list
+url: /business/data
+query: "?id a :Dataset"
+views:
+  default: datasetListView
+description: "List of datasets available"
+---
+name: datasetListView
+type: view
+view:
+  class: "core:Dataset"
+  projection: "*"
+---
+name: datasetItem
+type: item
+url: /business/data/{__id}/
+view:
+  class: "core:Dataset"
+  projection: "*,structure.component.*"
+description: "Details of a single dataset including its structure"
