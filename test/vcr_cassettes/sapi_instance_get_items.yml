@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: http://localhost:8080/food-businesses/establishment?_limit=1
+    uri: http://localhost:8090/business/id/establishment?_limit=1
     body:
       encoding: US-ASCII
       string: ''
@@ -23,21 +23,23 @@ http_interactions:
       content-type:
       - application/json
       content-length:
-      - '1838'
+      - '2684'
       date:
-      - Tue, 22 Jan 2019 00:18:48 GMT
+      - Fri, 08 Feb 2019 16:03:19 GMT
       connection:
       - close
     body:
       encoding: UTF-8
-      string: '{"meta":{"@id":"http://data.food.gov.uk/food-businesses/establishment?_limit=1","comment":"FSA
-        Unified View API","hasFormat":["http://data.food.gov.uk/food-businesses/establishment.geojson?_limit=1","http://data.food.gov.uk/food-businesses/establishment.csv?_limit=1","http://data.food.gov.uk/food-businesses/establishment.ttl?_limit=1","http://data.food.gov.uk/food-businesses/establishment.html?_limit=1","http://data.food.gov.uk/food-businesses/establishment.rdf?_limit=1"],"license":"","licenseName":"","limit":1,"publisher":"","version":"0.1"},"items":[{"@id":"http://data.food.gov.uk/food-businesses/establishment/MBTM1R-A8K4VZ-2FJCYJ","authorityEstablishmentID":"S10JWMPARK/1","establishmentRegistration":[{"@id":"http://data.food.gov.uk/food-businesses/establishmentRegistration/MBTM1R-A8K4VZ-2FJCYJ"}],"establishmentStatus":{"@id":"http://data.food.gov.uk/vocabularies/def/establishment-status/fhrs-included"},"establishmentType":{"@id":"http://data.food.gov.uk/codes/business/establishment/RC-CE"},"label":"Establishment:
-        Park House (WSM) Ltd Residential Home, PARK HOUSE RESIDENTIAL HOME, PARK PLACE,
-        WESTON-SUPER-MARE, NORTH SOMERSET, BS23 2BA","premises":[{"@id":"http://data.food.gov.uk/food-businesses/premises/EVM35S-AWXGSP-QRF6CF","givenAddress":[{"@id":"http://data.food.gov.uk/food-businesses/address/1d87c4be-0472-3e23-9625-f4931e045168","extended_address":"PARK
-        HOUSE RESIDENTIAL HOME, PARK PLACE, WESTON-SUPER-MARE, NORTH SOMERSET, BS23
-        2BA"}],"label":"Premises: Park House (WSM) Ltd Residential Home, PARK HOUSE
-        RESIDENTIAL HOME, PARK PLACE, WESTON-SUPER-MARE, NORTH SOMERSET, BS23 2BA","lat":5.1352837E1,"long":-2.984003E0}],"registrationAuthority":{"@id":"http://data.food.gov.uk/codes/reference-number/authority/4308","prefLabel":"North
-        Somerset Council"},"tradingName":"Park House (WSM) Ltd Residential Home"}]}'
+      string: '{"meta":{"@id":"http://data.food.gov.uk/business/id/establishment?_limit=1","comment":"FSA
+        Unified View API","hasFormat":["http://data.food.gov.uk/business/id/establishment.rdf?_limit=1","http://data.food.gov.uk/business/id/establishment.csv?_limit=1","http://data.food.gov.uk/business/id/establishment.geojson?_limit=1","http://data.food.gov.uk/business/id/establishment.html?_limit=1","http://data.food.gov.uk/business/id/establishment.ttl?_limit=1"],"license":"","licenseName":"","limit":1,"publisher":"","version":"0.2.0"},"items":[{"@id":"http://data.food.gov.uk/business/id/establishment/DLXMP1-AMKLNC-ZYLSSB","authorityEstablishmentID":"10196","establishmentRegistration":[{"@id":"http://data.food.gov.uk/business/data/establishmentRegistration/DLXMP1-AMKLNC-ZYLSSB","hasEnd":"2011-10-26T10:28:32","hasStart":"2011-05-04T12:04:18"}],"establishmentStatus":{"@id":"http://data.food.gov.uk/business/def/establishment-status/inactive","prefLabel":[{"@value":"inactive","@language":"en"}]},"establishmentType":{"@id":"http://data.food.gov.uk/codes/business/establishment/RE-SR","label":{"@value":"Smaller
+        retailers","@language":"en"}},"inspectionStatus":{"@id":"http://data.food.gov.uk/business/def/inspection-status/fhrs-included","prefLabel":[{"@value":"included","@language":"en"}]},"label":"Establishment:
+        Good News, 29 BAUGH GARDENS, DOWNEND, BRISTOL, SOUTH GLOUCESTERSHIRE, BS16
+        6PP","latestInspectionResult":{"@id":"http://data.food.gov.uk/business/id/establishment/DLXMP1-AMKLNC-ZYLSSB/inspection/2011-05-05","confidenceScore":0,"establishment":{"@id":"http://data.food.gov.uk/business/id/establishment/DLXMP1-AMKLNC-ZYLSSB"},"hygieneScore":0,"inspectionDateTime":"2011-05-05T00:00:00","overallAnnex5Score":10,"publicationDateTime":"2011-07-21T20:23:54","rating":{"@id":"http://data.food.gov.uk/business/def/core/rating-schemes/fhrs-5","numericValue":5,"ratingValue":"5"},"ratingValue":"5","structuralScore":0},"premises":[{"@id":"http://data.food.gov.uk/business/id/premises/DLCF5J-CERPSC-BDVAQG","label":"Premises:
+        Good News, 29 BAUGH GARDENS, DOWNEND, BRISTOL, SOUTH GLOUCESTERSHIRE, BS16
+        6PP","prefAddress":[{"@id":"http://data.food.gov.uk/business/id/address/1fa61493-bdf8-3fdf-811a-5ee584db5634","extendedAddress":"29
+        BAUGH GARDENS, DOWNEND, BRISTOL, SOUTH GLOUCESTERSHIRE, BS16 6PP"},{"@id":"http://data.food.gov.uk/business/id/premises/ATZG6B-A0LC87-RXBYC5/address","extendedAddress":"29,
+        BAUGH GARDENS, BRISTOL, SOUTH GLOUCESTERSHIRE, BS16 6PP"}]}],"registrationAuthority":{"@id":"http://data.food.gov.uk/codes/reference-number/authority/4294","notation":"4294","prefLabel":[{"@value":"South
+        Gloucestershire Council","@language":"en"}]},"tradingName":"Good News"}]}'
     http_version: 
-  recorded_at: Tue, 22 Jan 2019 00:18:48 GMT
+  recorded_at: Fri, 08 Feb 2019 16:03:19 GMT
 recorded_with: VCR 4.0.0
