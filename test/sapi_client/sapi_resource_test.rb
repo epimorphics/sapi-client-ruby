@@ -154,7 +154,6 @@ module SapiClient
       describe '#value_of' do
         it 'should return the value of the given path' do
           r = SapiClient::SapiResource.new(a: { b: { '@value' => 42 } })
-          byebug
           r.value_of('a.b').must_equal 42
 
           r = SapiClient::SapiResource.new(a: { b: 999 })

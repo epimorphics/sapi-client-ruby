@@ -34,11 +34,12 @@ module SapiClient
 
     # Return the first value along the given path for this object
     def path_first(path)
-      wrap_value(
-        path_segments(path).reduce(resource) do |hsh, segment|
-          pick_first(hsh[segment]) if hsh&.key?(segment)
-        end
-      )
+      terminal = path_segments(path)
+                 .reduce(resource) do |hsh, segment|
+                   hash_with_symbol_keys(pick_first(hsh[segment])) if hsh&.key?(segment)
+                 end
+
+      terminal && wrap_term(terminal)
     end
     alias [] path_first
 
@@ -48,7 +49,7 @@ module SapiClient
         resources.map { |value| sapi_resource?(value) ? value.resource[segment] : nil }
                  .flatten
                  .compact
-                 .map { |value| wrap_value(value) }
+                 .map { |value| wrap_resource(value) }
       end
     end
 
@@ -175,7 +176,7 @@ module SapiClient
       if res.is_a?(SapiResource)
         res.resource.clone
       elsif res.is_a?(Hash)
-        res.transform_keys(&:to_sym)
+        hash_with_symbol_keys(res)
       else
         { '@id': res.to_s }
       end
@@ -187,8 +188,16 @@ module SapiClient
     end
 
     # If `value` is an un-wrapped resource (i.e. a Hash), wrap is as a SapiResource
-    def wrap_value(value)
+    def wrap_resource(value)
       value.is_a?(Hash) ? SapiResource.new(value) : value
+    end
+
+    def value_term?(term)
+      term.is_a?(Hash) && term.key?(:'@value')
+    end
+
+    def wrap_term(term)
+      value_term?(term) ? term[:'@value'] : wrap_resource(term)
     end
 
     # When given an array of choices, pick the first
@@ -198,6 +207,12 @@ module SapiClient
 
     def sapi_resource?(value)
       value.is_a?(SapiClient::SapiResource)
+    end
+
+    def hash_with_symbol_keys(hsh)
+      return hsh unless hsh.is_a?(Hash)
+
+      hsh.transform_keys(&:to_sym)
     end
   end
 end

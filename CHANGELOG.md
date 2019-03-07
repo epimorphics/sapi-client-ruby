@@ -6,6 +6,11 @@ All notable changes will be documented in this file.
 
 No changes yet
 
+## [0.4.4]
+
+- Fix to allow nested values with non-symbol keys, which was preventing me from
+  using path expressions into complex nested values coming from the Sapi API.
+
 ## [0.4.3]
 ### Fixed
 
