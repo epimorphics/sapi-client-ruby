@@ -58,6 +58,21 @@ module SapiClient
           r.path_first('a.b.c').must_equal(42)
         end
 
+        it 'should select the first value along the path when the outer is an array' do
+          r = SapiClient::SapiResource.new(a: [{ c: 42 }, { c: 100 }])
+          r.path_first('a.c').must_equal(42)
+        end
+
+        it 'should select the first value along the path when non-symbol keys are used' do
+          r = SapiClient::SapiResource.new(a: [{ 'b' => { c: 42 } }, { 'b' => { c: 100 } }])
+          r.path_first('a.b.c').must_equal(42)
+        end
+
+        it 'should select the first value along the path when @value is used' do
+          r = SapiClient::SapiResource.new(a: [{ '@value': 42 }, { '@value': 100 }])
+          r.path_first('a').must_equal(42)
+        end
+
         it 'should return nil if the path does not match' do
           r = SapiClient::SapiResource.new(a: { b: [{ c: 42 }, { c: 100 }] })
           r.path_first('a.d.c').must_be_nil
@@ -139,6 +154,7 @@ module SapiClient
       describe '#value_of' do
         it 'should return the value of the given path' do
           r = SapiClient::SapiResource.new(a: { b: { '@value' => 42 } })
+          byebug
           r.value_of('a.b').must_equal 42
 
           r = SapiClient::SapiResource.new(a: { b: 999 })
