@@ -21,7 +21,7 @@ module SapiClient
 
     # Get parsed JSON from the given URL
     def get_json(url, options = {})
-      JSON.parse(get(url, 'application/json'), options)
+      JSON.parse(get(url, 'application/json', options))
     end
 
     # Get parsed JSON from the given URL
