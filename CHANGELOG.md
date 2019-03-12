@@ -6,6 +6,10 @@ All notable changes will be documented in this file.
 
 No changes yet
 
+## [0.4.6]
+- Generalise the API to instance.get() to allow other content-types to be
+  retrieved, not just JSON.
+
 ## [0.4.4]
 
 - Fix to allow nested values with non-symbol keys, which was preventing me from
