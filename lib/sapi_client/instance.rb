@@ -20,21 +20,28 @@ module SapiClient
     end
 
     # Get parsed JSON from the given URL
-    def get_json(url, options = {}) # rubocop:disable Metrics/MethodLength
+    def get_json(url, options = {})
+      JSON.parse(get(url, 'application/json'), options)
+    end
+
+    # Get parsed JSON from the given URL
+    def get_csv(url, options = {})
+      get(url, 'text/csv', options)
+    end
+
+    # Get the content from the given URL, using the given content type
+    def get(url, content_type, options = {})
       conn = faraday_connection(url)
 
       begin
         r = conn.get do |req|
-          req.headers['Accept'] = 'application/json'
+          req.headers['Accept'] = content_type if content_type
           req.params.merge! options
         end
 
-        unless permissible_response_code?(r)
-          STDERR.puts r.body
-          raise "Failed to read from #{url}: #{r.status.inspect}"
-        end
+        raise "Failed to read from #{url}: #{r.status.inspect}" unless permissible_response_code?(r)
 
-        JSON.parse(r.body)
+        r.body
       end
     end
 
