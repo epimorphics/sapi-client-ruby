@@ -69,6 +69,7 @@ module SapiClient
       Faraday.new(url: url) do |faraday|
         faraday.request :url_encoded
         faraday.use FaradayMiddleware::FollowRedirects
+        faraday.use :instrumentation
         faraday.response(:logger, Rails.logger) if defined?(Rails) && defined?(Rails.logger)
 
         # faraday.response(:logger, ::Logger.new(STDOUT), bodies: true)
