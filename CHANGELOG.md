@@ -6,6 +6,10 @@ All notable changes will be documented in this file.
 
 No changes yet
 
+## [0.4.8]
+- Fix regression arising from the use of Faraday instrumentation. This has a
+  dependency on `ActiveSupport`, so should only be loaded in a Rails environment
+
 ## [0.4.7]
 - Add a feature to return the slug from a URI, e.g. `http://wimbledon.org/common`
   has the slug `common`
