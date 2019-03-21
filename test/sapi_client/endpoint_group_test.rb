@@ -27,7 +27,7 @@ module SapiClient
           es = SapiClient::EndpointGroup.new(base_url, spec_file)
           eps = es.endpoints
 
-          eps.length.must_equal 2
+          eps.length.must_equal 3
           eps.first.must_be_kind_of(SapiClient::SapiEndpoint)
         end
       end

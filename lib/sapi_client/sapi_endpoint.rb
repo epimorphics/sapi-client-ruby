@@ -7,7 +7,8 @@ module SapiClient
   class SapiEndpoint
     ENDPOINT_TYPE_LIST = 'list'
     ENDPOINT_TYPE_ITEM = 'item'
-    ENDPOINT_TYPES = [ENDPOINT_TYPE_LIST, ENDPOINT_TYPE_ITEM].freeze
+    ENDPOINT_TYPE_FORWARD = 'forward'
+    ENDPOINT_TYPES = [ENDPOINT_TYPE_LIST, ENDPOINT_TYPE_ITEM, ENDPOINT_TYPE_FORWARD].freeze
 
     def initialize(base_url, views_register, specification)
       raise(SapiClient::Error, 'Missing specification type') unless specification.key?('type')
