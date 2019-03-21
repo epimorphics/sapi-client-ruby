@@ -137,6 +137,34 @@ module SapiClient
           r = SapiClient::SapiResource.new(a: { b: 42 })
           r.uri.must_be_nil
         end
+
+        it 'should return nil for the URI slug for no URI' do
+          SapiClient::SapiResource
+            .new({})
+            .uri_slug
+            .must_be_nil
+        end
+
+        it 'should return nil for the URI slug for URI with trailing `/`' do
+          SapiClient::SapiResource
+            .new('@id' => 'http://wimbledon.org/common/')
+            .uri_slug
+            .must_be_nil
+        end
+
+        it 'should return the URI slug for a normal URI' do
+          SapiClient::SapiResource
+            .new('@id' => 'http://wimbledon.org/common')
+            .uri_slug
+            .must_equal 'common'
+        end
+
+        it 'should return the URI slug for an fragment URI' do
+          SapiClient::SapiResource
+            .new('@id' => 'http://wimbledon.org/common#ground')
+            .uri_slug
+            .must_equal 'ground'
+        end
       end
 
       describe '#types' do

@@ -81,6 +81,10 @@ module SapiClient
     end
     alias named_resource? uri
 
+    def uri_slug
+      uri&.match(%r{\A.*[/#]([^#/]+)\Z})&.[](1)
+    end
+
     # @return An array of all of the type (i.e. rdf:type) values for this resource, or nil
     def types
       path_all(:type)
