@@ -6,6 +6,11 @@ All notable changes will be documented in this file.
 
 No changes yet
 
+## [0.4.7]
+- Add a feature to return the slug from a URI, e.g. `http://wimbledon.org/common`
+  has the slug `common`
+- Fix API spec parsing to also recognise `forward` endpoint specs
+
 ## [0.4.6]
 - Generalise the API to instance.get() to allow other content-types to be
   retrieved, not just JSON.
