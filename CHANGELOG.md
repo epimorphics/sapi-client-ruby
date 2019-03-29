@@ -6,6 +6,9 @@ All notable changes will be documented in this file.
 
 No changes yet
 
+## [0.4.9]
+- Fix GH-10: the lib was using the wrong attribute in JSON-LD for a human language
+
 ## [0.4.8]
 - Fix regression arising from the use of Faraday instrumentation. This has a
   dependency on `ActiveSupport`, so should only be loaded in a Rails environment
