@@ -72,7 +72,7 @@ module SapiClient
     alias typed_value? value_type
 
     def value_lang
-      value? && resource[:'@lang']
+      value? && resource[:'@language']
     end
     alias lang_tagged_value? value_lang
 
