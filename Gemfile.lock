@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    sapi-client (0.4.9)
+    sapi-client (0.4.10)
       faraday_middleware (~> 0.12)
       i18n (~> 1.5)
 
@@ -29,7 +29,7 @@ GEM
       ruby-progressbar
     mocha (1.8.0)
       metaclass (~> 0.0.1)
-    multipart-post (2.0.0)
+    multipart-post (2.1.1)
     rake (10.5.0)
     ruby-progressbar (1.10.0)
     simplecov (0.16.1)
