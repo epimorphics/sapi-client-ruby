@@ -1,0 +1,50 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://localhost:8090/business/id/establishment?_limit=1
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.15.4
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      vary:
+      - Accept
+      cache-control:
+      - max-age=300
+      content-type:
+      - application/json
+      content-length:
+      - '4382'
+      date:
+      - Tue, 14 May 2019 15:32:28 GMT
+      connection:
+      - close
+    body:
+      encoding: UTF-8
+      string: '{"meta":{"@id":"http://data.food.gov.uk/business/id/establishment?_limit=1","comment":"FSA
+        Unified View API","hasFormat":["http://data.food.gov.uk/business/id/establishment.rdf?_limit=1","http://data.food.gov.uk/business/id/establishment.csv?_limit=1","http://data.food.gov.uk/business/id/establishment.geojson?_limit=1","http://data.food.gov.uk/business/id/establishment.html?_limit=1","http://data.food.gov.uk/business/id/establishment.ttl?_limit=1"],"license":"","licenseName":"","limit":1,"publisher":"","version":"0.2.0"},"items":[{"@id":"http://data.food.gov.uk/business/id/establishment/C4YRF0-V9J25F-SNCMAL","enrolment":[{"@id":"http://data.food.gov.uk/business/data/establishmentRegistration/C4YRF0-V9J25F-SNCMAL","authorityEstablishmentID":"30381","enrolmentAuthority":{"@id":"http://data.food.gov.uk/codes/reference-number/authority/8016","notation":"8016","prefLabel":[{"@value":"Carmarthenshire
+        County Council","@language":"en"},{"@value":"Cyngor Sir Gar","@language":"cy"}]},"enrolmentStatus":{"@id":"http://data.food.gov.uk/business/def/core/inactive","prefLabel":[{"@value":"inactive","@language":"en"}]},"hasEnd":"2014-02-07T15:42:55","hasStart":"2010-11-16T12:04:55","legislativeRegime":{"@id":"http://data.food.gov.uk/business/def/core/food-hygiene"},"type":[{"@id":"http://data.food.gov.uk/business/def/core/Enrolment"},{"@id":"http://data.food.gov.uk/business/def/core/EstablishmentRegistration"}]}],"establishmentRegistration":[{"@id":"http://data.food.gov.uk/business/data/establishmentRegistration/C4YRF0-V9J25F-SNCMAL","authorityEstablishmentID":"30381","enrolmentAuthority":{"@id":"http://data.food.gov.uk/codes/reference-number/authority/8016","notation":"8016","prefLabel":[{"@value":"Carmarthenshire
+        County Council","@language":"en"},{"@value":"Cyngor Sir Gar","@language":"cy"}]},"enrolmentStatus":{"@id":"http://data.food.gov.uk/business/def/core/inactive","prefLabel":[{"@value":"inactive","@language":"en"}]},"hasEnd":"2014-02-07T15:42:55","hasStart":"2010-11-16T12:04:55","legislativeRegime":{"@id":"http://data.food.gov.uk/business/def/core/food-hygiene"}}],"establishmentType":{"@id":"http://data.food.gov.uk/codes/business/establishment/RC-HG","label":{"@value":"Hotel
+        or Guest House","@language":"en"}},"fhrsDisplayStatus":{"@id":"http://data.food.gov.uk/business/def/display-status/name-address-score","prefLabel":[{"@value":"name-address-score","@language":"en"}]},"fhrsEstablishmentStatus":{"@id":"http://data.food.gov.uk/business/def/establishment-status/fhrs-included","prefLabel":[{"@value":"included","@language":"en"}]},"label":"Establishment
+        C4YRF0-V9J25F-SNCMAL : PENYFEDW B&B, PENYFEDW, PENYFEDW ROAD, LLANDYFAELOG,
+        KIDWELLY, CARMARTHENSHIRE, SA17 5RD, PENYFEDW, HEOL PENYFEDW, LLANDYFAELOG,
+        CYDWELI, SIR GAERFYRDDIN, SA17 5RD","latestInspectionResults":[{"@id":"http://data.food.gov.uk/business/id/establishment/C4YRF0-V9J25F-SNCMAL/inspection/2010-11-02","context":{"@id":"http://data.food.gov.uk/business/inspectionContext/4efbb4cd-8c5d-3d68-8933-65a92fccb5f2"},"establishment":{"@id":"http://data.food.gov.uk/business/id/establishment/C4YRF0-V9J25F-SNCMAL"},"inspectionAuthority":{"@id":"http://data.food.gov.uk/codes/reference-number/authority/8016"},"inspectionDateTime":"2010-11-02T00:00:00","inspectionScheme":{"@id":"http://data.food.gov.uk/business/def/fhrs/fhrs-rating-scheme"},"publicationDateTime":"2010-11-17T11:02:53","rating":{"@id":"http://data.food.gov.uk/business/def/fhrs/fhrs-5","label":{"@value":"fhrs-5","@language":"en"},"notation":["fhrs-5"],"numericValue":5,"ratingValue":"5"},"ratingValue":"5"}],"operator":{"@id":"http://data.food.gov.uk/business/id/operator/5f36f37b-7659-3d6a-8dcd-8a3651137d6f","name":["Mrs
+        PJones"]},"premises":[{"@id":"http://data.food.gov.uk/business/id/premises/C5GX1G-TG7468-74SRTV","label":"Premises:
+        PENYFEDW B&B, PENYFEDW, PENYFEDW ROAD, LLANDYFAELOG, KIDWELLY, CARMARTHENSHIRE,
+        SA17 5RD","prefAddress":{"@id":"http://data.food.gov.uk/business/id/address/4903e69a-878b-3ace-9289-fb3122e6dd12","extendedAddress":"PENYFEDW,
+        LLANDYFAELOG, KIDWELLY, CARMARTHENSHIRE, SA17 5RD","lat":5.1785709381103516E1,"long":-4.31404447555542E0,"postalCode":"SA17
+        5RD","uprn":[10004870272]},"premisesRN":"C5GX1G-TG7468-74SRTV"}],"tradingName":"PENYFEDW
+        B&B","visibility":{"@id":"http://data.food.gov.uk/business/def/visibility/public","prefLabel":[{"@value":"not
+        sensitive","@language":"en"}]}}]}'
+    http_version: 
+  recorded_at: Tue, 14 May 2019 15:32:28 GMT
+recorded_with: VCR 4.0.0

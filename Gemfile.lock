@@ -20,12 +20,15 @@ GEM
     i18n (1.6.0)
       concurrent-ruby (~> 1.0)
     json (2.2.0)
+    metaclass (0.0.4)
     minitest (5.11.3)
     minitest-reporters (1.1.19)
       ansi
       builder
       minitest (>= 5.0)
       ruby-progressbar
+    mocha (1.8.0)
+      metaclass (~> 0.0.1)
     multipart-post (2.0.0)
     rake (10.5.0)
     ruby-progressbar (1.10.0)
@@ -44,6 +47,7 @@ DEPENDENCIES
   byebug (~> 9.0.5)
   minitest (~> 5.0)
   minitest-reporters (~> 1.1.11)
+  mocha (~> 1.8.0)
   rake (~> 10.0)
   sapi-client!
   simplecov (~> 0.16.1)

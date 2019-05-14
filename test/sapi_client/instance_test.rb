@@ -44,6 +44,21 @@ module SapiClient
           end
         end
       end
+
+      describe 'request_logger' do
+        it 'should use a request logger to record request and responses' do
+          VCR.use_cassette('sapi_instance.request_logger') do
+            logger = mock('request_logger')
+            logger.expects(:log_request).with(instance_of(Faraday::Request))
+            logger.expects(:log_response).with(instance_of(Faraday::Response))
+
+            instance = SapiClient::Instance.new
+            instance.request_logger = logger
+            json = instance.get_json("#{base_url}/business/id/establishment", _limit: 1)
+            json.must_be_kind_of Hash
+          end
+        end
+      end
     end
   end
 end

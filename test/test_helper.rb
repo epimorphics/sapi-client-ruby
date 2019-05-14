@@ -19,6 +19,7 @@ require 'sapi_client'
 require 'minitest/autorun'
 require 'minitest/mock'
 require 'minitest/reporters'
+require 'mocha/minitest'
 require 'vcr'
 
 VCR.configure do |config|

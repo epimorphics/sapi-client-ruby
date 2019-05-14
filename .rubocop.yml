@@ -22,3 +22,7 @@ Metrics/BlockLength:
 Metrics/ClassLength:
   Exclude:
     - test/**/*
+
+Style/Documentation:
+  Exclude:
+    - test/**/*

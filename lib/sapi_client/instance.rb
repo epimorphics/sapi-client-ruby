@@ -8,7 +8,12 @@ module SapiClient
   # capability of invoking a generic endpoint by URL, and we the augment this
   # instance by generating methods that can be used to invoke endpoints based
   # on the application specification.
+  #
+  # If the `request_logger` is set, each request and response pair is sent to the
+  # just before the request is made and just after the response is received.
   class Instance
+    attr_accessor :request_logger
+
     def get_items(url, options = {})
       wrapper = options.delete(:wrapper)
       raise(SapiClient::Error, "Unexpected relative URL #{url}") unless absolute_url?(url)
@@ -30,15 +35,18 @@ module SapiClient
     end
 
     # Get the content from the given URL, using the given content type
-    def get(url, content_type, options = {})
+    def get(url, content_type, options = {}) # rubocop:disable Metrics/MethodLength
       conn = faraday_connection(url)
 
       begin
         r = conn.get do |req|
           req.headers['Accept'] = content_type if content_type
           req.params.merge! options
+
+          request_logger&.log_request(req)
         end
 
+        request_logger&.log_response(r)
         raise "Failed to read from #{url}: #{r.status.inspect}" unless permissible_response_code?(r)
 
         r.body
@@ -71,11 +79,16 @@ module SapiClient
         faraday.use FaradayMiddleware::FollowRedirects
 
         faraday.use :instrumentation if defined?(Rails)
-        faraday.response(:logger, Rails.logger) if defined?(Rails) && defined?(Rails.logger)
+        if rails_logger
+          faraday.response(:logger, rails_logger, bodies: Rails.env.development?)
+        end
 
-        # faraday.response(:logger, ::Logger.new(STDOUT), bodies: true)
         faraday.adapter :net_http
       end
+    end
+
+    def rails_logger
+      defined?(Rails) && defined?(Rails.logger) && Rails.logger
     end
   end
 end
