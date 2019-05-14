@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    sapi-client (0.4.8)
+    sapi-client (0.4.9)
       faraday_middleware (~> 0.12)
       i18n (~> 1.5)
 

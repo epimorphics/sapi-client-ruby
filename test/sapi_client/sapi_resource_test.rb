@@ -122,8 +122,8 @@ module SapiClient
         end
 
         it 'should identify a lang-tagged value' do
-          assert SapiClient::SapiResource.new('@value' => 'Tobermory', '@lang' => 'en-wimbledon').value?
-          assert SapiClient::SapiResource.new('@value' => 'Tobermory', '@lang' => 'en-wimbledon').lang_tagged_value?
+          assert SapiClient::SapiResource.new('@value' => 'Tobermory', '@language' => 'en-wimbledon').value?
+          assert SapiClient::SapiResource.new('@value' => 'Tobermory', '@language' => 'en-wimbledon').lang_tagged_value?
         end
       end
 
@@ -201,7 +201,7 @@ module SapiClient
 
       describe 'language handling' do
         let(:fixture) do
-          [{ '@value' => 'untagged' }, { '@value' => 'EN', '@lang' => 'en' }, { '@value' => 'WM', '@lang' => 'womble' }]
+          [{ '@value' => 'untagged' }, { '@value' => 'EN', '@language' => 'en' }, { '@value' => 'WM', '@language' => 'womble' }]
         end
 
         it 'should identify the default langauage' do
@@ -229,7 +229,7 @@ module SapiClient
 
       describe '#name' do
         let(:fixture) do
-          [{ '@value' => 'untagged' }, { '@value' => 'EN', '@lang' => 'en' }, { '@value' => 'WM', '@lang' => 'womble' }]
+          [{ '@value' => 'untagged' }, { '@value' => 'EN', '@language' => 'en' }, { '@value' => 'WM', '@language' => 'womble' }]
         end
 
         it 'should pick out the name with the given language' do
@@ -244,7 +244,7 @@ module SapiClient
 
       describe '#label' do
         let(:fixture) do
-          [{ '@value' => 'untagged' }, { '@value' => 'EN', '@lang' => 'en' }, { '@value' => 'WM', '@lang' => 'womble' }]
+          [{ '@value' => 'untagged' }, { '@value' => 'EN', '@language' => 'en' }, { '@value' => 'WM', '@language' => 'womble' }]
         end
 
         it 'should pick out the label with the given language' do
