@@ -35,7 +35,7 @@ module SapiClient
     end
 
     # Get the content from the given URL, using the given content type
-    def get(url, content_type, options = {}) # rubocop:disable Metrics/MethodLength
+    def get(url, content_type, options = {})
       conn = faraday_connection(url)
 
       begin
@@ -43,7 +43,6 @@ module SapiClient
           req.headers['Accept'] = content_type if content_type
           req.params.merge! options
 
-          request_logger&.log_request(req)
         end
 
         request_logger&.log_response(r)

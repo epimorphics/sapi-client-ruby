@@ -49,7 +49,6 @@ module SapiClient
         it 'should use a request logger to record request and responses' do
           VCR.use_cassette('sapi_instance.request_logger') do
             logger = mock('request_logger')
-            logger.expects(:log_request).with(instance_of(Faraday::Request))
             logger.expects(:log_response).with(instance_of(Faraday::Response))
 
             instance = SapiClient::Instance.new
