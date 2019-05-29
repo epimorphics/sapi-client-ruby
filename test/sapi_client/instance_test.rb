@@ -18,6 +18,23 @@ module SapiClient
             json['items'].length.must_equal 1
           end
         end
+
+        it 'should allow multiple-value filters in a request' do
+          VCR.use_cassette('sapi_instance.get_json') do
+            instance = SapiClient::Instance.new
+            json = instance.get_json(
+              "#{base_url}/business/id/establishment",
+              _limit: 10,
+              establishmentType: [
+                'http://data.food.gov.uk/codes/business/establishment/RC-HG',
+                'http://data.food.gov.uk/codes/business/establishment/RC-SC'
+              ]
+            )
+            json.must_be_kind_of Hash
+            json['items'].must_be_kind_of Array
+            json['items'].length.must_equal 10
+          end
+        end
       end
 
       describe '#get_items' do

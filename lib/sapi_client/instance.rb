@@ -42,7 +42,6 @@ module SapiClient
         r = conn.get do |req|
           req.headers['Accept'] = content_type if content_type
           req.params.merge! options
-
         end
 
         request_logger&.log_response(r)
@@ -72,15 +71,18 @@ module SapiClient
       url.start_with?(/https?:/)
     end
 
-    def faraday_connection(url)
-      Faraday.new(url: url) do |faraday|
-        faraday.request :url_encoded
+    def faraday_connection(url) # rubocop:disable Metrics/MethodLength
+      options = {
+        url: url,
+        request: { params_encoder: Faraday::FlatParamsEncoder }
+      }
+
+      Faraday.new(options) do |faraday|
+        faraday.request(:url_encoded)
         faraday.use FaradayMiddleware::FollowRedirects
 
         faraday.use :instrumentation if defined?(Rails)
-        if rails_logger
-          faraday.response(:logger, rails_logger, bodies: Rails.env.development?)
-        end
+        faraday.response(:logger, rails_logger, bodies: Rails.env.development?) if rails_logger
 
         faraday.adapter :net_http
       end

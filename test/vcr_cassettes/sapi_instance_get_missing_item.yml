@@ -50,19 +50,19 @@ http_interactions:
       content-length:
       - '177'
       date:
-      - Fri, 29 Mar 2019 15:47:19 GMT
+      - Wed, 29 May 2019 12:01:02 GMT
       connection:
       - close
     body:
       encoding: UTF-8
       string: |-
         {
-          "timestamp" : "Fri Mar 29 15:47:19 GMT 2019",
+          "timestamp" : "Wed May 29 12:01:03 GMT 2019",
           "status" : "404",
           "error" : "Not Found",
           "message" : "No results found",
           "path" : "/business/id/establishment/womble"
         }
     http_version: 
-  recorded_at: Fri, 29 Mar 2019 15:47:19 GMT
+  recorded_at: Wed, 29 May 2019 12:01:03 GMT
 recorded_with: VCR 4.0.0
