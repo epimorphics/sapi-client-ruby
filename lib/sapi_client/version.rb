@@ -3,6 +3,6 @@
 module SapiClient
   MAJOR = 0
   MINOR = 4
-  FIX = 10
+  FIX = 11
   VERSION = "#{MAJOR}.#{MINOR}.#{FIX}"
 end

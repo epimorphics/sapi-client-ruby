@@ -6,6 +6,9 @@ All notable changes will be documented in this file.
 
 No changes yet
 
+## [0.4.11]
+- Fix GH-11 by supporting multi-valued parameters for filters we pass to Sapi-NT.
+
 ## [0.4.10]
 - Add a feature to support optional logging of requests and responses.
 
