@@ -6,6 +6,9 @@ All notable changes will be documented in this file.
 
 No changes yet
 
+## [0.4.12]
+- Add a feature that allows an API instance to return the base URL for the API.
+
 ## [0.4.11]
 - Fix GH-11 by supporting multi-valued parameters for filters we pass to Sapi-NT.
 
