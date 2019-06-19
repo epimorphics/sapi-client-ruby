@@ -12,7 +12,12 @@ module SapiClient
   # If the `request_logger` is set, each request and response pair is sent to the
   # just before the request is made and just after the response is received.
   class Instance
+    def initialize(base_url)
+      @base_url = base_url
+    end
+
     attr_accessor :request_logger
+    attr_accessor :base_url
 
     def get_items(url, options = {})
       wrapper = options.delete(:wrapper)

@@ -50,7 +50,7 @@ module SapiClient
     # and endpoint `e` will have a methdod `e()` to get the JSON items for
     # that endpoint, and a method `e_spec()` to get the endpoint specification
     def instance
-      isnt = SapiClient::Instance.new
+      isnt = SapiClient::Instance.new(base_url)
 
       endpoints.each do |endpoint|
         isnt.define_singleton_method(:"#{endpoint.name}", get_items_proc(endpoint, isnt))
