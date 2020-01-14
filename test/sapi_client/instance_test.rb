@@ -85,6 +85,17 @@ module SapiClient
           end
         end
       end
+
+      describe '#resolve' do
+        it 'should not attempt to resolve a resource that is not resolvable' do
+          resource = mock('resource')
+          resource.expects(:'resolvable?').returns(false)
+
+          instance = SapiClient::Instance.new(base_url)
+          resolved_resource = instance.resolve(resource)
+          _(resolved_resource).must_be_same_as(resource)
+        end
+      end
     end
   end
 end

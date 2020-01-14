@@ -60,6 +60,10 @@ module SapiClient
       @base_url
     end
 
+    def resolve(resource)
+      return resource unless resource&.resolvable?
+    end
+
     private
 
     def permissible_response_code?(response)
