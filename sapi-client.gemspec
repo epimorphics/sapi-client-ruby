@@ -35,15 +35,15 @@ Gem::Specification.new do |spec| # rubocop:disable Metrics/BlockLength
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
-  spec.add_dependency 'faraday_middleware', '~> 0.12'
+  spec.add_dependency 'faraday_middleware', '~> 0.12.0'
   spec.add_dependency 'i18n', '~> 1.5'
 
   spec.add_development_dependency 'bundler', '~> 1.17'
-  spec.add_development_dependency 'byebug', '~> 9.0.5'
+  spec.add_development_dependency 'byebug', '~> 11.0.1'
   spec.add_development_dependency 'minitest', '~> 5.0'
-  spec.add_development_dependency 'minitest-reporters', '~> 1.1.11'
-  spec.add_development_dependency 'mocha', '~> 1.8.0'
-  spec.add_development_dependency 'rake', '~> 10.0'
-  spec.add_development_dependency 'simplecov', '~> 0.16.1'
-  spec.add_development_dependency 'vcr', '~> 4.0.0'
+  spec.add_development_dependency 'minitest-reporters', '~> 1.4.2'
+  spec.add_development_dependency 'mocha', '~> 1.11.2'
+  spec.add_development_dependency 'rake', '~> 13.0.1'
+  spec.add_development_dependency 'simplecov', '~> 0.17.1'
+  spec.add_development_dependency 'vcr', '~> 5.0.0'
 end
