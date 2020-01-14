@@ -6,7 +6,7 @@ module SapiClient
   class VersionTest < Minitest::Test
     describe 'this library' do
       it 'should have a version number' do
-        ::SapiClient::VERSION.wont_be_nil
+        _(::SapiClient::VERSION).wont_be_nil
       end
     end
   end

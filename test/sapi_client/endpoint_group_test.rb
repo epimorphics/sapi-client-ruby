@@ -12,13 +12,15 @@ module SapiClient
       describe '#initialize' do
         it 'should be initialized by loading a YAML spec file' do
           es = SapiClient::EndpointGroup.new(base_url, spec_file)
-          es.specification.must_be_kind_of Array
+          _(es.specification).must_be_kind_of Array
         end
 
         it 'should raise if the path to the endpoint specification cannot be found' do
-          lambda {
-            SapiClient::EndpointGroup.new(base_url, 'test/fixtures/endpointSpecs/womble.yaml')
-          }.must_raise(SapiClient::Error)
+          _(
+            lambda {
+              SapiClient::EndpointGroup.new(base_url, 'test/fixtures/endpointSpecs/womble.yaml')
+            }
+          ).must_raise(SapiClient::Error)
         end
       end
 
@@ -27,8 +29,8 @@ module SapiClient
           es = SapiClient::EndpointGroup.new(base_url, spec_file)
           eps = es.endpoints
 
-          eps.length.must_equal 3
-          eps.first.must_be_kind_of(SapiClient::SapiEndpoint)
+          _(eps.length).must_equal 3
+          _(eps.first).must_be_kind_of(SapiClient::SapiEndpoint)
         end
       end
 
@@ -37,9 +39,9 @@ module SapiClient
           es = SapiClient::EndpointGroup.new(base_url, spec_file)
           ev = es.views
 
-          ev.keys.length.must_equal 3
+          _(ev.keys.length).must_equal 3
           ev.keys.each do |key|
-            ev[key].name.must_equal key
+            _(ev[key].name).must_equal key
           end
         end
       end
