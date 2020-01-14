@@ -143,6 +143,12 @@ module SapiClient
       target[property] = value
     end
 
+    # Return true just in case this is a resource with a URI but no other
+    # properties, and so can be meaninfully resolved
+    def resolvable?
+      resource.keys == [:'@id']
+    end
+
     private
 
     # rubocop:disable Metrics/MethodLength, Metrics/AbcSize

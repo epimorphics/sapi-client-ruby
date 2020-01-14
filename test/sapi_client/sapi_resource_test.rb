@@ -344,6 +344,23 @@ module SapiClient
           _(r.womble.name).must_equal 'Uncle Bulgaria'
         end
       end
+
+      describe '#resolvable?' do
+        it 'should be resolvable if a resource has an @id and no other properties' do
+          r = SapiClient::SapiResource.new('@id': 'http://wimbledon.common/1234')
+          assert r.resolvable?
+        end
+
+        it 'should be not resolvable if a resource has no @id' do
+          r = SapiClient::SapiResource.new('name': 'wimbledon common')
+          refute r.resolvable?
+        end
+
+        it 'should be not resolvable if a resource has an @id and other properties' do
+          r = SapiClient::SapiResource.new('name': 'wimbledon common', '@id': 'http://wimbledon.common/1234')
+          refute r.resolvable?
+        end
+      end
     end
   end
 end
