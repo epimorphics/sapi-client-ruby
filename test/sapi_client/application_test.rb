@@ -12,23 +12,25 @@ module SapiClient
       describe '#initialize' do
         it 'should load the application specification given' do
           app = SapiClient::Application.new(base_url, spec)
-          app.specification.must_be_kind_of Hash
+          _(app.specification).must_be_kind_of Hash
         end
 
         it 'should raise an error if the spec file does not exist' do
-          -> { SapiClient::Application.new(base_url, 'wimbledon/wombles.yaml') }.must_raise(SapiClient::Error)
+          _(
+            -> { SapiClient::Application.new(base_url, 'wimbledon/wombles.yaml') }
+          ).must_raise(SapiClient::Error)
         end
 
         it 'should store the base URL' do
           app = SapiClient::Application.new(base_url, spec)
-          app.base_url.must_equal base_url
+          _(app.base_url).must_equal base_url
         end
       end
 
       describe '#configuration' do
         it 'should report the application configuration' do
           app = SapiClient::Application.new(base_url, spec)
-          app.configuration.must_be_kind_of Hash
+          _(app.configuration).must_be_kind_of Hash
           assert app.configuration.key?('loadSpecPath')
         end
       end
@@ -37,8 +39,8 @@ module SapiClient
         it 'should return the names of all of the endpoint specification files' do
           app = SapiClient::Application.new(base_url, spec)
           file_names = app.endpoint_group_files
-          file_names.length.must_be :>, 5
-          file_names.must_include('test/fixtures/endpointSpecs/establishment.yaml')
+          _(file_names.length).must_be :>, 5
+          _(file_names).must_include('test/fixtures/endpointSpecs/establishment.yaml')
         end
       end
 
@@ -46,10 +48,10 @@ module SapiClient
         it 'should return a list of all of the endpoint specification objects' do
           app = SapiClient::Application.new(base_url, spec)
           eps = app.endpoints
-          eps.must_be_kind_of Array
-          eps.length.must_be :>, 5
+          _(eps).must_be_kind_of Array
+          _(eps.length).must_be :>, 5
 
-          eps.map(&:raw_path).must_include '/business/id/establishment'
+          _(eps.map(&:raw_path)).must_include '/business/id/establishment'
         end
       end
 
@@ -58,8 +60,8 @@ module SapiClient
           app = SapiClient::Application.new(base_url, spec)
           inst = app.instance
           methods = inst.public_methods
-          methods.must_include(:establishment_list)
-          methods.must_include(:establishment_list_spec)
+          _(methods).must_include(:establishment_list)
+          _(methods).must_include(:establishment_list_spec)
         end
 
         it 'should wrap a list of instances' do
@@ -75,7 +77,7 @@ module SapiClient
 
           VCR.use_cassette('application.test_instance_wrapping') do
             establishments = inst.establishment_list(_limit: 1)
-            establishments.first.must_be_kind_of(Establishment)
+            _(establishments.first).must_be_kind_of(Establishment)
             assert establishments.first.invoked
           end
         end

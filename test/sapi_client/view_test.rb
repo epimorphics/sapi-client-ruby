@@ -19,16 +19,21 @@ module SapiClient
 
       describe '#initialize' do
         it 'should save the specification' do
-          SapiClient::View.new(test_double: 42).specification[:test_double].must_equal 42
+          _(
+            SapiClient::View
+            .new(test_double: 42)
+            .specification[:test_double]
+          ).must_equal 42
         end
       end
 
       describe '#resource_type' do
         it 'should determine the resource type correctly' do
-          SapiClient::View
+          _(
+            SapiClient::View
             .new(spec_fixture)
             .resource_type
-            .must_equal 'Authority'
+          ).must_equal 'Authority'
         end
       end
     end

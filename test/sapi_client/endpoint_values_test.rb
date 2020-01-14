@@ -9,14 +9,14 @@ module SapiClient
       describe '#initialize' do
         it 'should store the initialization parameters' do
           evs = SapiClient::EndpointValues.new(:mock_instance, :mock_endpoint, mock_param: true)
-          evs.instance.must_equal(:mock_instance)
-          evs.endpoint_name.must_equal(:mock_endpoint)
-          evs.params[:mock_param].must_equal true
+          _(evs.instance).must_equal(:mock_instance)
+          _(evs.endpoint_name).must_equal(:mock_endpoint)
+          _(evs.params[:mock_param]).must_equal true
         end
 
         it 'should allow a default set of options' do
           evs = SapiClient::EndpointValues.new(:mock_instance, :mock_endpoint)
-          evs.params.must_be_empty
+          _(evs.params).must_be_empty
         end
       end
     end
@@ -25,7 +25,7 @@ module SapiClient
       it 'should set the offset' do
         evs = SapiClient::EndpointValues.new(:mock_instance, :mock_endpoint)
         evs.limit(999)
-        evs.params[:_limit].must_equal 999
+        _(evs.params[:_limit]).must_equal 999
       end
     end
 
@@ -33,7 +33,7 @@ module SapiClient
       it 'should set the offset' do
         evs = SapiClient::EndpointValues.new(:mock_instance, :mock_endpoint)
         evs.offset(999)
-        evs.params[:_offset].must_equal 999
+        _(evs.params[:_offset]).must_equal 999
       end
     end
 
@@ -41,7 +41,7 @@ module SapiClient
       it 'should set the sort parameter' do
         evs = SapiClient::EndpointValues.new(:mock_instance, :mock_endpoint)
         evs.sort('womble')
-        evs.params[:_sort].must_equal 'womble'
+        _(evs.params[:_sort]).must_equal 'womble'
       end
     end
 
@@ -57,8 +57,8 @@ module SapiClient
           evs = SapiClient::EndpointValues.new(inst, :establishment_list)
           evs.limit(1)
           establishments = evs.to_a
-          establishments.must_be_kind_of(Array)
-          establishments.length.must_equal(1)
+          _(establishments).must_be_kind_of(Array)
+          _(establishments.length).must_equal(1)
         end
       end
     end

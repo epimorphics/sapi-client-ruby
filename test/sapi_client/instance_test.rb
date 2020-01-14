@@ -10,10 +10,11 @@ module SapiClient
 
       describe '#base_url' do
         it 'should return the base URL' do
-          SapiClient::Instance
+          _(
+            SapiClient::Instance
             .new('http://foo.bar')
             .base_url
-            .must_equal('http://foo.bar')
+          ).must_equal('http://foo.bar')
         end
       end
 
@@ -22,9 +23,9 @@ module SapiClient
           VCR.use_cassette('sapi_instance.get_json') do
             instance = SapiClient::Instance.new(base_url)
             json = instance.get_json("#{base_url}/business/id/establishment", _limit: 1)
-            json.must_be_kind_of Hash
-            json['items'].must_be_kind_of Array
-            json['items'].length.must_equal 1
+            _(json).must_be_kind_of Hash
+            _(json['items']).must_be_kind_of Array
+            _(json['items'].length).must_equal 1
           end
         end
 
@@ -39,9 +40,9 @@ module SapiClient
                 'http://data.food.gov.uk/codes/business/establishment/RC-SC'
               ]
             )
-            json.must_be_kind_of Hash
-            json['items'].must_be_kind_of Array
-            json['items'].length.must_equal 10
+            _(json).must_be_kind_of Hash
+            _(json['items']).must_be_kind_of Array
+            _(json['items'].length).must_equal 10
           end
         end
       end
@@ -54,7 +55,7 @@ module SapiClient
 
             instance = SapiClient::Instance.new(base_url)
             items = instance.get_items("#{base_url}/business/id/establishment", wrapper: mock_wrapper, _limit: 1)
-            items.must_equal [:wrapped_item]
+            _(items).must_equal [:wrapped_item]
           end
         end
       end
@@ -64,9 +65,9 @@ module SapiClient
           VCR.use_cassette('sapi_instance.get_missing_item') do
             instance = SapiClient::Instance.new(base_url)
             items = instance.get_items("#{base_url}/business/id/establishment/womble", _limit: 1)
-            items.must_be_kind_of Array
-            items.length.must_equal 1
-            items.first['status'].must_equal '404'
+            _(items).must_be_kind_of Array
+            _(items.length).must_equal 1
+            _(items.first['status']).must_equal '404'
           end
         end
       end
@@ -80,7 +81,7 @@ module SapiClient
             instance = SapiClient::Instance.new(base_url)
             instance.request_logger = logger
             json = instance.get_json("#{base_url}/business/id/establishment", _limit: 1)
-            json.must_be_kind_of Hash
+            _(json).must_be_kind_of Hash
           end
         end
       end
