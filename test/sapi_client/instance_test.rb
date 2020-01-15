@@ -95,6 +95,19 @@ module SapiClient
           resolved_resource = instance.resolve(resource)
           _(resolved_resource).must_be_same_as(resource)
         end
+
+        it 'should resolve a resource that is resolvable' do
+          VCR.use_cassette('sapi_instance.resolve') do
+            resource = mock('resource')
+            resource.expects(:'resolvable?').returns(true)
+            resource.expects(:uri).returns('http://data.food.gov.uk/business/id/establishment/BGYEJ3-4FMG0F-JE5FT1')
+
+            instance = SapiClient::Instance.new(base_url)
+            resolved_resource = instance.resolve(resource)
+
+            _(resolved_resource.label).must_match(/Charity falafel/)
+          end
+        end
       end
     end
   end
