@@ -115,16 +115,7 @@ module SapiClient
     # values coming back from this endpoint
     # @return A class corresponding to the `resource_type`, if defined, or nil
     def resource_type_wrapper_class
-      if (rtype = resource_type)
-        if rtype.respond_to?(:classify)
-          # if we're in Rails-land, this is a better way
-          rtype.classify.constantize
-        else
-          Kernel.const_get(rtype)
-        end
-      end
-    rescue NameError => _e
-      SapiClient::SapiResource
+      ResourceWrapper.find_wrapper_type(resource_type) if resource_type
     end
 
     # Bind the given array of variable values to the path variable names
