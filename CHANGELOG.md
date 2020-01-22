@@ -2,6 +2,10 @@
 
 All notable changes will be documented in this file.
 
+## 0.5.1 - 2020-01-22
+
+- Added a `type?` predicate to the `SapiResource` class
+
 ## 0.5.0 - 2020-01-15
 
 - Added a feature to the API of `Instance` to allow a resource with only an

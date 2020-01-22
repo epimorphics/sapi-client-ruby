@@ -90,6 +90,12 @@ module SapiClient
       path_all(:type)
     end
 
+    # @return True if this resource has the given URI among its types
+    def type?(uri)
+      type_uris = types&.map { |typ| typ.is_a?(String) ? typ : typ['@id'] }
+      type_uris&.include?(uri)
+    end
+
     # Return the value of the given path. If no path is given, return the value
     # of self. The value is determined as the `@value` if the terminal result is
     # wrapped literal, or the terminal value otherwise.

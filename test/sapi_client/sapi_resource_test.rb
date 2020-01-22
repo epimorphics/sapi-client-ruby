@@ -181,6 +181,18 @@ module SapiClient
           r = SapiClient::SapiResource.new(type: [{ '@id' => 'http://wimbledon.org/Womble' }, { '@id' => 'http://wimbledon.org/Testing' }])
           _(r.types.map(&:uri)).must_equal(['http://wimbledon.org/Womble', 'http://wimbledon.org/Testing'])
         end
+
+        it 'should allow the types to be tested for a specific value' do
+          r = SapiClient::SapiResource.new(type: [{ '@id' => 'http://wimbledon.org/Womble' }, { '@id' => 'http://wimbledon.org/Testing' }])
+
+          assert r.type?('http://wimbledon.org/Womble')
+          refute r.type?('http://moon.org/Clanger')
+        end
+
+        it 'should not error if a resource has no types' do
+          r = SapiClient::SapiResource.new({})
+          refute r.type?('http://wimbledon.org/Womble')
+        end
       end
 
       describe '#value_of' do
