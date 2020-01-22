@@ -14,6 +14,7 @@ require 'sapi_client/instance'
 require 'sapi_client/view'
 require 'sapi_client/sapi_resource'
 require 'sapi_client/endpoint_values'
+require 'sapi_client/resource_wrapper'
 
 module SapiClient
   class Error < StandardError; end

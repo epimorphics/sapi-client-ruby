@@ -60,6 +60,18 @@ module SapiClient
       @base_url
     end
 
+    def resolve(resource, options = {})
+      return resource unless resource&.resolvable?
+
+      uri = resource.uri
+      uri = uri.sub(%r{https?://[^/]*}, base_url) if base_url
+
+      json = get_json(uri, options)
+      item = json['items']&.first
+
+      ResourceWrapper.wrap_resource(item, options) if item
+    end
+
     private
 
     def permissible_response_code?(response)
