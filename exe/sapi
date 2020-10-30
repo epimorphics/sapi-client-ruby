@@ -26,6 +26,7 @@ def usage
 
     Base URL and spec file can also be set as environment variables.
 
+    v#{SapiClient::VERSION}
   USAGE
 end
 
