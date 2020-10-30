@@ -100,12 +100,12 @@ module SapiClient
           VCR.use_cassette('sapi_instance.resolve') do
             resource = mock('resource')
             resource.expects(:'resolvable?').returns(true)
-            resource.expects(:uri).returns('http://data.food.gov.uk/business/id/establishment/BGYEJ3-4FMG0F-JE5FT1')
+            resource.expects(:uri).returns('http://data.food.gov.uk/business/id/establishment/EHMQY4-DG9V0T-PTSDJH')
 
             instance = SapiClient::Instance.new(base_url)
             resolved_resource = instance.resolve(resource)
 
-            _(resolved_resource.label).must_match(/Charity falafel/)
+            _(resolved_resource.label).must_match(/nando/i)
           end
         end
       end
