@@ -15,8 +15,7 @@ module SapiClient
       @specification = YAML.load_file(application_spec)
     end
 
-    attr_reader :base_url
-    attr_reader :specification
+    attr_reader :base_url, :specification
 
     def sapi_nt
       specification['sapi-nt']

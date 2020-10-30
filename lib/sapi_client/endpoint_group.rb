@@ -13,8 +13,7 @@ module SapiClient
       @base_url = base_url
     end
 
-    attr_reader :specification
-    attr_reader :base_url
+    attr_reader :specification, :base_url
 
     def endpoints
       endpoint_specs = specification.select do |spec|

@@ -28,9 +28,7 @@ module SapiClient
       raise(SapiClient::Error, "Unknown endpoint type: #{@type}")
     end
 
-    attr_reader :base_url
-    attr_reader :specification
-    attr_reader :views_register
+    attr_reader :base_url, :specification, :views_register
 
     def item_endpoint?
       @type == ENDPOINT_TYPE_ITEM

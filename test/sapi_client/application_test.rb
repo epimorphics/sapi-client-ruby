@@ -65,7 +65,7 @@ module SapiClient
         end
 
         it 'should wrap a list of instances' do
-          class ::Establishment # rubocop:disable Style/ClassAndModuleChildren
+          class ::Establishment # rubocop:disable Lint/ConstantDefinitionInBlock
             def initialize(_json)
               @invoked = true
             end

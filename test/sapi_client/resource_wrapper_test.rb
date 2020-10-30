@@ -4,8 +4,7 @@ require 'test_helper'
 require 'sapi_client'
 
 class WombleResource
-  def initialize(_ignored)
-  end
+  def initialize(_ignored); end
 end
 
 module SapiClient

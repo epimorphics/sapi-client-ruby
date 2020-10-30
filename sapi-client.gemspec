@@ -5,6 +5,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'sapi_client/version'
 
 Gem::Specification.new do |spec| # rubocop:disable Metrics/BlockLength
+  spec.required_ruby_version = '>= 2.5'
   spec.name          = 'sapi-client'
   spec.version       = SapiClient::VERSION
   spec.authors       = ['Ian Dickinson']

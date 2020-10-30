@@ -17,9 +17,7 @@ module SapiClient
       @params = params
     end
 
-    attr_reader :instance
-    attr_reader :endpoint_name
-    attr_reader :params
+    attr_reader :instance, :endpoint_name, :params
 
     # Set the limit on the number of items to retrieve
     def limit(limit)

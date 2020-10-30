@@ -16,8 +16,7 @@ module SapiClient
       @base_url = base_url
     end
 
-    attr_accessor :request_logger
-    attr_accessor :base_url
+    attr_accessor :request_logger, :base_url
 
     def get_items(url, options = {})
       wrapper = options.delete(:wrapper)
@@ -43,17 +42,15 @@ module SapiClient
     def get(url, content_type, options = {})
       conn = faraday_connection(url)
 
-      begin
-        r = conn.get do |req|
-          req.headers['Accept'] = content_type if content_type
-          req.params.merge! options
-        end
-
-        request_logger&.log_response(r)
-        raise "Failed to read from #{url}: #{r.status.inspect}" unless permissible_response_code?(r)
-
-        r.body
+      r = conn.get do |req|
+        req.headers['Accept'] = content_type if content_type
+        req.params.merge! options
       end
+
+      request_logger&.log_response(r)
+      raise "Failed to read from #{url}: #{r.status.inspect}" unless permissible_response_code?(r)
+
+      r.body
     end
 
     def service_base_url

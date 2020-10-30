@@ -40,7 +40,7 @@ module SapiClient
           ev = es.views
 
           _(ev.keys.length).must_equal 3
-          ev.keys.each do |key|
+          ev.each_key do |key|
             _(ev[key].name).must_equal key
           end
         end

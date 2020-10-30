@@ -133,7 +133,7 @@ module SapiClient
       pick_value_by_language(:name, options)
     end
 
-    def respond_to_missing?(property, _include_private = false)
+    def respond_to_missing?(property, _include_private = false) # rubocop:disable Lint/MissingSuper
       resource.key?(property)
     end
 
@@ -145,7 +145,7 @@ module SapiClient
       prefix = path_segments(path)
       property = prefix.pop
 
-      target = prefix.reduce(resource) { |res, segment| res[segment] }
+      target = prefix.reduce(resource) { |res, segment| res[segment] } # rubocop:disable Lint/UnmodifiedReduceAccumulator
       target[property] = value
     end
 
@@ -189,7 +189,7 @@ module SapiClient
     # Return the given value as an un-wrapped resource. A Hash given to this
     # method will have its keys transformed to symbols.
     def as_resource(res)
-      if res.is_a?(SapiResource)
+      if res.is_a?(SapiResource) # rubocop:disable Style/CaseLikeIf
         res.resource.clone
       elsif res.is_a?(Hash)
         hash_with_symbol_keys(res)

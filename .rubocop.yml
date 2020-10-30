@@ -1,13 +1,15 @@
 AllCops:
   TargetRubyVersion: 2.5
+  NewCops: enable
 Style/FrozenStringLiteralComment:
   Enabled: true
 Style/StringLiterals:
   Enabled: true
 
-Metrics/LineLength:
+Layout/LineLength:
   Max: 100
   Exclude:
+    - exe/**
     - bin/**
     - Gemfile
     - sapi-client.gemspec
