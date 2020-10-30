@@ -5,10 +5,16 @@ module SapiClient
   # about some domain value. An endpoint has a one-to-one correspondance with a
   # particular API path
   class SapiEndpoint
-    ENDPOINT_TYPE_LIST = 'list'
-    ENDPOINT_TYPE_ITEM = 'item'
-    ENDPOINT_TYPE_FORWARD = 'forward'
-    ENDPOINT_TYPES = [ENDPOINT_TYPE_LIST, ENDPOINT_TYPE_ITEM, ENDPOINT_TYPE_FORWARD].freeze
+    DEP_ENDPOINT_TYPE_LIST = 'list'
+    DEP_ENDPOINT_TYPE_ITEM = 'item'
+    DEP_ENDPOINT_TYPE_FORWARD = 'forward'
+    ENDPOINT_TYPE_LIST = 'endpoint.list'
+    ENDPOINT_TYPE_ITEM = 'endpoint.item'
+    ENDPOINT_TYPE_FORWARD = 'endpoint.forward'
+    ENDPOINT_TYPES = [
+      DEP_ENDPOINT_TYPE_LIST, DEP_ENDPOINT_TYPE_ITEM, DEP_ENDPOINT_TYPE_FORWARD,
+      ENDPOINT_TYPE_LIST, ENDPOINT_TYPE_ITEM, ENDPOINT_TYPE_FORWARD
+    ].freeze
 
     def initialize(base_url, views_register, specification)
       raise(SapiClient::Error, 'Missing specification type') unless specification.key?('type')

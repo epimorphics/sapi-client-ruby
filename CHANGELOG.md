@@ -6,6 +6,7 @@ All notable changes will be documented in this file.
 
 - update gem dependencies
 - update VCR cassettes and fix test failure due to data change
+- fix deprecated endpoint types in Sapi-NT
 
 ## 0.5.1 - 2020-01-22
 

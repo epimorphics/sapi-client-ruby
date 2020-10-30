@@ -24,11 +24,11 @@ module SapiClient
 
       describe 'endpoint type' do
         it 'should correctly report the endpoint type' do
-          ep = SapiClient::SapiEndpoint.new('', {}, 'type' => 'item')
+          ep = SapiClient::SapiEndpoint.new('', {}, 'type' => 'endpoint.item')
           assert ep.item_endpoint?
           refute ep.list_endpoint?
 
-          ep = SapiClient::SapiEndpoint.new('', {}, 'type' => 'list')
+          ep = SapiClient::SapiEndpoint.new('', {}, 'type' => 'endpoint.list')
           refute ep.item_endpoint?
           assert ep.list_endpoint?
         end
