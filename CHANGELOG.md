@@ -2,6 +2,11 @@
 
 All notable changes will be documented in this file.
 
+## 0.5.2 - 2020-10-30 (Ian)
+
+- update gem dependencies
+- update VCR cassettes and fix test failure due to data change
+
 ## 0.5.1 - 2020-01-22
 
 - Added a `type?` predicate to the `SapiResource` class
