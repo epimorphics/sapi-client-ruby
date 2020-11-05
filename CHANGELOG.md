@@ -2,6 +2,10 @@
 
 All notable changes will be documented in this file.
 
+## 0.5.3 - 2020-11-05 (Ian)
+
+- Fix for GH-16: allow . in endpoint names
+
 ## 0.5.2 - 2020-10-30 (Ian)
 
 - update gem dependencies

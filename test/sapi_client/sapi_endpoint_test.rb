@@ -41,6 +41,11 @@ module SapiClient
             .new('', {}, 'type' => 'item', 'name' => 'establishmentList')
             .name
           ).must_equal('establishment_list')
+          _(
+            SapiClient::SapiEndpoint
+            .new('', {}, 'type' => 'item', 'name' => 'mockType.list')
+            .name
+          ).must_equal('mock_type_list')
         end
       end
 
