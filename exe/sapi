@@ -22,7 +22,11 @@ end
 def usage
   <<~USAGE
     Usage:
-      sapi [-b SAPI_BASE_URL] [-s SAPI_SPEC_FILE] inspect
+    sapi [-b SAPI_BASE_URL] [-s SAPI_SPEC_FILE] inspect
+    sapi [-b SAPI_BASE_URL] [-s SAPI_SPEC_FILE] <endpoint-name>
+
+    Full list of options:
+    sapi -h
 
     Base URL and spec file can also be set as environment variables.
 
@@ -96,6 +100,10 @@ OptionParser.new do |parser|
 
   parser.on('-j', '--json', 'View results as raw JSON') do
     options[:json] = true
+  end
+
+  parser.on('-a', '--all', 'Pass "_all" to hierarchy endpoint') do
+    options[:_all] = true
   end
 end.parse!
 
