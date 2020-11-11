@@ -36,6 +36,8 @@ def describe_endpoint(endpoint) # rubocop:disable Metrics/AbcSize
   puts "  '#{endpoint.description}'"
   puts "  Views: #{endpoint.view_names ? endpoint.view_names.join(', ') : 'n/a'}"
   puts "  Resource class: #{endpoint.resource_type}" if endpoint.resource_type
+  puts "  Relation: #{endpoint.hierarchy_relation}" if endpoint.hierarchy_relation
+  puts "  Scheme: #{endpoint.hierarchy_scheme}" if endpoint.hierarchy_scheme
 
   variables = endpoint.path_variables(endpoint.raw_path).map { |pv| pv[:name] }
   puts "  URL vars: #{variables.join(', ')}" unless variables.empty?
