@@ -48,7 +48,7 @@ module SapiClient
     # already defined that correspond to the endpoints in the spec. Specifically,
     # and endpoint `e` will have a methdod `e()` to get the JSON items for
     # that endpoint, and a method `e_spec()` to get the endpoint specification
-    def instance # rubocop:disable Metrics/AbcSize
+    def instance
       inst = SapiClient::Instance.new(base_url)
 
       endpoints.each do |endpoint|

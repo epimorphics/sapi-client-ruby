@@ -2,6 +2,10 @@
 
 All notable changes will be documented in this file.
 
+## 0.6.0 - 2020-11-12 (Ian)
+
+- Added support for hierarchy endpoints
+
 ## 0.5.3 - 2020-11-05 (Ian)
 
 - Fix for GH-16: allow . in endpoint names
