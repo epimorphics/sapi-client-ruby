@@ -1,0 +1,9 @@
+name  : feedApproval.list
+type  : endpoint.list
+url   : /regulated-products/id/feed-additives/approval
+query : "?id a feed-add:FeedAdditiveApproval. "
+description: A list of feed additive approvals that can be filtered by group membership, date of regulation and expiry and other available properties.
+example: /regulated-products/id/feed-additives/approval?_limit=20
+view  :
+  class: "feed-add:FeedAdditiveApproval"
+  projection: "*"

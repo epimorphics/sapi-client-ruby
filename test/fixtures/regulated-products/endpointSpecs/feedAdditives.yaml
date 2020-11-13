@@ -1,0 +1,9 @@
+name  : feedAdditives.list
+type  : endpoint.list
+url   : /regulated-products/id/feed-additives/additive
+query : "?id a feed-add:FeedAdditive. "
+description: List of all feed additives that can be filtered by a range of identifiers such as casNo, coeNo, einecsNo, and femaNo.
+example: /regulated-products/id/feed-additives/additive?_limit=20
+view  :
+  class: "feed-add:FeedAdditive"
+  projection: "*"

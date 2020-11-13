@@ -1,0 +1,9 @@
+name  : gmoOrganismsGroup.list
+type  : endpoint.list
+url   : /regulated-products/id/gmo/group
+query : "?id a gmo:GmoGroup. "
+description: List of all GMO organism groups.
+example: /regulated-products/id/gmo/group
+view  :
+  class: "gmo:GmoGroup"
+  projection: "*"

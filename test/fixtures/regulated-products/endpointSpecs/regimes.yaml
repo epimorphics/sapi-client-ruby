@@ -1,0 +1,9 @@
+name  : regime.list
+type  : endpoint.list
+url   : /regulated-products/id/regime
+query : "?id a core:Regime. "
+description: List of all regimes that can be filtered by name, governing legislation and other parameters.
+example: /regulated-products/id/regime
+view:
+  class: "core:Regime"
+  projection: "regimeProperties.*,governingLegislation.*,regulationCollections(description,prefLabel),substanceScheme.*,usageCategoryScheme.*"

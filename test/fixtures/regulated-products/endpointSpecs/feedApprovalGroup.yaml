@@ -1,0 +1,8 @@
+name  : feedApprovalGroup.item
+type  : endpoint.item
+url   : /regulated-products/id/feed-additives/group/{__id}
+description: A description of a single feed approval group.
+example: /regulated-products/id/feed-additives/group/annex-i
+view  :
+  class: "core:Collection"
+  projection: "*"

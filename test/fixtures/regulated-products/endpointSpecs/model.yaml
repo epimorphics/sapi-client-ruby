@@ -1,0 +1,1878 @@
+type:    model
+name:    model
+prefixes:
+  fa-additive: "http://data.food.gov.uk/regulated-products/id/food-additives/additive/"
+  feed-additives: "http://data.food.gov.uk/regulated-products/def/feed-additives/"
+  flavourings: "http://data.food.gov.uk/regulated-products/def/flavourings/"
+  owl: "http://www.w3.org/2002/07/owl#"
+  xsd: "http://www.w3.org/2001/XMLSchema#"
+  gmo: "http://data.food.gov.uk/regulated-products/def/gmo/"
+  skos: "http://www.w3.org/2004/02/skos/core#"
+  fe-group: "http://data.food.gov.uk/regulated-products/id/feed-additives/group/"
+  rdfs: "http://www.w3.org/2000/01/rdf-schema#"
+  fa-base: "http://data.food.gov.uk/regulated-products/id/food-additives/"
+  fa-approval: "http://data.food.gov.uk/regulated-products/id/food-additives/approval/"
+  feed-add: "http://data.food.gov.uk/regulated-products/def/feed-additives/"
+  codespace: "http://data.food.gov.uk/regulated-products/id/codespace/"
+  dct: "http://purl.org/dc/terms/"
+  idcode: "http://data.food.gov.uk/regulated-products/id/code/"
+  fe-approval: "http://data.food.gov.uk/regulated-products/id/feed-additives/approval/"
+  flav: "http://data.food.gov.uk/regulated-products/def/flavourings/"
+  rov: "http://www.w3.org/ns/regorg#"
+  flavorings: "http://data.food.gov.uk/regulated-products/def/flavorings/"
+  text: "http://data.food.gov.uk/regulated-products/id/text/"
+  prov: "http://www.w3.org/ns/prov#"
+  fe-additive: "http://data.food.gov.uk/regulated-products/id/feed-additives/additive/"
+  foaf: "http://xmlns.com/foaf/0.1/"
+  common: "http://data.food.gov.uk/regulated-products/id/common/"
+  fe-base: "http://data.food.gov.uk/regulated-products/id/feed-additives/"
+  regime: "http://data.food.gov.uk/regulated-products/id/regime/"
+  org: "http://www.w3.org/ns/org#"
+  vcard: "http://www.w3.org/2006/vcard/ns#"
+  fa-category: "http://data.food.gov.uk/regulated-products/id/food-additives/category/"
+  fe-category: "http://data.food.gov.uk/regulated-products/id/feed-additives/category/"
+  gm-base: "http://data.food.gov.uk/regulated-products/id/gmo/"
+  core: "http://data.food.gov.uk/regulated-products/def/core/"
+  fa-group: "http://data.food.gov.uk/regulated-products/id/food-additives/group/"
+  gm-group: "http://data.food.gov.uk/regulated-products/id/gmo/group/"
+  cdt: "http://w3id.org/lindt/custom_datatypes#"
+  rdf: "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  prov-dc: "http://www.w3.org/ns/prov-dc#"
+  provo: "http://example.org/provo#"
+  time: "http://www.w3.org/2006/time#"
+  food-add: "http://data.food.gov.uk/regulated-products/def/food-additives/"
+  dc: "http://purl.org/dc/elements/1.1/"
+  food-additives: "http://data.food.gov.uk/regulated-products/def/food-additives/"
+classes:
+  - class: "core:Address"
+    name: "Address"
+    subClassOf: []
+    properties:
+      - prop: "vcard:extended-address"
+        name: "extended_address"
+        kind: "datatype"
+        optional: true
+        multi: true
+        unique: false
+        comment: "This data property has been deprecated"
+      - prop: "vcard:locality"
+        name: "locality"
+        kind: "datatype"
+        type: "xsd:string"
+        optional: true
+        multi: true
+        unique: false
+        comment: "The locality (e.g. city or town) associated with the address of the\
+      \ object"
+      - prop: "vcard:postal-code"
+        name: "postal_code"
+        kind: "datatype"
+        type: "xsd:string"
+        optional: true
+        multi: true
+        unique: false
+        comment: "The postal code associated with the address of the object"
+      - prop: "vcard:region"
+        name: "region"
+        kind: "datatype"
+        type: "xsd:string"
+        optional: true
+        multi: true
+        unique: false
+        comment: "The region (e.g. state or province) associated with the address of the\
+      \ object"
+      - prop: "vcard:street-address"
+        name: "street_address"
+        kind: "datatype"
+        type: "xsd:string"
+        optional: true
+        multi: true
+        unique: false
+        comment: "The street address associated with the address of the object"
+  - class: "core:Agent"
+    name: "Agent"
+    subClassOf:
+      - "core:Thing"
+    properties:
+      - prop: "core:hasAddress"
+        name: "hasAddress"
+        kind: "object"
+        type: "core:Address"
+        optional: true
+        multi: true
+        unique: false
+      - prop: "org:memberOf"
+        name: "memberOf"
+        kind: "object"
+        type: "core:Organization"
+        optional: true
+        multi: true
+        unique: false
+        comment: "Indicates that a person is a member of the Organization with no indication\
+      \ of the nature of that membership or the role played. Note that the choice\
+      \ of property name is not meant to limit the property to only formal membership\
+      \ arrangements, it is also indended to cover related concepts such as affilliation\
+      \ or other involvement in the organization. Extensions can specialize this relationship\
+      \ to indicate particular roles within the organization or more nuanced relationships\
+      \ to the organization. Has an optional inverse, `org:hasmember`."
+      - prop: "foaf:name"
+        name: "name"
+        kind: "datatype"
+        type: "rdfs:Literal"
+        optional: true
+        multi: true
+        unique: false
+        comment: "A name for some thing."
+    comment: "Local analog of `foaf:Agent` and `prov:Agent` indicating locally expected\
+    \ property usage."
+  - class: "core:Annotation"
+    name: "Annotation"
+    subClassOf:
+      - "core:Thing"
+    properties:
+      - prop: "core:footnote"
+        name: "footnote"
+        kind: "datatype"
+        optional: true
+        multi: true
+        unique: false
+        comment: "Either carried directly on some entity (`core:Thing`) or as an attribute\
+      \ of an annotation (`core:Annotation`), this property conveys a footnote associated\
+      \ directly with the corresponding entity or indirectly with a relationship involving\
+      \ multiple entities."
+      - prop: "core:literalValue"
+        name: "literalValue"
+        kind: "datatype"
+        optional: true
+        multi: false
+        unique: false
+        comment: "A sub-property of `core:value` used when the value being annotated is\
+      \ know to be a literal. (SAPI-NT consideration)"
+      - prop: "core:objectValue"
+        name: "objectValue"
+        kind: "object"
+        type: "rdfs:Resource"
+        optional: true
+        multi: false
+        unique: false
+        comment: "A sub-property of `core:value` used when the value is know to be a non-literal\
+      \ object. (SAPI-NT consideration)"
+      - prop: "core:property"
+        name: "property"
+        kind: "object"
+        type: "rdf:Property"
+        optional: true
+        multi: true
+        unique: false
+        comment: "Indicates the property (`rdf:Property`) associated with an annotation\
+      \ (`core:Annotation`)"
+      - prop: "core:sourceLegislation"
+        name: "sourceLegislation"
+        kind: "object"
+        type: "core:Document"
+        optional: true
+        multi: true
+        unique: false
+        comment: "Indicates the legislative source of some value or authorisation."
+      - prop: "core:subject"
+        name: "subject"
+        kind: "object"
+        type: "core:Thing"
+        optional: true
+        multi: false
+        unique: false
+        comment: "Indicates the subject of an annotation. Subjects may be individual instances\
+      \ or all the individuals of a given class (`rdfs:Class or `owl:Class`)"
+      - prop: "core:validInterval"
+        name: "validInterval"
+        kind: "object"
+        type: "core:Interval"
+        optional: true
+        multi: false
+        unique: false
+        comment: "Indicates the validity interval associated typically with an annotaion\
+      \ (`core:Annotation`) or a membership relation (`core:Membership`)"
+      - prop: "core:value"
+        name: "value"
+        kind: "datatype"
+        optional: true
+        multi: false
+        unique: false
+        comment: "Indicates the second party in an annotated relationship. This may convey\
+      \ either a literal or an object value reference."
+      - prop: "food-additives:specmax"
+        name: "specmax"
+        kind: "datatype"
+        optional: true
+        multi: false
+        unique: false
+        comment: "Indicates the maximum amount of a substance in the context of its membership\
+      \ of a group of substances. The value may be carried on a `core:Annotation`\
+      \ or on a `core:Membership` which reifies the membership relation."
+    comment: "Annotations represent an annoation, such as a footnote or some specifically\
+    \ qualified value associated with either:\r\n\r\n- a particular instance of a\
+    \ simple relationship. In these cases an Annotation will an instance value for\
+    \ `core:subject` a value for `core:property` that indicates the simple relationship\
+    \ being annotated and a value for either `core:objectValue` or `core:literalValue`\
+    \ indicating the other party or value involved in the annotated relationship.\r\
+    \n- a particular property associated with the subject regardless of the property\
+    \ value, in which case it represents a an annotation that would accompany any\
+    \ expression of a value for the given property as property of the subject.\r\n\
+    - a particular property in the context of some class of entity in which case `core:subject`\
+    \ indicates the class of entity involved, `core:property` indicates the property\
+    \ being annotated in the context of the subject class. This is akin to annotating\
+    \ a table column heading where instances of the `core:subject` class are being\
+    \ presented in a tabular fashion."
+  - class: "core:Application"
+    name: "Application"
+    subClassOf: []
+    properties:
+      - prop: "core:applicant"
+        name: "applicant"
+        kind: "object"
+        type: "core:Agent"
+        optional: true
+        multi: true
+        unique: false
+        comment: "Indicates the person or organisation making the application. They may\
+      \ become the holder (`core:holder`) of any resulting approvals that are granted."
+      - prop: "core:regulatingRegime"
+        name: "regulatingRegime"
+        kind: "object"
+        type: "core:Regime"
+        optional: false
+        multi: true
+        unique: false
+        comment: "The regime (`core:Regime`) under which the given regulation is made."
+      - prop: "dct:created"
+        name: "created"
+        kind: "datatype"
+        type: "rdfs:Literal"
+        optional: true
+        multi: true
+        unique: false
+        comment: "Date of creation of the resource."
+      - prop: "dct:dateAccepted"
+        name: "dateAccepted"
+        kind: "datatype"
+        type: "rdfs:Literal"
+        optional: true
+        multi: true
+        unique: false
+        comment: "Date of acceptance of the resource."
+      - prop: "dct:dateSubmitted"
+        name: "dateSubmitted"
+        kind: "datatype"
+        type: "rdfs:Literal"
+        optional: true
+        multi: true
+        unique: false
+        comment: "Date of submission of the resource."
+      - prop: "dct:title"
+        name: "title"
+        kind: "datatype"
+        type: "rdfs:Literal"
+        optional: true
+        multi: true
+        unique: false
+        comment: "A name given to the resource."
+    comment: "Application for approval to make use of some substance in the production\
+    \ of food or animal feed. Applications are submitted under some legislative regime\
+    \ (`core:regulatingRegime`), and if successful lead to the granting of one or\
+    \ more approvals (`core:Approval`)."
+  - class: "core:Approval"
+    name: "Approval"
+    subClassOf:
+      - "core:Regulation"
+    properties:
+      - prop: "core:holder"
+        name: "holder"
+        kind: "object"
+        type: "core:Agent"
+        optional: true
+        multi: true
+        unique: false
+        comment: "Indicates the holder of an approval or authorisation (`core:Approval`)."
+      - prop: "dct:isVersionOf"
+        name: "isVersionOf"
+        kind: "datatype"
+        optional: true
+        multi: false
+        unique: false
+        comment: "A related resource of which the described resource is a version, edition,\
+      \ or adaptation."
+      - prop: "dct:replaces"
+        name: "replaces"
+        kind: "object"
+        type: "core:Approval"
+        optional: true
+        multi: true
+        unique: false
+        comment: "A related resource that is supplanted, displaced, or superseded by the\
+      \ described resource."
+    comment: "Approval to make use of some regulated subtance(s) (`core:regulatedSubstance`),\
+    \ produce by some regulated process (`core:regulatedProcess`), within some permissible\
+    \ limit (`core:maximumLimit`) for some regulated category(ies) of use (`core:regulateUsageCategory`)\
+    \ in connection with the production of food or animal feed. Approvals arise as\
+    \ result of applications (`core:Application`). Approvals may be granted to the\
+    \ applicant (a `core:Agent`) specifically or to the public in general. \n\nApprovals\
+    \ are sought for substances that are intentionally used in a food or feed production\
+    \ process."
+  - class: "core:Codespace"
+    name: "Codespace"
+    subClassOf:
+      - "core:Thing"
+    properties: []
+    comment: "The codespace within which the `core:code` value of a `core:IdCode` is\
+    \ expected to be unique."
+  - class: "core:Collection"
+    name: "Collection"
+    subClassOf:
+      - "core:ConceptSchemeOrCollection"
+      - "core:ConceptOrCollection"
+    properties:
+      - prop: "core:regime"
+        name: "regime"
+        kind: "object"
+        type: "core:Regime"
+        optional: true
+        multi: true
+        unique: false
+        comment: "Refers to the relevant regulated products regime (`core:Regime`)."
+    comment: "Local analog of `skos:Collection` that uses `core:memberOf` as an inverse\
+    \ membership predicate.  Expanded from `skos:Collection` to allow anything to\
+    \ be a member of a collection."
+  - class: "core:Concept"
+    name: "Concept"
+    subClassOf:
+      - "skos:Concept"
+      - "core:ConceptOrCollection"
+    properties:
+      - prop: "skos:broader"
+        name: "broader"
+        kind: "object"
+        type: "core:Concept"
+        optional: true
+        multi: true
+        unique: false
+        comment: "Broader concepts are typically rendered as parents in a concept hierarchy\
+      \ (tree)."
+      - prop: "skos:inScheme"
+        name: "inScheme"
+        kind: "object"
+        type: "core:ConceptScheme"
+        optional: true
+        multi: true
+        unique: false
+      - prop: "skos:narrower"
+        name: "narrower"
+        kind: "object"
+        type: "core:Concept"
+        optional: true
+        multi: true
+        unique: false
+        comment: "Narrower concepts are typically rendered as children in a concept hierarchy\
+      \ (tree)."
+      - prop: "skos:notation"
+        name: "notation"
+        kind: "datatype"
+        type: "rdfs:Literal"
+        optional: true
+        multi: true
+        unique: false
+      - prop: "skos:topConceptOf"
+        name: "topConceptOf"
+        kind: "object"
+        type: "core:ConceptScheme"
+        optional: true
+        multi: true
+        unique: false
+    comment: "A local analog of `skos:Concept` giving intended property usage."
+  - class: "core:ConceptOrCollection"
+    name: "ConceptOrCollection"
+    subClassOf:
+      - "core:Thing"
+    properties: []
+    comment: "A named union class of `core:Concept` and `core:Collection` as a means\
+    \ to avoid anoymous union classes as property range restrictions, particularly\
+    \ on `core:memberOf` when creating hierarchical groups/collections."
+  - class: "core:ConceptScheme"
+    name: "ConceptScheme"
+    subClassOf:
+      - "core:ConceptSchemeOrCollection"
+      - "skos:ConceptScheme"
+    properties:
+      - prop: "core:regime"
+        name: "regime"
+        kind: "object"
+        type: "core:Regime"
+        optional: true
+        multi: true
+        unique: false
+        comment: "Refers to the relevant regulated products regime (`core:Regime`)."
+      - prop: "skos:hasTopConcept"
+        name: "hasTopConcept"
+        kind: "object"
+        type: "core:Concept"
+        optional: true
+        multi: true
+        unique: false
+    comment: "A local analog of `skos:ConceptScheme` giving intended property property\
+    \ usage."
+  - class: "core:ConceptSchemeOrCollection"
+    name: "ConceptSchemeOrCollection"
+    subClassOf:
+      - "core:Thing"
+    properties: []
+    comment: "A named union class of `core:ConceptScheme` and `core:Collection` as a\
+    \ means to avoid anoymous union classes as property range restrictions. Intended\
+    \ for use in making generalised references to groups that may have bend formulated\
+    \ as `core:Collections` or as `core:ConceptSchemes`."
+  - class: "core:Condition"
+    name: "Condition"
+    subClassOf:
+      - "core:Thing"
+    properties:
+      - prop: "core:dateOfExpiry"
+        name: "dateOfExpiry"
+        kind: "datatype"
+        optional: true
+        multi: false
+        unique: false
+        comment: "The date or dateTime at which the given regulation (`core:Approval`\
+      \ or `core:Prohibition`) expires. Since a regulation may be subject to renewal,\
+      \ there maybe multiple values for its `core:dateOfExpiry`. The `core:dateTimeValue`\
+      \ of the referenced `core:DateTimeValue` carries the given date of expiry, while\
+      \ the associated `core:dateTimeStamp` indicates when the expiry dates was set\
+      \ to the given value."
+      - prop: "core:dateOfRegulation"
+        name: "dateOfRegulation"
+        kind: "datatype"
+        optional: true
+        multi: false
+        unique: false
+        comment: "The date or dateTime that a given approval (`core:Approval`) or  prohibition\
+      \ (`core:Prohibition`) was authorised. Since a give approval or prohibition\
+      \ (collectively regulations, (`core:Regulation`)) may be subject to periodic\
+      \ renewals it may carry multiple regulations dates. If a `core:dateTimeStamp`\
+      \ is given on the reference `core:DateTimeValue` will likely convey the same\
+      \ value the same value as the give `core:dateTimeValue`."
+      - prop: "core:expiryNote"
+        name: "expiryNote"
+        kind: "datatype"
+        optional: true
+        multi: true
+        unique: false
+        comment: "A textual note associated with the expiry date (`core:dateOfExpiry`)\
+      \ of a regulation."
+      - prop: "core:maximumLevel"
+        name: "maximumLevel"
+        kind: "datatype"
+        optional: true
+        multi: false
+        unique: false
+        comment: "The maximum permissible level assocatied with a regulation (`core:Regulation`)\
+      \ or one of its conditions (`core:Condition`)."
+      - prop: "core:regulatedProcess"
+        name: "regulatedProcess"
+        kind: "object"
+        type: "core:ProcessOrGroup"
+        optional: true
+        multi: true
+        unique: false
+        comment: "The regulated process or group of processes used in the production of\
+      \ the regulated substance (`core:regulatedSubstance`)."
+      - prop: "core:regulatedSubstance"
+        name: "regulatedSubstance"
+        kind: "object"
+        type: "core:SubstanceOrGroup"
+        optional: true
+        multi: true
+        unique: false
+        comment: "The regulated substance or group substances controlled by the given\
+      \ regulations. The regulated substance may be further contrained by its method\
+      \ of production (`core:regulatedProcess`) and by the uses to which it may be\
+      \ put (`core:regulatedUsageCategory`)"
+      - prop: "core:regulatedUseCategory"
+        name: "regulatedUseCategory"
+        kind: "object"
+        type: "core:UsageCategoryOrGroup"
+        optional: true
+        multi: true
+        unique: false
+        comment: "The usage categories or category groups to which the regulated substance\
+      \ for usage limits apply."
+    comment: "A condition or constraint associated with a regulation (`core:Regulation`).\
+    \ In some cases a regulation may cover multiple substances, their associated use\
+    \ categories and production processes. In these cases the details may be presented\
+    \ as several contitions associated with a given regulation. In some cases (GMOs)\
+    \ the authorisation and expiry dates associated with conditions may be different\
+    \ between conditions on the same regulation."
+  - class: "core:Document"
+    name: "Document"
+    subClassOf:
+      - "foaf:Document"
+      - "core:Thing"
+    properties:
+      - prop: "dct:identifier"
+        name: "identifier"
+        kind: "datatype"
+        type: "rdfs:Literal"
+        optional: true
+        multi: true
+        unique: false
+        comment: "An unambiguous reference to the resource within a given context."
+      - prop: "dct:title"
+        name: "title"
+        kind: "datatype"
+        type: "rdfs:Literal"
+        optional: true
+        multi: true
+        unique: false
+        comment: "A name given to the resource."
+      - prop: "rdfs:comment"
+        name: "comment"
+        kind: "datatype"
+        type: "rdfs:Literal"
+        optional: true
+        multi: true
+        unique: false
+        comment: ""
+      - prop: "rdfs:label"
+        name: "label"
+        kind: "datatype"
+        type: "rdfs:Literal"
+        optional: true
+        multi: true
+        unique: false
+        comment: ""
+      - prop: "http://www.w3.org/ns/dcat#downloadURL"
+        name: "downloadURL"
+        kind: "object"
+        type: "rdfs:Resource"
+        optional: true
+        multi: true
+        unique: false
+        comment: "The URL of the downloadable file in a given format. E.g. CSV file or\
+      \ RDF file. The format is indicated by the distribution's dct:format and/or\
+      \ dcat:mediaType."
+    comment: "A local analog of `foaf:Document` giving intended property usage."
+  - class: "core:IdCode"
+    name: "IdCode"
+    subClassOf: []
+    properties:
+      - prop: "core:code"
+        name: "code"
+        kind: "datatype"
+        type: "xsd:string"
+        optional: false
+        multi: false
+        unique: false
+        comment: "A unique identity code carried by a `code:IdCode` which is intended\
+      \ to be unique within corresponding `core:Codespace`"
+      - prop: "core:codespace"
+        name: "codespace"
+        kind: "object"
+        type: "core:Codespace"
+        optional: false
+        multi: false
+        unique: false
+        comment: "Indicates the `core:Codespace` within which the `core:code` value of\
+      \ a `core:IdCode` is expected to be unique."
+    comment: "An identifier code for some 'thing', for example an EU E-number, a flavis\
+    \ flavour code or a CAS chemical abstracts number. \n\nA `core:code` value may\
+    \ also be a URI string, the `core:Codespace` `codespace:uri` will be set asside\
+    \ for such `core:IdCode` values.\n\nThe intention is that their may be multiple\
+    \ tailored descriptions of the same thing (e.g a substance) which may be linked\
+    \ together by virtue making reference to the equivalent `core:IdCode`. \n\nTwo\
+    \ `core:IdCode` are equivalent if *both* their `core:code` and `core:codespace`\
+    \ values are identical. \n\n[Could rename as `core:ID` or `core:Identifier` -\
+    \ but wanted to avoid confusion with JSON-LD `@id` which may also be aliased as\
+    \ `id`]"
+  - class: "core:Interval"
+    name: "Interval"
+    subClassOf:
+      - "core:Thing"
+    properties:
+      - prop: "core:hasEnd"
+        name: "hasEnd"
+        kind: "datatype"
+        optional: true
+        multi: false
+        unique: true
+        comment: "Indicates the end date or dateTime of an interval. As an end time the\
+      \ corresponding interval includes all moments upto but *not* including the given\
+      \ `core:hasEnd` time."
+      - prop: "core:hasStart"
+        name: "hasStart"
+        kind: "datatype"
+        optional: true
+        multi: false
+        unique: false
+        comment: "Indicates the start dateTime of an interval. As a start time indicates\
+      \ first moment included within the corresponding time interval."
+    comment: "An interval of time starting at `core:hasStart` (inclusive) and ending\
+    \ at `core:hasEnd` (exclusive). An ongoing interval, i.e. one that will end in\
+    \ the future, is indicated but omitting ending value."
+  - class: "core:Membership"
+    name: "Membership"
+    subClassOf: []
+    properties:
+      - prop: "core:dateTimeStamp"
+        name: "dateTimeStamp"
+        kind: "datatype"
+        optional: true
+        multi: false
+        unique: false
+        comment: "A date or dateTime stamp typically indicates the date or date and time\
+      \ associated with some information record. It serves as a means for ordering\
+      \ sequences of records about a common subject."
+      - prop: "core:hasCollection"
+        name: "hasCollection"
+        kind: "object"
+        type: "core:Collection"
+        optional: false
+        multi: false
+        unique: false
+        comment: "Indicates the collection associated with a `core:Membership` that the\
+      \ corresponding things referenced by `core:hasMember` are members of."
+      - prop: "core:hasMember"
+        name: "hasMember"
+        kind: "object"
+        type: "core:Thing"
+        optional: false
+        multi: true
+        unique: false
+        comment: "Indicates one or more members of a `core:Collection` as property of\
+      \ either a `core:Collection` or a `core:Membership`."
+      - prop: "core:validInterval"
+        name: "validInterval"
+        kind: "object"
+        type: "core:Interval"
+        optional: true
+        multi: false
+        unique: false
+        comment: "Indicates the validity interval associated typically with an annotaion\
+      \ (`core:Annotation`) or a membership relation (`core:Membership`)"
+    comment: "A reification of membership relationship generally expressed using `core:memberOf`.\
+    \ This provides a means to provide additional information about the relationship\
+    \ between 'member' and 'collection' such as a validity interval or other annotations\
+    \ and qualifiers."
+  - class: "core:Organization"
+    name: "Organization"
+    subClassOf:
+      - "core:Agent"
+    properties:
+      - prop: "org:hasSubOrganization"
+        name: "hasSubOrganization"
+        kind: "object"
+        type: "core:Organization"
+        optional: true
+        multi: true
+        unique: false
+        comment: "Represents hierarchical containment of Organizations or Organizational\
+      \ Units; indicates an organization which is a sub-part or child of this organization.\
+      \  Inverse of `org:subOrganizationOf`."
+    comment: "Local analog of `foaf:Organization` and `org:Organization` giving expected\
+    \ property usage."
+  - class: "core:Person"
+    name: "Person"
+    subClassOf:
+      - "core:Agent"
+    properties:
+      - prop: "foaf:familyName"
+        name: "familyName"
+        kind: "datatype"
+        type: "rdfs:Literal"
+        optional: true
+        multi: true
+        unique: false
+        comment: "The family name of some person."
+      - prop: "foaf:firstName"
+        name: "firstName"
+        kind: "datatype"
+        type: "rdfs:Literal"
+        optional: true
+        multi: true
+        unique: false
+        comment: "The first name of a person."
+      - prop: "foaf:givenName"
+        name: "givenName"
+        kind: "datatype"
+        type: "rdfs:Literal"
+        optional: true
+        multi: true
+        unique: false
+        comment: "The given name of some person."
+      - prop: "foaf:lastName"
+        name: "lastName"
+        kind: "datatype"
+        type: "rdfs:Literal"
+        optional: true
+        multi: true
+        unique: false
+        comment: "The last name of a person."
+      - prop: "foaf:surname"
+        name: "surname"
+        kind: "datatype"
+        type: "rdfs:Literal"
+        optional: true
+        multi: true
+        unique: false
+        comment: "The surname of some person."
+    comment: "Local analog of `foaf:Person` giving expected property usage."
+  - class: "core:Process"
+    name: "Process"
+    subClassOf:
+      - "core:ProcessOrGroup"
+      - "core:Concept"
+    properties:
+      - prop: "core:memberOf"
+        name: "memberOf"
+        kind: "object"
+        type: "core:ProcessGroup"
+        optional: true
+        multi: true
+        unique: false
+        comment: "Indicates the collections (`core:Collection`)  that some thing (`core:Thing`)\
+      \  is a member of. Collections are also things such that collections may be\
+      \ hierarchical"
+    comment: "An identified process that this subject to regulation by a `core:Regulation`.\
+    \ `core:Process` may be organised into hierarchical groups so to which a regulation\
+    \ may apply."
+  - class: "core:ProcessGroup"
+    name: "ProcessGroup"
+    subClassOf:
+      - "core:ProcessOrGroup"
+      - "core:Collection"
+    properties:
+      - prop: "core:memberOf"
+        name: "memberOf"
+        kind: "object"
+        type: "core:ProcessGroup"
+        optional: true
+        multi: true
+        unique: false
+        comment: "Indicates the collections (`core:Collection`)  that some thing (`core:Thing`)\
+      \  is a member of. Collections are also things such that collections may be\
+      \ hierarchical"
+    comment: "A collection of `core:Process` that may act as the target of regulation\
+    \ rather than an individual `core:Process`."
+  - class: "core:ProcessOrGroup"
+    name: "ProcessOrGroup"
+    subClassOf:
+      - "core:ConceptOrCollection"
+    properties:
+      - prop: "core:memberOf"
+        name: "memberOf"
+        kind: "object"
+        type: "core:ProcessGroup"
+        optional: true
+        multi: true
+        unique: false
+        comment: "Indicates the collections (`core:Collection`)  that some thing (`core:Thing`)\
+      \  is a member of. Collections are also things such that collections may be\
+      \ hierarchical"
+    comment: "Enables the hierarchical arrangement of regulated processes categories\
+    \ and groups thereof. Also provide a range class for references to either individual\
+    \ or groups of `core:Process`"
+  - class: "core:Prohibition"
+    name: "Prohibition"
+    subClassOf:
+      - "core:Regulation"
+    properties:
+      - prop: "dct:replaces"
+        name: "replaces"
+        kind: "object"
+        type: "core:Prohibition"
+        optional: true
+        multi: true
+        unique: false
+        comment: "A related resource that is supplanted, displaced, or superseded by the\
+      \ described resource."
+    comment: "Prohibitions are created to limit the residual presense of potentially\
+    \ harmful substances in the food chain. For example the entries in the Contaminants\
+    \ register are framed as prohibitions in that there is a level of presense to\
+    \ the regulated substance that is tolerate, but the substance itself is not deliberately\
+    \ introduced for any technical purpose."
+  - class: "core:PropertySpec"
+    name: "PropertySpec"
+    subClassOf:
+      - "core:Thing"
+    properties:
+      - prop: "core:codelist"
+        name: "codelist"
+        kind: "object"
+        type: "core:ConceptOrCollection"
+        optional: true
+        multi: false
+        unique: false
+        comment: "Specifies a codelist from which property values are expected to be taken\
+      \ within the context of use of a given `core:PropertySpec`."
+      - prop: "core:max-occurs"
+        name: "max_occurs"
+        kind: "datatype"
+        type: "xsd:integer"
+        optional: true
+        multi: true
+        unique: false
+        comment: "Specifies the maximum number of values that the property may carry when.\
+      \ If unspecified the value is taken to be unbounded."
+      - prop: "core:min-occurs"
+        name: "min_occurs"
+        kind: "datatype"
+        type: "xsd:integer"
+        optional: true
+        multi: true
+        unique: false
+        comment: "Specifies the minimum number of of values that the property is expected\
+      \ to carry. If unspecified the value the `core:min-occurs` value is taken to\
+      \ be zero."
+      - prop: "core:range"
+        name: "range"
+        kind: "object"
+        type: "rdfs:Class"
+        optional: true
+        multi: true
+        unique: false
+        comment: "Specifies the range (i.e. value type) of property being specifed (`core:property`)\
+      \ . This may be a narrowing of the property's natural range (rdfs:range). If\
+      \ a `core:codelist` value is given, then the property range for this usage may\
+      \ be implicit in that (all values from the referenced codelist)."
+      - prop: "core:uiDisplayGroup"
+        name: "uiDisplayGroup"
+        kind: "datatype"
+        type: "xsd:string"
+        optional: true
+        multi: true
+        unique: false
+        comment: "An indication of the UI display grouping that a property should be presented\
+      \ within. `core:uiDisplayOrder` and `core:uiDisplayGroup` are advisory and may\
+      \ be ignored by applications."
+      - prop: "core:uiDisplayOrder"
+        name: "uiDisplayOrder"
+        kind: "datatype"
+        type: "xsd:integer"
+        optional: true
+        multi: true
+        unique: false
+        comment: "An indications of the intended display order of a property. There is\
+      \ no requirement for this this value to be unique. Unique values would allow\
+      \ a total ordering across all property groups; Unique values within the same\
+      \ group would allow deterministic ordering within a group. Repeated value within\
+      \ a group would leave display ordering non-deterministic.  `core:uiDisplayOrder`\
+      \ and `core:uiDisplayGroup` are advisory and may be ignored by applications."
+    comment: "Specifies the contextual use of some subject property (referenced by `core:property`).\
+    \ The contextualised range and cardinalities are given along with UI display grouping\
+    \ and ordering hints."
+  - class: "core:Regime"
+    name: "Regime"
+    subClassOf:
+      - "core:Thing"
+    properties:
+      - prop: "core:governingLegislation"
+        name: "governingLegislation"
+        kind: "object"
+        type: "core:Document"
+        optional: false
+        multi: true
+        unique: false
+        comment: "A reference to the legislation that provides the basis of this regime.\
+      \ This may reference zero or more items of legislation"
+      - prop: "core:processScheme"
+        name: "processScheme"
+        kind: "object"
+        type: "core:ConceptScheme"
+        optional: true
+        multi: true
+        unique: false
+        comment: "Indicates a concept-scheme/codelists that enumerates all the processes\
+      \ (`core:Process`) regulated by the regime (`core:Regime`)"
+      - prop: "core:regimeProperties"
+        name: "regimeProperties"
+        kind: "object"
+        type: "core:PropertySpec"
+        optional: true
+        multi: true
+        unique: false
+        comment: "Additional regime specific properties that extend/specialise an approval\
+      \ or prohibition for the given regime."
+      - prop: "core:regimeRegulationSubClass"
+        name: "regimeRegulationSubClass"
+        kind: "object"
+        type: "owl:Class"
+        optional: true
+        multi: true
+        unique: false
+        comment: "Indicates one or more subclasses of `core:Regulation` that are regulated\
+      \ by this regime."
+      - prop: "core:regulationCollections"
+        name: "regulationCollections"
+        kind: "object"
+        type: "core:Collection"
+        optional: true
+        multi: true
+        unique: false
+        comment: "A reference to one or more collections regulations made under a given\
+      \ regime. Some regimes are compromised of multiple annexes where different dispositions\
+      \ apply to each annex. For example, the feed approval regime comprises 2 main\
+      \  annexes:\r\n\r\n- Annex 1: List of additives\r\n- Annex 2: List of additives\
+      \ subject to the provisions of Art. 10 § 2 of Reg. (EC) No 1831/2003 for which\
+      \ no application for reevaluation was submitted before the deadline of 8 November\
+      \ 2010.\r\n\r\neach of which is managed as a separate collection of regulations."
+      - prop: "core:substanceGroups"
+        name: "substanceGroups"
+        kind: "object"
+        type: "core:SubstanceGroup"
+        optional: true
+        multi: true
+        unique: false
+        comment: "Indicates any substance groups (`core:SubstanceGroup`) associated with\
+      \ the regime. Individual substances may be members of more than one substance\
+      \ group."
+      - prop: "core:substanceScheme"
+        name: "substanceScheme"
+        kind: "object"
+        type: "core:ConceptScheme"
+        optional: true
+        multi: true
+        unique: false
+        comment: "Indicates a concept-scheme/codelists that enumerates all the substances\
+      \ (`core:Substance`) regulated by the regime (`core:Regime`)."
+      - prop: "core:usageCategoryGroups"
+        name: "usageCategoryGroups"
+        kind: "object"
+        type: "core:UsageCategoryGroup"
+        optional: true
+        multi: true
+        unique: false
+        comment: "Indicates any usage category groups (`core:UsageCategoryGroup`) associated\
+      \ with the given regime (`core:Regime`)."
+      - prop: "core:usageCategoryScheme"
+        name: "usageCategoryScheme"
+        kind: "object"
+        type: "core:ConceptScheme"
+        optional: true
+        multi: true
+        unique: false
+        comment: "Indicates a concept-scheme/codelist that enumerates all the usage categories\
+      \ (`core:UsageCategory`) relevant to a given regime (`core:Regime`)"
+      - prop: "feed-add:speciesCollection"
+        name: "speciesCollection"
+        kind: "object"
+        type: "core:Collection"
+        optional: true
+        multi: true
+        unique: false
+        comment: "Indicated any species collection associated with the given regime (`core:Regime`)."
+      - prop: "feed-add:subclassScheme"
+        name: "subclassScheme"
+        kind: "object"
+        type: "core:ConceptScheme"
+        optional: true
+        multi: true
+        unique: false
+        comment: "Indicates the sub-classification of regulation or approval."
+    comment: "Represents an abstraction of the leglisative framework that applies to\
+    \ a particular grouping of regulated product regulations (`core:Regulation`).\
+    \ An instance of `core:Regime` provides a number of technical details about the\
+    \ organisation of the regimes data a one or more registers, extension properties\
+    \ and codelists. It also includes reference to the legislation that governs the\
+    \ regime."
+  - class: "core:Regulation"
+    name: "Regulation"
+    subClassOf:
+      - "core:Thing"
+    properties:
+      - prop: "core:condition"
+        name: "condition"
+        kind: "object"
+        type: "core:Condition"
+        optional: true
+        multi: true
+        unique: false
+        comment: "A reference to a condition (`core:Condition`) generally associated with\
+      \ a regulation (`core:Regulation`)."
+      - prop: "core:dateOfExpiry"
+        name: "dateOfExpiry"
+        kind: "datatype"
+        optional: true
+        multi: true
+        unique: false
+        comment: "The date or dateTime at which the given regulation (`core:Approval`\
+      \ or `core:Prohibition`) expires. Since a regulation may be subject to renewal,\
+      \ there maybe multiple values for its `core:dateOfExpiry`. The `core:dateTimeValue`\
+      \ of the referenced `core:DateTimeValue` carries the given date of expiry, while\
+      \ the associated `core:dateTimeStamp` indicates when the expiry dates was set\
+      \ to the given value."
+      - prop: "core:dateOfFirstEntry"
+        name: "dateOfFirstEntry"
+        kind: "datatype"
+        type: "xsd:date"
+        optional: true
+        multi: false
+        unique: false
+        comment: "The date of the first entry of this regulations into the corresponding\
+      \ register. The value given should be consistent with the earliest value given\
+      \ for `core:dateOfRegulation` however this later fied may indicate futher regulation\
+      \ dates due to successful renewals."
+      - prop: "core:dateOfRegulation"
+        name: "dateOfRegulation"
+        kind: "datatype"
+        optional: true
+        multi: true
+        unique: false
+        comment: "The date or dateTime that a given approval (`core:Approval`) or  prohibition\
+      \ (`core:Prohibition`) was authorised. Since a give approval or prohibition\
+      \ (collectively regulations, (`core:Regulation`)) may be subject to periodic\
+      \ renewals it may carry multiple regulations dates. If a `core:dateTimeStamp`\
+      \ is given on the reference `core:DateTimeValue` will likely convey the same\
+      \ value the same value as the give `core:dateTimeValue`."
+      - prop: "core:evaluationBody"
+        name: "evaluationBody"
+        kind: "object"
+        type: "core:Organization"
+        optional: true
+        multi: true
+        unique: false
+        comment: "the value is some sort of indicator of the evaluation body, e.g. its\
+      \ name, acronym or a notation code or natural language text."
+      - prop: "core:expiryNote"
+        name: "expiryNote"
+        kind: "datatype"
+        optional: true
+        multi: true
+        unique: false
+        comment: "A textual note associated with the expiry date (`core:dateOfExpiry`)\
+      \ of a regulation."
+      - prop: "core:footnote"
+        name: "footnote"
+        kind: "datatype"
+        optional: true
+        multi: true
+        unique: false
+        comment: "Either carried directly on some entity (`core:Thing`) or as an attribute\
+      \ of an annotation (`core:Annotation`), this property conveys a footnote associated\
+      \ directly with the corresponding entity or indirectly with a relationship involving\
+      \ multiple entities."
+      - prop: "core:maximumLevel"
+        name: "maximumLevel"
+        kind: "datatype"
+        optional: true
+        multi: false
+        unique: false
+        comment: "The maximum permissible level assocatied with a regulation (`core:Regulation`)\
+      \ or one of its conditions (`core:Condition`)."
+      - prop: "core:moreInfo"
+        name: "moreInfo"
+        kind: "datatype"
+        type: "rdfs:Literal"
+        optional: true
+        multi: true
+        unique: false
+        comment: "A freetext field that either gives or references further information\
+      \ related to a regulation or conditions (`core:Regulation` or `core:Condition`)."
+      - prop: "core:originalApplication"
+        name: "originalApplication"
+        kind: "object"
+        type: "core:Application"
+        optional: true
+        multi: false
+        unique: false
+        comment: "References the original application that gave rise to the given Approval\
+      \ or Prohibition."
+      - prop: "core:regulatedProcess"
+        name: "regulatedProcess"
+        kind: "object"
+        type: "core:ProcessOrGroup"
+        optional: true
+        multi: true
+        unique: false
+        comment: "The regulated process or group of processes used in the production of\
+      \ the regulated substance (`core:regulatedSubstance`)."
+      - prop: "core:regulatedSubstance"
+        name: "regulatedSubstance"
+        kind: "object"
+        type: "core:SubstanceOrGroup"
+        optional: true
+        multi: true
+        unique: false
+        comment: "The regulated substance or group substances controlled by the given\
+      \ regulations. The regulated substance may be further contrained by its method\
+      \ of production (`core:regulatedProcess`) and by the uses to which it may be\
+      \ put (`core:regulatedUsageCategory`)"
+      - prop: "core:regulatedUseCategory"
+        name: "regulatedUseCategory"
+        kind: "object"
+        type: "core:UsageCategoryOrGroup"
+        optional: true
+        multi: true
+        unique: false
+        comment: "The usage categories or category groups to which the regulated substance\
+      \ for usage limits apply."
+      - prop: "core:regulatingRegime"
+        name: "regulatingRegime"
+        kind: "object"
+        type: "core:Regime"
+        optional: true
+        multi: false
+        unique: false
+        comment: "The regime (`core:Regime`) under which the given regulation is made."
+      - prop: "core:renewalApplication"
+        name: "renewalApplication"
+        kind: "object"
+        type: "core:Application"
+        optional: true
+        multi: true
+        unique: false
+        comment: "References any applications (`core:Application`) for the renewal of\
+      \ a given regulation. Over time there may be multiple such applications."
+      - prop: "core:restrictionOrException"
+        name: "restrictionOrException"
+        kind: "object"
+        type: "rdfs:Literal"
+        optional: true
+        multi: true
+        unique: false
+        comment: "A narrative restriction or exception applicable to the given regulation."
+      - prop: "core:sourceLegislation"
+        name: "sourceLegislation"
+        kind: "object"
+        type: "core:Document"
+        optional: true
+        multi: true
+        unique: false
+        comment: "Indicates the legislative source of some value or authorisation."
+      - prop: "dct:description"
+        name: "description"
+        kind: "datatype"
+        type: "rdfs:Literal"
+        optional: true
+        multi: true
+        unique: false
+        comment: "An account of the resource."
+      - prop: "dct:replaces"
+        name: "replaces"
+        kind: "object"
+        type: "core:Regulation"
+        optional: true
+        multi: true
+        unique: false
+        comment: "A related resource that is supplanted, displaced, or superseded by the\
+      \ described resource."
+    comment: "An abstraction covering the common elements of food and feed regulated\
+    \ product approvals (`core:Approval`) and prohibitions (`core:Prohibition`)."
+  - class: "core:Substance"
+    name: "Substance"
+    subClassOf:
+      - "core:SubstanceOrGroup"
+      - "core:Concept"
+    properties:
+      - prop: "core:casNo"
+        name: "casNo"
+        kind: "datatype"
+        type: "xsd:string"
+        optional: true
+        multi: true
+        unique: false
+        comment: "The Chemical Abstracts Service reference number of a given substance.\
+      \ (https://www.cas.org/)"
+      - prop: "core:coeNo"
+        name: "coeNo"
+        kind: "datatype"
+        type: "xsd:string"
+        optional: true
+        multi: true
+        unique: false
+        comment: "The CoE reference number of a substance."
+      - prop: "core:einecsNo"
+        name: "einecsNo"
+        kind: "datatype"
+        type: "xsd:string"
+        optional: true
+        multi: true
+        unique: false
+        comment: "The European Inventory of Existing Commercial Chemical Substances (EINECS)\
+      \ reference number of a substance. (https://echa.europa.eu/information-on-chemicals/ec-inventory)"
+      - prop: "core:femaNo"
+        name: "femaNo"
+        kind: "datatype"
+        type: "xsd:string"
+        optional: true
+        multi: true
+        unique: false
+        comment: "The Flavor Extract Manufacturers Association (FEMA) reference number\
+      \ of a substance (https://www.femaflavor.org/)."
+      - prop: "core:flavisNo"
+        name: "flavisNo"
+        kind: "datatype"
+        type: "xsd:string"
+        optional: true
+        multi: true
+        unique: false
+        comment: "The EU flavouring information system (FLAVIS) reference number of a\
+      \ substance (https://webgate.ec.europa.eu/foods_system/main/?sector=FFL&auth=SANCAS)."
+      - prop: "core:jecfaNo"
+        name: "jecfaNo"
+        kind: "datatype"
+        type: "xsd:string"
+        optional: true
+        multi: true
+        unique: false
+        comment: "The Joint FAO/WHO Expert Committee on Food Additives (JECFA) number\
+      \ of a given substance."
+      - prop: "core:memberOf"
+        name: "memberOf"
+        kind: "object"
+        type: "core:SubstanceGroup"
+        optional: true
+        multi: true
+        unique: false
+        comment: "Indicates the collections (`core:Collection`)  that some thing (`core:Thing`)\
+      \  is a member of. Collections are also things such that collections may be\
+      \ hierarchical"
+      - prop: "core:ncimbNo"
+        name: "ncimbNo"
+        kind: "datatype"
+        type: "xsd:string"
+        optional: true
+        multi: true
+        unique: false
+        comment: "The National Collection of Industrial, Food and Marine Bacteria (NCIMB)\
+      \ reference number for a substance (https://www.ncimb.com/)."
+      - prop: "core:ncycNo"
+        name: "ncycNo"
+        kind: "datatype"
+        type: "xsd:string"
+        optional: true
+        multi: true
+        unique: false
+        comment: "The National Collection of Yeast Cultures (NCYC) reference number of\
+      \ a substance. (https://www.ncyc.co.uk/)"
+      - prop: "feed-add:feedAddCodeNo"
+        name: "feedAddCodeNo"
+        kind: "datatype"
+        type: "xsd:string"
+        optional: true
+        multi: true
+        unique: false
+        comment: "Indicates a reference number assigned by the registratuin/approval process\
+      \ to a substance authorised for use a feed-additive."
+      - prop: "food-additives:eu-enum"
+        name: "eu_enum"
+        kind: "datatype"
+        optional: true
+        multi: true
+        unique: false
+        comment: "Indicates the EU E number assigned to a given additive substance."
+    comment: "Represents a substance that is being subjected to regulation by a `core:Regulation`.\
+    \ `core:Substance` may be organised into `core:SubstanceGroup` so that a group\
+    \ may as the target of a regulation rather than an individual `core:Substance`."
+  - class: "core:SubstanceGroup"
+    name: "SubstanceGroup"
+    subClassOf:
+      - "core:SubstanceOrGroup"
+      - "core:Collection"
+    properties:
+      - prop: "core:memberOf"
+        name: "memberOf"
+        kind: "object"
+        type: "core:SubstanceGroup"
+        optional: true
+        multi: true
+        unique: false
+        comment: "Indicates the collections (`core:Collection`)  that some thing (`core:Thing`)\
+      \  is a member of. Collections are also things such that collections may be\
+      \ hierarchical"
+    comment: "A group of `core:Substance` that may act as a target of a regulation (`core:Regulation`)"
+  - class: "core:SubstanceOrGroup"
+    name: "SubstanceOrGroup"
+    subClassOf:
+      - "core:ConceptOrCollection"
+    properties:
+      - prop: "core:memberOf"
+        name: "memberOf"
+        kind: "object"
+        type: "core:SubstanceGroup"
+        optional: true
+        multi: true
+        unique: false
+        comment: "Indicates the collections (`core:Collection`)  that some thing (`core:Thing`)\
+      \  is a member of. Collections are also things such that collections may be\
+      \ hierarchical"
+    comment: "Enables the hierarchical arrangement of regulated substances and groups\
+    \ thereof. Also provide a range class for references to either individual or groups\
+    \ of `core:Substance`"
+  - class: "core:Thing"
+    name: "Thing"
+    subClassOf: []
+    properties:
+      - prop: "rdf:type"
+      - prop: "rdf:type"
+        name: "type"
+        kind: "object"
+        type: "rdfs:Resource"
+        optional: true
+        multi: true
+        unique: false
+        comment: "The type of the resource."
+      - prop: "core:annotation"
+        name: "annotation"
+        kind: "object"
+        type: "core:Annotation"
+        optional: true
+        multi: true
+        unique: false
+        comment: "Indicates the annotations that the subject is party to."
+      - prop: "core:dateTimeStamp"
+        name: "dateTimeStamp"
+        kind: "datatype"
+        optional: true
+        multi: false
+        unique: false
+        comment: "A date or dateTime stamp typically indicates the date or date and time\
+      \ associated with some information record. It serves as a means for ordering\
+      \ sequences of records about a common subject."
+      - prop: "core:idCode"
+        name: "idCode"
+        kind: "object"
+        type: "core:IdCode"
+        optional: true
+        multi: true
+        unique: true
+        comment: "The `core:IdCode` of a `core:Thing`. \n\nA `core:Thing` may have multiple\
+      \ `core:idCode` values representing codes from different identifier systems\
+      \ for the same thing. \n\nAlso, multiple things may have the same `code:idCode`\
+      \ value indicating that they represent different accounts/descriptions for the\
+      \ *same* real-world thing. \n\n[Could rename as `core:id`, `core:iD` or `core:identifier`\
+      \ but wanted to avoid clashing with common JSON-LD usage of `@id` which may\
+      \ be aliased as `id`.]"
+      - prop: "core:memberOf"
+        name: "memberOf"
+        kind: "object"
+        type: "core:Collection"
+        optional: true
+        multi: true
+        unique: false
+        comment: "Indicates the collections (`core:Collection`)  that some thing (`core:Thing`)\
+      \  is a member of. Collections are also things such that collections may be\
+      \ hierarchical"
+      - prop: "core:membership"
+        name: "membership"
+        kind: "object"
+        type: "core:Membership"
+        optional: true
+        multi: true
+        unique: false
+        comment: "Indicates the memberships that some `core:Thing` may participate in.\
+      \ Instances of `core:Collection` may participate either as members and as collections.\
+      \ Nested collection are intended to be acyclic."
+      - prop: "core:replaces"
+        name: "replaces"
+        kind: "object"
+        type: "core:Thing"
+        optional: true
+        multi: true
+        unique: false
+        comment: "A generic property for indicating that some `core:Thing` replaces another\
+      \ (thing)."
+      - prop: "dct:description"
+        name: "description"
+        kind: "datatype"
+        type: "rdfs:Literal"
+        optional: true
+        multi: true
+        unique: false
+        comment: "An account of the resource."
+      - prop: "rdfs:comment"
+        name: "comment"
+        kind: "datatype"
+        type: "rdfs:Literal"
+        optional: true
+        multi: true
+        unique: false
+        comment: ""
+      - prop: "rdfs:isDefinedBy"
+        name: "isDefinedBy"
+        kind: "datatype"
+        optional: true
+        multi: true
+        unique: false
+      - prop: "rdfs:label"
+        name: "label"
+        kind: "datatype"
+        type: "rdfs:Literal"
+        optional: true
+        multi: true
+        unique: false
+        comment: ""
+      - prop: "skos:altLabel"
+        name: "altLabel"
+        kind: "datatype"
+        type: "rdfs:Literal"
+        optional: true
+        multi: true
+        unique: false
+        comment: "skos:prefLabel, skos:altLabel and skos:hiddenLabel are pairwise disjoint\
+      \ properties."
+      - prop: "skos:definition"
+        name: "definition"
+        kind: "datatype"
+        type: "rdfs:Literal"
+        optional: true
+        multi: true
+        unique: false
+      - prop: "skos:prefLabel"
+        name: "prefLabel"
+        kind: "datatype"
+        type: "rdfs:Literal"
+        optional: true
+        multi: true
+        unique: false
+        comment: "skos:prefLabel, skos:altLabel and skos:hiddenLabel are pairwise\n  \
+      \    disjoint properties."
+    comment: "Local top-class carrying common properties that may generally be used\
+    \ on anything."
+  - class: "core:UsageCategory"
+    name: "UsageCategory"
+    subClassOf:
+      - "core:UsageCategoryOrGroup"
+      - "core:Concept"
+    properties:
+      - prop: "core:memberOf"
+        name: "memberOf"
+        kind: "object"
+        type: "core:UsageCategoryGroup"
+        optional: true
+        multi: true
+        unique: false
+        comment: "Indicates the collections (`core:Collection`)  that some thing (`core:Thing`)\
+      \  is a member of. Collections are also things such that collections may be\
+      \ hierarchical"
+    comment: "Top level class for usage categories that scope the usage of a regulated\
+    \ `core:Substance` in the context of a `core:Regulation`."
+  - class: "core:UsageCategoryGroup"
+    name: "UsageCategoryGroup"
+    subClassOf:
+      - "core:UsageCategoryOrGroup"
+      - "core:Collection"
+    properties:
+      - prop: "core:memberOf"
+        name: "memberOf"
+        kind: "object"
+        type: "core:UsageCategoryGroup"
+        optional: true
+        multi: true
+        unique: false
+        comment: "Indicates the collections (`core:Collection`)  that some thing (`core:Thing`)\
+      \  is a member of. Collections are also things such that collections may be\
+      \ hierarchical"
+    comment: "A collection of `core:UsageCategory` grouped to at as the usage target\
+    \ of a `core:Regulation`."
+  - class: "core:UsageCategoryOrGroup"
+    name: "UsageCategoryOrGroup"
+    subClassOf:
+      - "core:ConceptOrCollection"
+    properties:
+      - prop: "core:memberOf"
+        name: "memberOf"
+        kind: "object"
+        type: "core:UsageCategoryGroup"
+        optional: true
+        multi: true
+        unique: false
+        comment: "Indicates the collections (`core:Collection`)  that some thing (`core:Thing`)\
+      \  is a member of. Collections are also things such that collections may be\
+      \ hierarchical"
+    comment: "Enables the hierarchical arrangement of usage categories and groups thereof.\
+    \ Also provide a range class for references to either individual or groups of\
+    \ `core:UsageCategory`"
+  - class: "feed-add:FeedAdditive"
+    name: "FeedAdditive"
+    subClassOf:
+      - "core:Substance"
+      - "feed-add:FeedAdditiveOrGroup"
+    properties: []
+    comment: "A specialisation of `core:Substance` for feed additives."
+  - class: "feed-add:FeedAdditiveApproval"
+    name: "FeedAdditiveApproval"
+    subClassOf:
+      - "core:Approval"
+    properties:
+      - prop: "core:condition"
+        name: "condition"
+        kind: "object"
+        type: "core:Condition"
+        optional: true
+        multi: true
+        unique: false
+        comment: "A reference to a condition (`core:Condition`) generally associated with\
+      \ a regulation (`core:Regulation`)."
+      - prop: "core:regulatedSubstance"
+        name: "regulatedSubstance"
+        kind: "object"
+        type: "feed-add:FeedAdditiveOrGroup"
+        optional: true
+        multi: true
+        unique: false
+        comment: "The regulated substance or group substances controlled by the given\
+      \ regulations. The regulated substance may be further contrained by its method\
+      \ of production (`core:regulatedProcess`) and by the uses to which it may be\
+      \ put (`core:regulatedUsageCategory`)"
+      - prop: "feed-add:speciesRestriction"
+        name: "speciesRestriction"
+        kind: "object"
+        type: "feed-add:Species"
+        optional: true
+        multi: true
+        unique: false
+        comment: "Indicate any species restriction associated with a regulation or approval."
+      - prop: "feed-add:subclass"
+        name: "subclass"
+        kind: "object"
+        type: "feed-add:Subclass"
+        optional: true
+        multi: true
+        unique: false
+    comment: "A specialisation of `core:Approval` for feed additives."
+  - class: "feed-add:FeedAdditiveGroup"
+    name: "FeedAdditiveGroup"
+    subClassOf:
+      - "core:SubstanceGroup"
+      - "feed-add:FeedAdditiveOrGroup"
+    properties: []
+    comment: "A specialisation of `core:SubstanceGroup` for feed additives."
+  - class: "feed-add:FeedAdditiveOrGroup"
+    name: "FeedAdditiveOrGroup"
+    subClassOf:
+      - "core:SubstanceOrGroup"
+    properties:
+      - prop: "core:memberOf"
+        name: "memberOf"
+        kind: "object"
+        type: "feed-add:FeedAdditiveGroup"
+        optional: true
+        multi: true
+        unique: false
+        comment: "Indicates the collections (`core:Collection`)  that some thing (`core:Thing`)\
+      \  is a member of. Collections are also things such that collections may be\
+      \ hierarchical"
+    comment: "A specialisation of `core:SubstanceOrGroup` for feed additives."
+  - class: "feed-add:Species"
+    name: "Species"
+    subClassOf:
+      - "core:Concept"
+    properties: []
+    comment: "Species associated with a feed additive approval. \r\n\r\n**NOTE**: These\
+    \ have been 'harvested' from the available feed data. They have not been organised\
+    \ into a sensible hierarchy and in the main actually represent the combination\
+    \ of an animal species and some purpose e.g. \"Hens for laying\"; \"Pigs for fattening\"\
+    ."
+  - class: "feed-add:Subclass"
+    name: "Subclass"
+    subClassOf:
+      - "core:Concept"
+    properties: []
+    comment: "A sub categorisation of feed-additive approvals.\r\n\r\n**NOTE**: This\
+    \ is currently unstructured and has been harvested from the available sample data."
+  - class: "flav:Flavouring"
+    name: "Flavouring"
+    subClassOf:
+      - "core:Substance"
+      - "flav:FlavouringOrGroup"
+    properties: []
+    comment: "A specialisation of `core:Substance` for flavouring approvals"
+  - class: "flav:FlavouringApproval"
+    name: "FlavouringApproval"
+    subClassOf:
+      - "core:Approval"
+    properties:
+      - prop: "core:regulatedSubstance"
+        name: "regulatedSubstance"
+        kind: "object"
+        type: "flav:FlavouringOrGroup"
+        optional: true
+        multi: true
+        unique: false
+        comment: "The regulated substance or group substances controlled by the given\
+      \ regulations. The regulated substance may be further contrained by its method\
+      \ of production (`core:regulatedProcess`) and by the uses to which it may be\
+      \ put (`core:regulatedUsageCategory`)"
+    comment: "A specialisation of `core:Approval` for favourings (`flav:Flavoring`)."
+  - class: "flav:FlavouringGroup"
+    name: "FlavouringGroup"
+    subClassOf:
+      - "core:SubstanceGroup"
+      - "flav:FlavouringOrGroup"
+    properties: []
+    comment: "A specialisation of `core:SubstanceGroup` for favourings (`flav:Flavoring`)."
+  - class: "flav:FlavouringOrGroup"
+    name: "FlavouringOrGroup"
+    subClassOf:
+      - "core:SubstanceOrGroup"
+    properties: []
+    comment: "A specialisation of `core:SubstanceOrGroup` for favourings (`flav:Flavoring`)."
+  - class: "food-additives:FoodAdditive"
+    name: "FoodAdditive"
+    subClassOf:
+      - "core:Substance"
+      - "food-additives:FoodAdditiveOrGroup"
+    properties: []
+    comment: "A specialisation of `core:Substance` for food additives."
+  - class: "food-additives:FoodAdditiveApproval"
+    name: "FoodAdditiveApproval"
+    subClassOf:
+      - "core:Approval"
+    properties:
+      - prop: "core:condition"
+        name: "condition"
+        kind: "object"
+        type: "core:Condition"
+        optional: true
+        multi: true
+        unique: false
+        comment: "A reference to a condition (`core:Condition`) generally associated with\
+      \ a regulation (`core:Regulation`)."
+      - prop: "core:regulatedSubstance"
+        name: "regulatedSubstance"
+        kind: "object"
+        type: "food-additives:FoodAdditiveOrGroup"
+        optional: true
+        multi: true
+        unique: false
+        comment: "The regulated substance or group substances controlled by the given\
+      \ regulations. The regulated substance may be further contrained by its method\
+      \ of production (`core:regulatedProcess`) and by the uses to which it may be\
+      \ put (`core:regulatedUsageCategory`)"
+    comment: "A specialisation of `core:Approval` for food additives."
+  - class: "food-additives:FoodAdditiveGroup"
+    name: "FoodAdditiveGroup"
+    subClassOf:
+      - "core:SubstanceGroup"
+      - "food-additives:FoodAdditiveOrGroup"
+    properties: []
+    comment: "A specialisation of `core:SubstanceGroup` for food additives"
+  - class: "food-additives:FoodAdditiveOrGroup"
+    name: "FoodAdditiveOrGroup"
+    subClassOf:
+      - "core:SubstanceOrGroup"
+    properties:
+      - prop: "core:memberOf"
+        name: "memberOf"
+        kind: "object"
+        type: "food-additives:FoodAdditiveGroup"
+        optional: true
+        multi: true
+        unique: false
+        comment: "Indicates the collections (`core:Collection`)  that some thing (`core:Thing`)\
+      \  is a member of. Collections are also things such that collections may be\
+      \ hierarchical"
+      - prop: "food-additives:specmax"
+        name: "specmax"
+        kind: "datatype"
+        optional: true
+        multi: true
+        unique: false
+        comment: "Indicates the maximum amount of a substance in the context of its membership\
+      \ of a group of substances. The value may be carried on a `core:Annotation`\
+      \ or on a `core:Membership` which reifies the membership relation."
+    comment: "A specialisation of `core:SubstanceOrGroup` for food additives."
+  - class: "gmo:Gmo"
+    name: "Gmo"
+    subClassOf:
+      - "core:Substance"
+      - "gmo:GmoOrGroup"
+    properties: []
+    comment: "A specialisation of `core:Substance` for Genetically Modified Organisms."
+  - class: "gmo:GmoAuthorisation"
+    name: "GmoAuthorisation"
+    subClassOf:
+      - "core:Approval"
+    properties:
+      - prop: "core:condition"
+        name: "condition"
+        kind: "object"
+        type: "core:Condition"
+        optional: true
+        multi: true
+        unique: false
+        comment: "A reference to a condition (`core:Condition`) generally associated with\
+      \ a regulation (`core:Regulation`)."
+      - prop: "core:regulatedSubstance"
+        name: "regulatedSubstance"
+        kind: "object"
+        type: "gmo:GmoOrGroup"
+        optional: true
+        multi: true
+        unique: false
+        comment: "The regulated substance or group substances controlled by the given\
+      \ regulations. The regulated substance may be further contrained by its method\
+      \ of production (`core:regulatedProcess`) and by the uses to which it may be\
+      \ put (`core:regulatedUsageCategory`)"
+      - prop: "core:regulatedUseCategory"
+        name: "regulatedUseCategory"
+        kind: "object"
+        type: "gmo:GmoUsageCategoryOrGroup"
+        optional: true
+        multi: true
+        unique: false
+        comment: "The usage categories or category groups to which the regulated substance\
+      \ for usage limits apply."
+      - prop: "gmo:annex2"
+        name: "annex2"
+        kind: "datatype"
+        type: "rdfs:Literal"
+        optional: true
+        multi: true
+        unique: false
+        comment: "Annex II to the Cartagena Protocol"
+      - prop: "gmo:conditions"
+        name: "conditions"
+        kind: "datatype"
+        type: "rdfs:Literal"
+        optional: true
+        multi: true
+        unique: false
+        comment: "Conditions or restrictions on the placing on the market"
+      - prop: "gmo:designation"
+        name: "designation"
+        kind: "datatype"
+        type: "rdfs:Literal"
+        optional: true
+        multi: true
+        unique: false
+      - prop: "gmo:detectionMethod"
+        name: "detectionMethod"
+        kind: "datatype"
+        type: "rdfs:Literal"
+        optional: true
+        multi: true
+        unique: false
+        comment: "Method for detection"
+      - prop: "gmo:event"
+        name: "event"
+        kind: "datatype"
+        type: "rdfs:Literal"
+        optional: true
+        multi: true
+        unique: false
+        comment: "GM transformation event id (see https://en.wikipedia.org/wiki/Gene_stacked_event)"
+      - prop: "gmo:labelling"
+        name: "labelling"
+        kind: "datatype"
+        type: "rdfs:Literal"
+        optional: true
+        multi: true
+        unique: false
+        comment: "Labelling requirements"
+      - prop: "gmo:monitorPlan"
+        name: "monitorPlan"
+        kind: "datatype"
+        type: "rdfs:Literal"
+        optional: true
+        multi: true
+        unique: false
+        comment: "Monitoring plan"
+      - prop: "gmo:monitorPost"
+        name: "monitorPost"
+        kind: "datatype"
+        type: "rdfs:Literal"
+        optional: true
+        multi: true
+        unique: false
+        comment: "Post-market monitoring requirements"
+      - prop: "gmo:referenceMaterial"
+        name: "referenceMaterial"
+        kind: "datatype"
+        type: "rdfs:Literal"
+        optional: true
+        multi: true
+        unique: false
+        comment: "Related reference material."
+      - prop: "gmo:uniqueId"
+        name: "uniqueId"
+        kind: "datatype"
+        type: "rdfs:Literal"
+        optional: true
+        multi: true
+        unique: false
+    comment: "A specialisation of `core:Approval` for Genetically Modified Organisms\
+    \  (`gmo:Gmo`)."
+  - class: "gmo:GmoGroup"
+    name: "GmoGroup"
+    subClassOf:
+      - "core:SubstanceGroup"
+      - "gmo:GmoOrGroup"
+    properties: []
+    comment: "A specialisation of `core:SubstanceGroup` for Genetically Modified Organisms\
+    \  (`gmo:Gmo`)."
+  - class: "gmo:GmoOrGroup"
+    name: "GmoOrGroup"
+    subClassOf:
+      - "core:SubstanceOrGroup"
+    properties: []
+    comment: "A specialisation of `core:SubstanceOrGroup` for Genetically Modified Organism\
+    \ Authorisations (`gmo:GmoAuthorisation`)."
+  - class: "gmo:GmoUsageCategory"
+    name: "GmoUsageCategory"
+    subClassOf:
+      - "core:UsageCategory"
+      - "gmo:GmoUsageCategoryOrGroup"
+    properties: []
+    comment: "A specialisation of `core:UsageCategory` for Genetically Modified Organism\
+    \ Authorisations (`gmo:GmoAuthorisation`)."
+  - class: "gmo:GmoUsageCategoryGroup"
+    name: "GmoUsageCategoryGroup"
+    subClassOf:
+      - "gmo:GmoUsageCategoryOrGroup"
+      - "core:UsageCategoryGroup"
+    properties: []
+    comment: "A specialisation of `core:UsageCategoryGroup` for Genetically Modified\
+    \ Organism Authorisations (`gmo:GmoAuthorisation`)."
+  - class: "gmo:GmoUsageCategoryOrGroup"
+    name: "GmoUsageCategoryOrGroup"
+    subClassOf:
+      - "core:UsageCategoryOrGroup"
+    properties: []
+    comment: "A specialisation of `core:UsageCategoryOrGroup` for Genetically Modified\
+    \ Organism Authorisations (`gmo:GmoAuthorisation`)."
+  - class: "owl:Thing"
+    name: "Thing"
+    subClassOf: []
+    properties: []
+  - class: "skos:Concept"
+    name: "Concept"
+    subClassOf: []
+    properties: []
+  - class: "skos:ConceptScheme"
+    name: "ConceptScheme"
+    subClassOf: []
+    properties: []
+  - class: "vcard:Address"
+    name: "Address"
+    subClassOf: []
+    properties: []
+  - class: "org:Organization"
+    name: "Organization"
+    subClassOf: []
+    properties: []
+  - class: "prov:Agent"
+    name: "Agent"
+    subClassOf: []
+    properties: []
+  - class: "foaf:Agent"
+    name: "Agent"
+    subClassOf: []
+    properties: []
+  - class: "foaf:Document"
+    name: "Document"
+    subClassOf: []
+    properties: []
+  - class: "foaf:Organization"
+    name: "Organization"
+    subClassOf: []
+    properties: []
+  - class: "foaf:Person"
+    name: "Person"
+    subClassOf: []
+    properties: []

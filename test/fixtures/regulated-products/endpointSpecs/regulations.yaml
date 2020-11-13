@@ -1,0 +1,10 @@
+name  : regulation.list
+type  : endpoint.list
+url   : /regulated-products/id/regulations
+query : "?class rdfs:subClassOf* core:Regulation. ?id a ?class"
+description: List of all regulations that can be filtered by type, date of regulation and expiry and other available properties.
+example: /regulated-products/id/regulations?_limit=20
+softLimit : 1000
+view:
+  class: "core:Regulation"
+  projection: "*"

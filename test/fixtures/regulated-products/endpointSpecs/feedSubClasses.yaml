@@ -1,0 +1,12 @@
+name: feedSubclass.hierarchy
+type: endpoint.hierarchy
+url: /regulated-products/id/feed-additives/subclass
+scheme: "fe-base:subclass"
+relation: skos
+locator: uri
+description: A flat hierarchy endpoint of feed additive subclasses.
+example: /regulated-products/id/feed-additives/subclass?_all
+list:
+  view:
+    class: "core:UsageCategory"
+    projection: "*"

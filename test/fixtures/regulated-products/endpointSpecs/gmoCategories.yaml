@@ -1,0 +1,12 @@
+name: gmoCategory.hierarchy
+type: endpoint.hierarchy
+url: /regulated-products/id/gmo/category
+scheme: "gm-base:category"
+relation: skos
+locator: uri
+description: A flat hierarchy endpoint of gmo categories.
+example: /regulated-products/id/gmo/category?_all
+list:
+  view:
+    class: "core:UsageCategory"
+    projection: "*"

@@ -1,0 +1,8 @@
+name  : definition.item
+type  : endpoint.item
+url   : /regulated-products/def/{__regime}/{__id}
+description: A term definition endpoint.
+example: /regulated-products/def/core/Regulation
+view  :
+  class: "core:Thing"
+  projection: "*"

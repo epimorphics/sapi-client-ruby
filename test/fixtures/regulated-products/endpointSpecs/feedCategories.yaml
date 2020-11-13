@@ -1,0 +1,12 @@
+name: feedCategory.hierarchy
+type: endpoint.hierarchy
+url: /regulated-products/id/feed-additives/category
+scheme: "fe-base:category"
+relation: skos
+locator: uri
+description: A hierarchy endpoint of feed additive categories that can be traversed using hierarchy endpoint specific request parameters.
+example: /regulated-products/id/feed-additives/category?_all
+list:
+  view:
+    class: "core:UsageCategory"
+    projection: "*"

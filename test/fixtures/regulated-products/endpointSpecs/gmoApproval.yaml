@@ -1,0 +1,8 @@
+name  : gmoApproval.item
+type  : endpoint.item
+url   : /regulated-products/id/gmo/approval/{__id}
+description: A description of a single GMO approval.
+example: /regulated-products/id/gmo/approval/b5023fe33bb032aee5f846d4add1cac2b4fa7493-2020-10-06
+view  :
+  class: "gmo:GmoAuthorisation"
+  projection: "*"
