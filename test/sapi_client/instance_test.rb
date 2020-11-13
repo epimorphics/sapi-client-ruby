@@ -60,6 +60,24 @@ module SapiClient
         end
       end
 
+      describe '#get_hierarchy' do
+        it('should load a hierarchy from a hierarchy endpoint') do
+          VCR.use_cassette('sapi_instance.get_hierarchy') do
+            instance = SapiClient::Instance.new('http://fsa-rp-test.epimorphics.net')
+
+            hierarchy = instance.get_hierarchy(
+              'http://fsa-rp-test.epimorphics.net/regulated-products/id/feed-additives/category',
+              { _all: true },
+              :skos
+            )
+
+            _(hierarchy.roots.length).must_equal(5)
+            _(hierarchy.roots[0].notation).must_equal('1')
+            _(hierarchy.roots[0].children[0].notation).must_match(/1[a-z]/)
+          end
+        end
+      end
+
       describe '#get_missing_item' do
         it 'should return a wrapped-JSON value when fetching from a URL that returns 404' do
           VCR.use_cassette('sapi_instance.get_missing_item') do

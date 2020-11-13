@@ -7,7 +7,7 @@ module SapiClient
   class EndpointGroupTest < Minitest::Test
     describe 'EndpointGroup' do
       let(:base_url) { 'http://foo.bar' }
-      let(:spec_file) { 'test/fixtures/endpointSpecs/establishment.yaml' }
+      let(:spec_file) { 'test/fixtures/unified-view/endpointSpecs/establishment.yaml' }
 
       describe '#initialize' do
         it 'should be initialized by loading a YAML spec file' do
@@ -18,7 +18,7 @@ module SapiClient
         it 'should raise if the path to the endpoint specification cannot be found' do
           _(
             lambda {
-              SapiClient::EndpointGroup.new(base_url, 'test/fixtures/endpointSpecs/womble.yaml')
+              SapiClient::EndpointGroup.new(base_url, 'test/fixtures/unified-view/endpointSpecs/womble.yaml')
             }
           ).must_raise(SapiClient::Error)
         end

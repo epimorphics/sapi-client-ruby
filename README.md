@@ -28,10 +28,10 @@ configuration root file. These can either be passed as command-line arguments, o
 as environment variables:
 
 ```sh
-sapi -b http://localhost:8080 -s test/fixtures/application.yaml inspect
+sapi -b http://localhost:8080 -s test/fixtures/unified-view/application.yaml inspect
 
 export SAPI_BASE_URL=http://localhost:8080
-export SAPI_SPEC_FILE=test/fixtures/application.yaml
+export SAPI_SPEC_FILE=test/fixtures/unified-view/application.yaml
 sapi inspect
 ```
 
@@ -65,7 +65,7 @@ Ruby-ified name that can be used to refer to them. E.g:
 
 ```sh
 $ export SAPI_BASE_URL=http://localhost:8080
-$ export SAPI_SPEC_FILE=./test/fixtures/application.yaml
+$ export SAPI_SPEC_FILE=./test/fixtures/unified-view/application.yaml
 $ sapi inspect
 authority_list
   /food-businesses/authority
@@ -91,7 +91,7 @@ CLI:
 
 ```sh
   $ export SAPI_BASE_URL=http://localhost:8080
-  $ export SAPI_SPEC_FILE=./test/fixtures/application.yaml
+  $ export SAPI_SPEC_FILE=./test/fixtures/unified-view/application.yaml
   $ sapi inspection_list
   [{"@id"=>
       "http://data.food.gov.uk/food-businesses/establishment/NL7L5Y-547WTK-2N8P8W/inspection/2009-04-22",
@@ -216,7 +216,7 @@ Create a new instance of the `SapiClient::Application`, initialised with the bas
 URL and the location of the root YAML file for the application:
 
 ```ruby
-irb(main):001:0> app = SapiClient::Application.new('http://localhost:8080', 'test/fixtures/application.yaml')
+irb(main):001:0> app = SapiClient::Application.new('http://localhost:8080', 'test/fixtures/unified-view/application.yaml')
 => #<SapiClient::Application:0x000055c6ef963500 @base_url="http://localhost:8080",
 ```
 

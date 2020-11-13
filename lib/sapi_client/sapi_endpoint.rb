@@ -4,7 +4,7 @@ module SapiClient
   # Denotes a single SAPI-NT endpoint, which we can call to get back JSON data
   # about some domain value. An endpoint has a one-to-one correspondance with a
   # particular API path
-  class SapiEndpoint
+  class SapiEndpoint # rubocop:disable Metrics/ClassLength
     DEP_ENDPOINT_TYPE_LIST = 'list'
     DEP_ENDPOINT_TYPE_ITEM = 'item'
     DEP_ENDPOINT_TYPE_FORWARD = 'forward'
@@ -37,6 +37,10 @@ module SapiClient
 
     def list_endpoint?
       @type == ENDPOINT_TYPE_LIST
+    end
+
+    def hierarchy_endpoint?
+      @type == ENDPOINT_TYPE_HIERARCHY
     end
 
     # The name of the endpoint is based on the configured name from the Sapi-NT spec,

@@ -18,6 +18,13 @@ module SapiClient
 
     attr_accessor :request_logger, :base_url
 
+    # Get the resource items from the given endpoint, but then
+    # post-process them to create a resource hierarchy using
+    # some hierarchy-encoding scheme such as `:skos`
+    def get_hierarchy(url, options, scheme)
+      Hierarchy.new(get_items(url, options), scheme)
+    end
+
     def get_items(url, options = {})
       wrapper = options.delete(:wrapper)
       raise(SapiClient::Error, "Unexpected relative URL #{url}") unless absolute_url?(url)
@@ -33,7 +40,7 @@ module SapiClient
       JSON.parse(get(url, 'application/json', options))
     end
 
-    # Get parsed JSON from the given URL
+    # Get CSV-formatted data from the given URL
     def get_csv(url, options = {})
       get(url, 'text/csv', options)
     end

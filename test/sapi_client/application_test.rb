@@ -6,7 +6,7 @@ require 'sapi_client'
 module SapiClient
   class ApplicationTest < Minitest::Test
     describe 'Application' do
-      let(:spec) { 'test/fixtures/application.yaml' }
+      let(:spec) { 'test/fixtures/unified-view/application.yaml' }
       let(:base_url) { "http://localhost:#{sapi_api_port}" }
 
       describe '#initialize' do
@@ -40,7 +40,7 @@ module SapiClient
           app = SapiClient::Application.new(base_url, spec)
           file_names = app.endpoint_group_files
           _(file_names.length).must_be :>, 5
-          _(file_names).must_include('test/fixtures/endpointSpecs/establishment.yaml')
+          _(file_names).must_include('test/fixtures/unified-view/endpointSpecs/establishment.yaml')
         end
       end
 
@@ -79,6 +79,17 @@ module SapiClient
             establishments = inst.establishment_list(_limit: 1)
             _(establishments.first).must_be_kind_of(Establishment)
             assert establishments.first.invoked
+          end
+        end
+
+        it 'should retrieve a hierarchy' do
+          VCR.use_cassette('application.test_hierarchy') do
+            app = SapiClient::Application.new(
+              'http://fsa-rp-test.epimorphics.net',
+              'test/fixtures/regulated-products/application.yaml'
+            )
+            hierarchy = app.instance.feed_category_hierarchy_hierarchy({}, :skos)
+            _(hierarchy.roots.size).must_equal(5)
           end
         end
       end
