@@ -3,7 +3,7 @@
 require 'test_helper'
 require 'sapi_client'
 
-class MockWomble; end
+class MockWomble; end # rubocop:disable Lint/EmptyClass
 
 module SapiClient
   class SapiEndpointTest < Minitest::Test

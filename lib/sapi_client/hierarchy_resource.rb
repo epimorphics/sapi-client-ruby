@@ -19,7 +19,7 @@ module SapiClient
 
     def add_child(resource, add_reciprocal: true)
       @children.push(resource)
-      resource.send(:parent=, self, add_reciprocal: false ) if add_reciprocal
+      resource.send(:parent=, self, add_reciprocal: false) if add_reciprocal
     end
 
     def each_child(&block)
