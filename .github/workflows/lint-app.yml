@@ -1,6 +1,6 @@
-name: Rubocop and eslint checking
+name: Rubocop checking
 
-on: [push, pull_request]
+on: [push]
 
 jobs:
   lint:

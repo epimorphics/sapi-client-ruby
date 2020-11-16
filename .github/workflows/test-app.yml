@@ -1,4 +1,4 @@
-name: Rails tests
+name: Ruby tests
 
 on: [push]
 
