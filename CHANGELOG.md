@@ -2,6 +2,10 @@
 
 All notable changes will be documented in this file.
 
+## 0.6.1 - 2020-11-16 (Ian)
+
+- switched CI to Github actions rather than Travis
+
 ## 0.6.0 - 2020-11-12 (Ian)
 
 - Added support for hierarchy endpoints
