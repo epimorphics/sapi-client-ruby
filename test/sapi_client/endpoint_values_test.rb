@@ -46,7 +46,7 @@ module SapiClient
     end
 
     describe '#to_a' do
-      let(:spec) { 'test/fixtures/application.yaml' }
+      let(:spec) { 'test/fixtures/unified-view/application.yaml' }
       let(:base_url) { "http://localhost:#{sapi_api_port}" }
 
       it 'should invoke the endpoint with the parameters' do

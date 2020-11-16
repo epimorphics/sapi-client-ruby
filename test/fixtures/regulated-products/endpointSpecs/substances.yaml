@@ -1,0 +1,10 @@
+name  : substance.list
+type  : endpoint.list
+url   : /regulated-products/id/substances
+query : "?id a core:Substance. "
+description: List of all substances that can be filtered by type, notation, eu_enum identifier and other available properties.
+example: /regulated-products/id/substances?_limit=20
+softLimit: 1000
+view:
+  class: "core:Substance"
+  projection: "*"

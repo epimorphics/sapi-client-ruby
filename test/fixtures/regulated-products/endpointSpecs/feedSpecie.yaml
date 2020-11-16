@@ -1,0 +1,8 @@
+name  : feedSpecies.item
+type  : endpoint.item
+url   : /regulated-products/id/feed-additives/species/{__id}
+description: A description of a single feed additive species.
+example: /regulated-products/id/feed-additives/species/sows
+view:
+  class: "feed-add:Species"
+  projection: "*"

@@ -1,0 +1,8 @@
+name  : feedApproval.item
+type  : endpoint.item
+url   : /regulated-products/id/feed-additives/approval/{__id}
+description: A description of a single feed approval.
+example: /regulated-products/id/feed-additives/approval/annex-i-438_2020-07-02
+view  :
+  class: "feed-add:FeedAdditiveApproval"
+  projection: "*"

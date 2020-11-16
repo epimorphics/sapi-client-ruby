@@ -1,0 +1,9 @@
+name  : gmoApproval.list
+type  : endpoint.list
+url   : /regulated-products/id/gmo/approval
+query : "?id a gmo:GmoAuthorisation. "
+description: List of all GMO approvals that can be filtered by holder, date of regulation and expiry and other available properties.
+example: /regulated-products/id/gmo/approval?_limit=20
+view  :
+  class: "gmo:GmoAuthorisation"
+  projection: "*"

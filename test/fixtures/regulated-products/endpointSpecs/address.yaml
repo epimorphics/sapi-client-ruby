@@ -1,0 +1,8 @@
+name  : address.item
+type  : endpoint.item
+url   : /regulated-products/id/common/address/{__id}
+description: Details of a single address.
+example: /regulated-products/id/common/address/777b0f0c3978bea39b3cf15e78bd9b40514fc66d
+view:
+  class: "core:Address"
+  projection: "*"

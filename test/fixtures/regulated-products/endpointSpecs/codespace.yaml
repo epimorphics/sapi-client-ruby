@@ -1,0 +1,8 @@
+name  : codespace.item
+type  : endpoint.item
+url   : /regulated-products/id/codespace/{__code}/{__id}
+description: A term definition endpoint.
+example: /regulated-products/id/codespace/coe/414
+view  :
+  class: "core:IdCode"
+  projection: "*"

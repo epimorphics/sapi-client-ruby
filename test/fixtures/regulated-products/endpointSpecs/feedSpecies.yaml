@@ -1,0 +1,9 @@
+name  : feedSpecies.list
+type  : endpoint.list
+url   : /regulated-products/id/feed-additives/species
+query : "?id a feed-add:Species. "
+description: A list of feed additive species that can be filtered by a prefered label.
+example: /regulated-products/id/feed-additives/species?_limit=20
+view:
+  class: "feed-add:Species"
+  projection: "prefLabel"

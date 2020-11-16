@@ -1,0 +1,8 @@
+name  : regime.item
+type  : endpoint.item
+url   : /regulated-products/id/regime/{__id}
+description: Details of a single regime.
+example: /regulated-products/id/regime/gmo
+view:
+  class: "core:Regime"
+  projection: "regimeProperties.*,governingLegislation.*,regulationCollections(description,prefLabel),substanceScheme.*,usageCategoryScheme.*,substanceGroups(dateTimeStamp,idCode,prefLabel)"

@@ -1,0 +1,9 @@
+name  : feedApprovalGroup.list
+type  : endpoint.list
+url   : /regulated-products/id/feed-additives/group
+query : "?id core:regime regime:feed-additives."
+description: A list of feed additive approval groups.
+example: /regulated-products/id/feed-additives/group
+view  :
+  class: "core:Collection"
+  projection: "*"

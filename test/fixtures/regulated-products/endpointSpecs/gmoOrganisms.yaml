@@ -1,0 +1,9 @@
+name  : gmoOrganisms.list
+type  : endpoint.list
+url   : /regulated-products/id/gmo/organism
+query : "?id a gmo:Gmo. "
+description: List of all GMO organisms that can be filtered by a group membership.
+example: /regulated-products/id/gmo/organism?_limit=20
+view  :
+  class: "gmo:Gmo"
+  projection: "*"

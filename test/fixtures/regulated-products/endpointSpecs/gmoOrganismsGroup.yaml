@@ -1,0 +1,8 @@
+name  : gmoOrganismsGroup.item
+type  : endpoint.item
+url   : /regulated-products/id/gmo/group/{__id}
+description: A description of a single GMO organism group.
+example: /regulated-products/id/gmo/group/soybean
+view  :
+  class: "gmo:GmoGroup"
+  projection: "*"

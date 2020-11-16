@@ -1,0 +1,8 @@
+name  : governingLegislation.item
+type  : endpoint.item
+url   : /regulated-products/id/regime/{__regime}/governingLegislation
+description: A description of a regime's governing legislation.
+example: /regulated-products/id/regime/feed-additives/governingLegislation
+view  :
+  class: "core:Document"
+  projection: "*"

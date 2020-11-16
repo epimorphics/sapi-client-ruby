@@ -1,0 +1,8 @@
+name  : agent.item
+type  : endpoint.item
+url   : /regulated-products/id/common/agent/{__id}
+description: Details of a single agent(holder).
+example: /regulated-products/id/common/agent/562089635459cab3825dc501d8aef069309a1c23
+view:
+  class: "core:Agent"
+  projection: "*"

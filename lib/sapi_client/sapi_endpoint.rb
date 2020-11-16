@@ -4,16 +4,17 @@ module SapiClient
   # Denotes a single SAPI-NT endpoint, which we can call to get back JSON data
   # about some domain value. An endpoint has a one-to-one correspondance with a
   # particular API path
-  class SapiEndpoint
+  class SapiEndpoint # rubocop:disable Metrics/ClassLength
     DEP_ENDPOINT_TYPE_LIST = 'list'
     DEP_ENDPOINT_TYPE_ITEM = 'item'
     DEP_ENDPOINT_TYPE_FORWARD = 'forward'
     ENDPOINT_TYPE_LIST = 'endpoint.list'
     ENDPOINT_TYPE_ITEM = 'endpoint.item'
     ENDPOINT_TYPE_FORWARD = 'endpoint.forward'
+    ENDPOINT_TYPE_HIERARCHY = 'endpoint.hierarchy'
     ENDPOINT_TYPES = [
       DEP_ENDPOINT_TYPE_LIST, DEP_ENDPOINT_TYPE_ITEM, DEP_ENDPOINT_TYPE_FORWARD,
-      ENDPOINT_TYPE_LIST, ENDPOINT_TYPE_ITEM, ENDPOINT_TYPE_FORWARD
+      ENDPOINT_TYPE_LIST, ENDPOINT_TYPE_ITEM, ENDPOINT_TYPE_FORWARD, ENDPOINT_TYPE_HIERARCHY
     ].freeze
 
     def initialize(base_url, views_register, specification)
@@ -36,6 +37,10 @@ module SapiClient
 
     def list_endpoint?
       @type == ENDPOINT_TYPE_LIST
+    end
+
+    def hierarchy_endpoint?
+      @type == ENDPOINT_TYPE_HIERARCHY
     end
 
     # The name of the endpoint is based on the configured name from the Sapi-NT spec,
@@ -95,10 +100,12 @@ module SapiClient
 
     # @return A hash of all of the known views to the view specifications
     def views
-      if specification['view']
-        { 'default' => specification['view'] }
+      view_holder = specification['list'] || specification
+
+      if view_holder['view']
+        { 'default' => view_holder['view'] }
       else
-        specification['views'] || {}
+        view_holder['views'] || {}
       end
     end
 
@@ -134,6 +141,15 @@ module SapiClient
       end
 
       options
+    end
+
+    # Return the hierarchy relation type
+    def hierarchy_relation
+      specification['relation']
+    end
+
+    def hierarchy_scheme
+      specification['scheme']
     end
   end
 end

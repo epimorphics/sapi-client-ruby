@@ -1,0 +1,8 @@
+name  : gmoOrganisms.item
+type  : endpoint.item
+url   : /regulated-products/id/gmo/organism/{__id}
+description: A description of a single GMO organism.
+example: /regulated-products/id/gmo/organism/0c217a5ea592dd1b791040c4020eb433266a4ceb
+view:
+  class: "gmo:Gmo"
+  projection: "*"

@@ -49,31 +49,42 @@ module SapiClient
     # and endpoint `e` will have a methdod `e()` to get the JSON items for
     # that endpoint, and a method `e_spec()` to get the endpoint specification
     def instance
-      isnt = SapiClient::Instance.new(base_url)
+      inst = SapiClient::Instance.new(base_url)
 
       endpoints.each do |endpoint|
-        isnt.define_singleton_method(:"#{endpoint.name}", get_items_proc(endpoint, isnt))
-        isnt.define_singleton_method(:"#{endpoint.name}_json", get_json_proc(endpoint, isnt))
-        isnt.define_singleton_method(:"#{endpoint.name}_spec") { endpoint }
+        inst.define_singleton_method(:"#{endpoint.name}", get_items_proc(endpoint, inst))
+        inst.define_singleton_method(:"#{endpoint.name}_json", get_json_proc(endpoint, inst))
+        inst.define_singleton_method(:"#{endpoint.name}_spec") { endpoint }
+        if endpoint.hierarchy_endpoint?
+          inst.define_singleton_method(:"#{endpoint.name}_hierarchy", get_hierarchy_proc(endpoint, inst))
+        end
       end
 
-      isnt
+      inst
     end
 
     private
 
-    def get_items_proc(endpoint, isnt)
+    def get_items_proc(endpoint, inst)
       proc do |options|
         options[:wrapper] ||= endpoint.resource_type_wrapper_class
         endpoint_url = endpoint.url(options)
-        isnt.get_items(endpoint_url, options)
+        inst.get_items(endpoint_url, options)
       end
     end
 
-    def get_json_proc(endpoint, isnt)
+    def get_json_proc(endpoint, inst)
       proc do |options|
         endpoint_url = endpoint.url(options)
-        isnt.get_json(endpoint_url, options)
+        inst.get_json(endpoint_url, options)
+      end
+    end
+
+    def get_hierarchy_proc(endpoint, inst)
+      proc do |options, scheme|
+        options[:_all] = true unless options.key?(:_all)
+        endpoint_url = endpoint.url(options)
+        inst.get_hierarchy(endpoint_url, options, scheme)
       end
     end
   end

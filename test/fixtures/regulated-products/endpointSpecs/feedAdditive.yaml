@@ -1,0 +1,8 @@
+name  : feedAdditives.item
+type  : endpoint.item
+url   : /regulated-products/id/feed-additives/additive/{__group}/{__id}
+description: A description of a single feed additive.
+example: /regulated-products/id/feed-additives/additive/hash/1614f17088919e9e6448fec7c4f4877b253a056a
+view  :
+  class: "feed-add:FeedAdditive"
+  projection: "*"
