@@ -169,10 +169,9 @@ module SapiClient
             # found the preferred language term
             preferred_term = val.value_of
             preferred_term_lang = true
-          elsif !preferred_term_lang && !preferred_lang && val.value_lang == default_lang
-            # we don't have a preferred lang term yet, but this value is in the default lang
-            preferred_term = val.value_of
-          elsif !preferred_term && !val.value_lang
+          elsif !preferred_term_lang && !preferred_lang && val.value_lang == default_lang ||
+                !preferred_term && !val.value_lang
+            # we don't have a preferred lang term yet, but this value is in the default lang, or
             # we don't have a preferred term yet, and this value is un-tagged
             preferred_term = val.value_of
           end
