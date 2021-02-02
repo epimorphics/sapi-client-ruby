@@ -150,7 +150,7 @@ module SapiClient
       prefix = path_segments(path)
       property = prefix.pop
 
-      target = prefix.reduce(resource) { |res, segment| res[segment] } # rubocop:disable Lint/UnmodifiedReduceAccumulator
+      target = prefix.reduce(resource) { |res, segment| res[segment] }
       target[property] = value
     end
 
