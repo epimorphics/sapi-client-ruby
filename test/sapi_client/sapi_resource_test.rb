@@ -339,6 +339,11 @@ module SapiClient
         it 'should raise when an unknown message is presented' do
           _(-> { fixture.foo }).must_raise(NoMethodError)
         end
+
+        it 'should allow snake_case method names to be used in place of camelCase' do
+          fixture = SapiClient::SapiResource.new(prefLabel: 'I am Womble!')
+          _(fixture.pref_label).must_equal('I am Womble!')
+        end
       end
 
       describe 'assignment' do

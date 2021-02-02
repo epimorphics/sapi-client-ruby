@@ -133,12 +133,17 @@ module SapiClient
       pick_value_by_language(:name, options)
     end
 
-    def respond_to_missing?(property, _include_private = false) # rubocop:disable Lint/MissingSuper
-      resource.key?(property)
+    def respond_to_missing?(property, _include_private = false)
+      resource.key?(property) || resource.key?(as_camel_case_method_name(property))
     end
 
     def method_missing(property, *_args)
-      resource.key?(property) ? self[property] : super
+      return self[property] if resource.key?(property)
+
+      cc_property = as_camel_case_method_name(property)
+      return self[cc_property] if resource.key?(cc_property)
+
+      super
     end
 
     def []=(path, value)
@@ -228,6 +233,12 @@ module SapiClient
       return hsh unless hsh.is_a?(Hash)
 
       hsh.transform_keys(&:to_sym)
+    end
+
+    # Maps from `:some_word_sequence` to `:someWordSequence`
+    def as_camel_case_method_name(str)
+      first_segment, *remaining_segments = str.to_s.split('_')
+      [first_segment, *remaining_segments.map(&:capitalize)].join.to_sym
     end
   end
 end
