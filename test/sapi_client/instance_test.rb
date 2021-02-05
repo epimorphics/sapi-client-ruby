@@ -3,6 +3,24 @@
 require 'test_helper'
 require 'sapi_client'
 
+# Logger that simply captures the request and response
+class CapturingLogger
+  attr_reader :request, :response
+
+  def log_request(req)
+    @request = req
+  end
+
+  def log_response(resp)
+    @response =resp
+  end
+end
+
+# Pretend to include the Json Logger
+module JsonRailsLogger
+  REQUEST_ID = 'mock-thread-var'
+end
+
 module SapiClient
   class SapiEndpointTest < Minitest::Test
     describe 'Instance' do
@@ -94,6 +112,7 @@ module SapiClient
         it 'should use a request logger to record request and responses' do
           VCR.use_cassette('sapi_instance.request_logger') do
             logger = mock('request_logger')
+            logger.expects(:log_request).with(instance_of(Faraday::Request))
             logger.expects(:log_response).with(instance_of(Faraday::Response))
 
             instance = SapiClient::Instance.new(base_url)
@@ -124,6 +143,40 @@ module SapiClient
             resolved_resource = instance.resolve(resource)
 
             _(resolved_resource.label).must_match(/nando/i)
+          end
+        end
+      end
+
+      describe 'request identification' do
+        it 'should not pass along the `X-Request-ID` if not defined' do
+          VCR.use_cassette('sapi_instance.request_id_no_header') do
+            logger = CapturingLogger.new
+
+            instance = SapiClient::Instance.new(base_url)
+            instance.request_logger = logger
+            json = instance.get_json("#{base_url}/business/id/establishment", _limit: 1)
+            _(json).must_be_kind_of Hash
+
+            headers = logger.request.headers
+            _(headers.keys).wont_include('X-Request-ID')
+          end
+        end
+
+        it 'should pass along the `X-Request-ID` if defined' do
+          VCR.use_cassette('sapi_instance.request_id_no_header') do
+            Thread.current[JsonRailsLogger::REQUEST_ID] = 'Wimbledon-99-bus'
+            logger = CapturingLogger.new
+
+            instance = SapiClient::Instance.new(base_url)
+            instance.request_logger = logger
+            json = instance.get_json("#{base_url}/business/id/establishment", _limit: 1)
+            _(json).must_be_kind_of Hash
+
+            headers = logger.request.headers
+            _(headers.keys).must_include('X-Request-ID')
+            _(headers['X-Request-ID']).must_equal('Wimbledon-99-bus')
+          ensure
+            Thread.current[JsonRailsLogger::REQUEST_ID] = nil
           end
         end
       end
