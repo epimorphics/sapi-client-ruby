@@ -8,3 +8,4 @@
 /tmp/
 .byebug_history
 sapi-client-0.4.6.gem
+.pytest_cache
