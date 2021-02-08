@@ -62,22 +62,22 @@ module SapiClient
     # A wrapped JSON-LD value has an `@value` property
     # @return The `@value` of this object, if defined
     def value
-      resource[:'@value']
+      resource[:@value]
     end
     alias value? value
 
     def value_type
-      value? && resource[:'@type']
+      value? && resource[:@type]
     end
     alias typed_value? value_type
 
     def value_lang
-      value? && resource[:'@language']
+      value? && resource[:@language]
     end
     alias lang_tagged_value? value_lang
 
     def uri
-      resource[:'@id']
+      resource[:@id]
     end
     alias named_resource? uri
 
@@ -157,7 +157,7 @@ module SapiClient
     # Return true just in case this is a resource with a URI but no other
     # properties, and so can be meaninfully resolved
     def resolvable?
-      resource.keys == [:'@id']
+      resource.keys == [:@id]
     end
 
     private
@@ -213,11 +213,11 @@ module SapiClient
     end
 
     def value_term?(term)
-      term.is_a?(Hash) && term.key?(:'@value')
+      term.is_a?(Hash) && term.key?(:@value)
     end
 
     def wrap_term(term)
-      value_term?(term) ? term[:'@value'] : wrap_resource(term)
+      value_term?(term) ? term[:@value] : wrap_resource(term)
     end
 
     # When given an array of choices, pick the first

@@ -46,7 +46,7 @@ module SapiClient
     end
 
     # Get the content from the given URL, using the given content type
-    def get(url, content_type, options = {})
+    def get(url, content_type, options = {}) # rubocop:disable Metrics/AbcSize
       conn = faraday_connection(url)
 
       r = conn.get do |req|

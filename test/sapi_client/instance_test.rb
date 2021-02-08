@@ -12,7 +12,7 @@ class CapturingLogger
   end
 
   def log_response(resp)
-    @response =resp
+    @response = resp
   end
 end
 
@@ -126,7 +126,7 @@ module SapiClient
       describe '#resolve' do
         it 'should not attempt to resolve a resource that is not resolvable' do
           resource = mock('resource')
-          resource.expects(:'resolvable?').returns(false)
+          resource.expects(:resolvable?).returns(false)
 
           instance = SapiClient::Instance.new(base_url)
           resolved_resource = instance.resolve(resource)
@@ -136,7 +136,7 @@ module SapiClient
         it 'should resolve a resource that is resolvable' do
           VCR.use_cassette('sapi_instance.resolve') do
             resource = mock('resource')
-            resource.expects(:'resolvable?').returns(true)
+            resource.expects(:resolvable?).returns(true)
             resource.expects(:uri).returns('http://data.food.gov.uk/business/id/establishment/EHMQY4-DG9V0T-PTSDJH')
 
             instance = SapiClient::Instance.new(base_url)
