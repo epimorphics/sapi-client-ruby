@@ -43,9 +43,9 @@ Gem::Specification.new do |spec| # rubocop:disable Metrics/BlockLength
   spec.add_development_dependency 'byebug', '~> 11.1.3'
   spec.add_development_dependency 'minitest', '~> 5.0'
   spec.add_development_dependency 'minitest-reporters', '~> 1.4.2'
-  spec.add_development_dependency 'mocha', '~> 1.11.2'
+  spec.add_development_dependency 'mocha', '~> 1.12.0'
   spec.add_development_dependency 'rake', '~> 13.0.1'
-  spec.add_development_dependency 'rubocop', '~> 1.3.0'
-  spec.add_development_dependency 'simplecov', '~> 0.19.1'
+  spec.add_development_dependency 'rubocop', '~> 1.9.0'
+  spec.add_development_dependency 'simplecov', '~> 0.21.1'
   spec.add_development_dependency 'vcr', '~> 6.0.0'
 end
