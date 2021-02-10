@@ -19,7 +19,7 @@ module SapiClient
 
         it 'should treat a string as a URI' do
           r = SapiClient::SapiResource.new('http://wimbledon.org.uk/womble')
-          _(r.resource[:'@id']).must_equal('http://wimbledon.org.uk/womble')
+          _(r.resource[:@id]).must_equal('http://wimbledon.org.uk/womble')
         end
       end
 
@@ -339,6 +339,11 @@ module SapiClient
         it 'should raise when an unknown message is presented' do
           _(-> { fixture.foo }).must_raise(NoMethodError)
         end
+
+        it 'should allow snake_case method names to be used in place of camelCase' do
+          fixture = SapiClient::SapiResource.new(prefLabel: 'I am Womble!')
+          _(fixture.pref_label).must_equal('I am Womble!')
+        end
       end
 
       describe 'assignment' do
@@ -364,12 +369,12 @@ module SapiClient
         end
 
         it 'should be not resolvable if a resource has no @id' do
-          r = SapiClient::SapiResource.new('name': 'wimbledon common')
+          r = SapiClient::SapiResource.new(name: 'wimbledon common')
           refute r.resolvable?
         end
 
         it 'should be not resolvable if a resource has an @id and other properties' do
-          r = SapiClient::SapiResource.new('name': 'wimbledon common', '@id': 'http://wimbledon.common/1234')
+          r = SapiClient::SapiResource.new(name: 'wimbledon common', '@id': 'http://wimbledon.common/1234')
           refute r.resolvable?
         end
       end

@@ -1,0 +1,51 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://localhost:8090/business/id/establishment?_limit=1
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.3.0
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      sleuth-trace-id:
+      - a87045f220625ee3
+      sleuth-span-id:
+      - a87045f220625ee3
+      vary:
+      - Accept
+      cache-control:
+      - max-age=300
+      content-type:
+      - application/json
+      content-length:
+      - '4593'
+      date:
+      - Tue, 02 Feb 2021 12:30:44 GMT
+    body:
+      encoding: UTF-8
+      string: '{"meta":{"@id":"http://data.food.gov.uk/business/id/establishment?_limit=1","publisher":"","license":"","licenseName":"","comment":"FSA
+        Unified View API","version":"0.6.0","hasFormat":["http://data.food.gov.uk/business/id/establishment.rdf?_limit=1","http://data.food.gov.uk/business/id/establishment.csv?_limit=1","http://data.food.gov.uk/business/id/establishment.json?_limit=1","http://data.food.gov.uk/business/id/establishment.geojson?_limit=1","http://data.food.gov.uk/business/id/establishment.html?_limit=1","http://data.food.gov.uk/business/id/establishment.ttl?_limit=1"],"limit":1},"items":[{"@id":"http://data.food.gov.uk/business/id/establishment/MYMP65-C5YNTF-LSGSLQ","label":["Establishment
+        at (reconciled): 10, BAMBURGH CRESCENT, SHIREMOOR, NEWCASTLE UPON TYNE, NORTH
+        TYNESIDE, NE27 0NX","Establishment MYMP65-C5YNTF-LSGSLQ : N T C Care In The
+        Community, 10 BAMBURGH CRESCENT, SHIREMOOR, NEWCASTLE UPON TYNE, NE27 0NX"],"tradingName":"N
+        T C Care In The Community","premises":[{"@id":"http://data.food.gov.uk/business/id/premises/NJ0YX1-C9N1SY-VNH37N","label":"Premises:
+        N T C Care In The Community, 10 BAMBURGH CRESCENT, SHIREMOOR, NEWCASTLE UPON
+        TYNE, NE27 0NX","premisesRN":"NJ0YX1-C9N1SY-VNH37N","prefAddress":{"@id":"http://data.food.gov.uk/business/id/address/df978dd9-6f20-3d94-9c04-131b8b16d4a7","extendedAddress":"10,
+        BAMBURGH CRESCENT, SHIREMOOR, NEWCASTLE UPON TYNE, NORTH TYNESIDE, NE27 0NX","postalCode":"NE27
+        0NX","lat":5.503547286987305E1,"long":-1.5069613456726074E0,"uprn":[47239167]},"reconciledPremises":{"@id":"http://data.food.gov.uk/business/id/premises/BTFE7T-4YWE2L-HP28KH"}}],"establishmentType":{"@id":"http://data.food.gov.uk/codes/business/establishment/RC-OT","label":{"@value":"Restaurants
+        and caterers - Other","@language":"en"}},"unifiedEstablishmentType":[{"@id":"http://data.food.gov.uk/codes/business/unified-establishment-type/10508000","label":{"@value":"Restaurant
+        or Caterer - other","@language":"en"}}],"establishmentRegistration":[{"@id":"http://data.food.gov.uk/business/data/establishmentRegistration/MYMP65-C5YNTF-LSGSLQ","hasStart":"2011-03-29T14:48:34","authorityEstablishmentID":"03020/0100/3/000","enrolmentAuthority":{"@id":"http://data.food.gov.uk/codes/reference-number/authority/4307","prefLabel":[{"@value":"North
+        Tyneside Council","@language":"en"}],"notation":"4307"},"hasEnd":"2015-02-19T11:50:40","responsibility":[{"@id":"http://data.food.gov.uk/codes/business/responsibilities/responsibility/food-hygiene"}],"enrolmentStatus":{"@id":"http://data.food.gov.uk/business/def/core/inactive","prefLabel":[{"@value":"inactive","@language":"en"}]},"fhrsEstablishmentStatus":{"@id":"http://data.food.gov.uk/business/def/establishment-status/fhrs-included","prefLabel":[{"@value":"included","@language":"en"}]}}],"enrolment":[{"@id":"http://data.food.gov.uk/business/data/establishmentRegistration/MYMP65-C5YNTF-LSGSLQ","authorityEstablishmentID":"03020/0100/3/000","enrolmentAuthority":{"@id":"http://data.food.gov.uk/codes/reference-number/authority/4307","prefLabel":[{"@value":"North
+        Tyneside Council","@language":"en"}],"notation":"4307"},"hasStart":"2011-03-29T14:48:34","hasEnd":"2015-02-19T11:50:40","responsibility":[{"@id":"http://data.food.gov.uk/codes/business/responsibilities/responsibility/food-hygiene"}],"enrolmentStatus":{"@id":"http://data.food.gov.uk/business/def/core/inactive","prefLabel":[{"@value":"inactive","@language":"en"}]},"type":[{"@id":"http://data.food.gov.uk/business/def/core/Enrolment"},{"@id":"http://data.food.gov.uk/business/def/core/EstablishmentRegistration"}]}],"latestPublishedFhrsRating":{"@id":"http://data.food.gov.uk/business/def/fhrs/fhrs-4","numericValue":4,"ratingValue":"4","label":{"@value":"fhrs-4","@language":"en"},"notation":"fhrs-4"},"latestInspectionState":[{"@id":"http://data.food.gov.uk/business/id/establishment/MYMP65-C5YNTF-LSGSLQ/inspection/2010-11-02","inspectionScheme":{"@id":"http://data.food.gov.uk/business/def/fhrs/fhrs-inspection-scheme"},"hasStart":"2011-03-29T14:48:34","hasEnd":"2015-02-19T11:50:40","rating":{"@id":"http://data.food.gov.uk/business/def/fhrs/fhrs-4","numericValue":4,"ratingValue":"4","label":{"@value":"fhrs-4","@language":"en"},"notation":"fhrs-4"},"summaryScore":4,"confidenceScore":10,"hygieneScore":0,"structuralScore":10}],"operator":{"@id":"http://data.food.gov.uk/business/id/operator/a86e45dc-b4ec-33d8-a6d8-66a5d1de5537","name":["N
+        T C Short Break And Residential Service"]},"visibility":{"@id":"http://data.food.gov.uk/business/def/visibility/public","prefLabel":[{"@value":"public","@language":"en"}],"notation":"public"}}]}'
+  recorded_at: Tue, 02 Feb 2021 12:30:44 GMT
+recorded_with: VCR 6.0.0

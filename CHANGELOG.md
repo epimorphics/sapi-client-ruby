@@ -2,6 +2,14 @@
 
 All notable changes will be documented in this file.
 
+## 0.7.0 - 2021-02-08
+
+- (Ian) Pass the `X-Request-ID` header to outbound calls if the
+  value is set via a thread-local variable
+- (Ian) allow snake_case names as aliases for camel-case identifiers
+  in JSON data
+- (Ian) update dependencies
+
 ## 0.6.1 - 2020-11-16 (Ian)
 
 - switched CI to Github actions rather than Travis

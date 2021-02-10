@@ -46,12 +46,15 @@ module SapiClient
     end
 
     # Get the content from the given URL, using the given content type
-    def get(url, content_type, options = {})
+    def get(url, content_type, options = {}) # rubocop:disable Metrics/AbcSize
       conn = faraday_connection(url)
 
       r = conn.get do |req|
         req.headers['Accept'] = content_type if content_type
+        req.headers['X-Request-ID'] = request_id if request_id
         req.params.merge! options
+
+        request_logger&.log_request(req)
       end
 
       request_logger&.log_response(r)
@@ -111,6 +114,10 @@ module SapiClient
 
     def rails_logger
       defined?(Rails) && defined?(Rails.logger) && Rails.logger
+    end
+
+    def request_id
+      defined?(JsonRailsLogger) && Thread.current[JsonRailsLogger::REQUEST_ID]
     end
   end
 end
