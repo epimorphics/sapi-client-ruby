@@ -2,6 +2,11 @@
 
 All notable changes will be documented in this file.
 
+## 0.8.0 - 2021-02-25
+
+- Turn off logging of calls to remote API when running in
+  production mode (if in Rails) - GH-26
+
 ## 0.7.0 - 2021-02-08
 
 - (Ian) Pass the `X-Request-ID` header to outbound calls if the

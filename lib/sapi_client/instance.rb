@@ -105,15 +105,36 @@ module SapiClient
         faraday.request(:url_encoded)
         faraday.use FaradayMiddleware::FollowRedirects
 
-        faraday.use :instrumentation if defined?(Rails)
-        faraday.response(:logger, rails_logger, bodies: Rails.env.development?) if rails_logger
+        if rails_logging?
+          faraday.use :instrumentation
+          faraday.response(:logger, rails_logger, bodies: Rails.env.development?)
+        end
 
         faraday.adapter :net_http
       end
     end
 
+    # Return true if we should do logging for Rails. This is true iff:
+    # - we are in a Rails project AND
+    # - the Rails logger is defined AND
+    # - we are not in production mode, OR
+    # - we are in production mode, but a config option is set
+    def rails_logging?
+      defined?(Rails) &&
+        defined?(Rails.logger) &&
+        (!Rails.env.production? || rails_logging_config_setting)
+    end
+
+    # Return the value of the `sapi_client_log_api_calls` setting from the
+    # Rails configuration, or false-y if that config setting is not defined
+    def rails_logging_config_setting
+      defined?(Rails) &&
+        Rails.application.config.respond_to?(:sapi_client_log_api_calls) &&
+        Rails.application.config.sapi_client_log_api_calls
+    end
+
     def rails_logger
-      defined?(Rails) && defined?(Rails.logger) && Rails.logger
+      rails_logging? && Rails.logger
     end
 
     def request_id
