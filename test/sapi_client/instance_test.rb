@@ -108,7 +108,7 @@ module SapiClient
         end
       end
 
-      describe 'request_logger' do
+      describe 'logging' do
         it 'should use a request logger to record request and responses' do
           VCR.use_cassette('sapi_instance.request_logger') do
             logger = mock('request_logger')
@@ -120,6 +120,71 @@ module SapiClient
             json = instance.get_json("#{base_url}/business/id/establishment", _limit: 1)
             _(json).must_be_kind_of Hash
           end
+        end
+
+        it 'should not log automatically if Rails is not defined' do
+          instance = SapiClient::Instance.new(base_url)
+
+          refute instance.send(:rails_logging?)
+        end
+
+        it 'should log automatically if Rails is in dev mode' do
+          mock_env = mock('ruby-env')
+          mock_env.expects(:production?).returns(false)
+
+          mock_rails = Class.new(Object)
+          mock_rails.define_singleton_method(:logger) { Object.new }
+          mock_rails.define_singleton_method(:env) { mock_env }
+          Object.const_set('Rails', mock_rails)
+
+          instance = SapiClient::Instance.new(base_url)
+
+          assert instance.send(:rails_logging?)
+        ensure
+          # clean-up the global `Rails` constant
+          Object.send(:remove_const, 'Rails')
+        end
+
+        it 'should not log automatically if Rails is in production mode' do
+          mock_env = mock('rails-env')
+          mock_env.expects(:production?).returns(true)
+
+          mock_config = mock('rails-config')
+          mock_config.expects(:config).returns(OpenStruct.new)
+
+          mock_rails = Class.new(Object)
+          mock_rails.define_singleton_method(:logger) { Object.new }
+          mock_rails.define_singleton_method(:env) { mock_env }
+          mock_rails.define_singleton_method(:application) { mock_config }
+          Object.const_set('Rails', mock_rails)
+
+          instance = SapiClient::Instance.new(base_url)
+
+          refute instance.send(:rails_logging?)
+        ensure
+          # clean-up the global `Rails` constant
+          Object.send(:remove_const, 'Rails')
+        end
+
+        it 'should log automatically if Rails is in production mode but config is set' do
+          mock_env = mock('rails-env')
+          mock_env.expects(:production?).returns(true)
+
+          mock_config = mock('rails-config')
+          mock_config.expects(:config).returns(OpenStruct.new(sapi_client_log_api_calls: true)).at_least_once
+
+          mock_rails = Class.new(Object)
+          mock_rails.define_singleton_method(:logger) { Object.new }
+          mock_rails.define_singleton_method(:env) { mock_env }
+          mock_rails.define_singleton_method(:application) { mock_config }
+          Object.const_set('Rails', mock_rails)
+
+          instance = SapiClient::Instance.new(base_url)
+
+          assert instance.send(:rails_logging?)
+        ensure
+          # clean-up the global `Rails` constant
+          Object.send(:remove_const, 'Rails')
         end
       end
 
