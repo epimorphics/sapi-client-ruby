@@ -54,10 +54,10 @@ module SapiClient
         req.headers['X-Request-ID'] = request_id if request_id
         req.params.merge! options
 
-        request_logger&.log_request(req)
+        request_logger.log_request(req) if request_logger.respond_to?(:log_request)
       end
 
-      request_logger&.log_response(r)
+      request_logger.log_response(r) if request_logger.respond_to?(:log_response)
       raise "Failed to read from #{url}: #{r.status.inspect}" unless permissible_response_code?(r)
 
       r.body
