@@ -2,6 +2,11 @@
 
 All notable changes will be documented in this file.
 
+## 0.8.1 - 2021-06-18
+
+- (Ian) Guard against calling log methods when handed instance of
+  loggers that may not contain those methods
+
 ## 0.8.0 - 2021-02-25
 
 - Turn off logging of calls to remote API when running in
