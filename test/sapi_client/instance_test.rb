@@ -99,11 +99,10 @@ module SapiClient
       describe '#get_missing_item' do
         it 'should return a wrapped-JSON value when fetching from a URL that returns 404' do
           VCR.use_cassette('sapi_instance.get_missing_item') do
-            instance = SapiClient::Instance.new(base_url)
-            items = instance.get_items("#{base_url}/business/id/establishment/womble", _limit: 1)
-            _(items).must_be_kind_of Array
-            _(items.length).must_equal 1
-            _(items.first['status']).must_equal '404'
+            assert_raises(StandardError) do
+              instance = SapiClient::Instance.new(base_url)
+              instance.get_items("#{base_url}/business/id/establishment/womble", _limit: 1)
+            end
           end
         end
       end
