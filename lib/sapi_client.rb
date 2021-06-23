@@ -19,5 +19,15 @@ require 'sapi_client/hierarchy_resource'
 require 'sapi_client/hierarchy'
 
 module SapiClient
-  class Error < StandardError; end
+  # Custom exception for wrapping API errors
+  class Error < StandardError
+    def initialize(message = 'Yo yo yo')
+      super
+    end
+
+    def status
+      msg = JSON.parse(message)
+      msg['status']
+    end
+  end
 end
