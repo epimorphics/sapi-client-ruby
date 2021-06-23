@@ -60,7 +60,7 @@ module SapiClient
       request_logger.log_response(r) if request_logger.respond_to?(:log_response)
       raise "Failed to read from #{url}: #{r.status.inspect}" unless permissible_response_code?(r)
 
-      raise StandardError, r.body if r.status >= 400
+      raise Error, r.body if r.status >= 400
 
       r.body
     end
