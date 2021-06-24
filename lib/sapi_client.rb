@@ -17,17 +17,4 @@ require 'sapi_client/endpoint_values'
 require 'sapi_client/resource_wrapper'
 require 'sapi_client/hierarchy_resource'
 require 'sapi_client/hierarchy'
-
-module SapiClient
-  # Custom exception for wrapping API errors
-  class Error < StandardError
-    def initialize(message = 'Yo yo yo')
-      super
-    end
-
-    def status
-      msg = JSON.parse(message)
-      msg['status']
-    end
-  end
-end
+require 'sapi_client/sapi_error'
