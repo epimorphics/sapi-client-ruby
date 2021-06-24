@@ -20,7 +20,7 @@ module SapiClient
             lambda {
               SapiClient::EndpointGroup.new(base_url, 'test/fixtures/unified-view/endpointSpecs/womble.yaml')
             }
-          ).must_raise(SapiClient::Error)
+          ).must_raise(SapiError)
         end
       end
 

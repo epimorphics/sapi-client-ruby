@@ -99,7 +99,7 @@ module SapiClient
       describe '#get_missing_item' do
         it 'should raise an error when fetching from a URL that returns 404' do
           VCR.use_cassette('sapi_instance.get_missing_item') do
-            assert_raises(StandardError) do
+            assert_raises(RuntimeError) do
               instance = SapiClient::Instance.new(base_url)
               instance.get_items("#{base_url}/business/id/establishment/womble", _limit: 1)
             end
@@ -110,8 +110,8 @@ module SapiClient
           VCR.use_cassette('sapi_instance.get_missing_item') do
             instance = SapiClient::Instance.new(base_url)
             instance.get_items("#{base_url}/business/id/establishment/womble", _limit: 1)
-          rescue StandardError => e
-            _(e.status).must_equal '404'
+          rescue RuntimeError => e
+            _(e.status).must_equal 404
           end
         end
       end
