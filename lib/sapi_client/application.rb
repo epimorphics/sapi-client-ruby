@@ -7,7 +7,7 @@ module SapiClient
   class Application
     def initialize(base_url, application_spec)
       unless File.exist?(application_spec)
-        raise(SapiClient::Error, "Could not find application spec #{application_spec}")
+        raise(SapiError, "Could not find application spec #{application_spec}")
       end
 
       @base_url = base_url

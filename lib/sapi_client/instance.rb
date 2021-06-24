@@ -27,7 +27,7 @@ module SapiClient
 
     def get_items(url, options = {})
       wrapper = options.delete(:wrapper)
-      raise(SapiClient::Error, "Unexpected relative URL #{url}") unless absolute_url?(url)
+      raise(SapiError, "Unexpected relative URL #{url}") unless absolute_url?(url)
 
       json = get_json(url, options)
       items = json['error'] ? [json] : json['items'] || []
@@ -58,9 +58,7 @@ module SapiClient
       end
 
       request_logger.log_response(r) if request_logger.respond_to?(:log_response)
-      raise "Failed to read from #{url}: #{r.status.inspect}" unless permissible_response_code?(r)
-
-      raise Error, r.body if r.status >= 400
+      raise SapiError.new(r.body, r.status) unless permissible_response_code?(r)
 
       r.body
     end
@@ -90,7 +88,7 @@ module SapiClient
     # Any 2xx code is permissible, but we also allow 404 on the assumption that
     # the response includes a JSON description of the error
     def permissible_response_codes
-      (200..207).to_a.push(404)
+      (200..207).to_a
     end
 
     def absolute_url?(url)
