@@ -2,6 +2,11 @@
 
 All notable changes will be documented in this file.
 
+## 0.9.0 - 2021-06-24
+
+- (Joseph) Creates a custom exception class (SapiError) specifically
+  allowing for better surfacing of http response status codes.
+
 ## 0.8.1 - 2021-06-18
 
 - (Ian) Guard against calling log methods when handed instance of
