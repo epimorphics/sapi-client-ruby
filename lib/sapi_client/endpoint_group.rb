@@ -6,7 +6,7 @@ module SapiClient
   class EndpointGroup
     def initialize(base_url, spec_file_name)
       unless File.exist?(spec_file_name)
-        raise(SapiClient::Error, "No such specification file: #{spec_file_name}")
+        raise(SapiError, "No such specification file: #{spec_file_name}")
       end
 
       @specification = YAML.load_stream(File.read(spec_file_name))

@@ -17,7 +17,4 @@ require 'sapi_client/endpoint_values'
 require 'sapi_client/resource_wrapper'
 require 'sapi_client/hierarchy_resource'
 require 'sapi_client/hierarchy'
-
-module SapiClient
-  class Error < StandardError; end
-end
+require 'sapi_client/sapi_error'

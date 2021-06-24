@@ -10,11 +10,11 @@ module SapiClient
     describe 'SapiEndpoint' do
       describe '#initialize' do
         it 'should reject a specification with no type' do
-          _(-> { SapiClient::SapiEndpoint.new('', {}, {}) }).must_raise SapiClient::Error
+          _(-> { SapiClient::SapiEndpoint.new('', {}, {}) }).must_raise SapiError
         end
 
         it 'should reject a specification with a non-permitted type' do
-          _(-> { SapiClient::SapiEndpoint.new('', {}, 'type' => 'womble') }).must_raise SapiClient::Error
+          _(-> { SapiClient::SapiEndpoint.new('', {}, 'type' => 'womble') }).must_raise SapiError
         end
 
         it 'should accept a well-formed specification without raising' do
@@ -74,7 +74,7 @@ module SapiClient
 
         it 'should raise an error if a path variable substitution is missing' do
           ep = SapiClient::SapiEndpoint.new('http://foo.bar', {}, 'type' => 'item', 'url' => '/womble/{__id}')
-          _(-> { ep.path(ID: 42) }).must_raise(SapiClient::Error)
+          _(-> { ep.path(ID: 42) }).must_raise(SapiError)
         end
 
         it 'should allow path params to be either symbols or strings' do
@@ -187,7 +187,7 @@ module SapiClient
           ep = SapiClient::SapiEndpoint.new('http://foo.bar', {}, 'type' => 'item', 'url' => '/womble/{__id}/clan/{clan}')
 
           options = {}
-          _(-> { ep.bind(options, [42]) }).must_raise(SapiClient::Error)
+          _(-> { ep.bind(options, [42]) }).must_raise(SapiError)
         end
       end
     end

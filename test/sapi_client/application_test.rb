@@ -18,7 +18,7 @@ module SapiClient
         it 'should raise an error if the spec file does not exist' do
           _(
             -> { SapiClient::Application.new(base_url, 'wimbledon/wombles.yaml') }
-          ).must_raise(SapiClient::Error)
+          ).must_raise(SapiError)
         end
 
         it 'should store the base URL' do

@@ -18,7 +18,7 @@ module SapiClient
     ].freeze
 
     def initialize(base_url, views_register, specification)
-      raise(SapiClient::Error, 'Missing specification type') unless specification.key?('type')
+      raise(SapiError, 'Missing specification type') unless specification.key?('type')
 
       @base_url = base_url
       @views_register = views_register
@@ -26,7 +26,7 @@ module SapiClient
       @type = specification['type']
       return if ENDPOINT_TYPES.include?(@type)
 
-      raise(SapiClient::Error, "Unknown endpoint type: #{@type}")
+      raise(SapiError, "Unknown endpoint type: #{@type}")
     end
 
     attr_reader :base_url, :specification, :views_register
@@ -79,7 +79,7 @@ module SapiClient
           var_name = var_name.to_sym if !options[var_name] && options[var_name.to_sym]
 
           unless options[var_name]
-            raise(SapiClient::Error, "Missing #{var_name} for endpoint path: #{raw_path}}")
+            raise(SapiError, "Missing #{var_name} for endpoint path: #{raw_path}}")
           end
 
           pth.sub(path_var[:substitution], options.delete(var_name).to_s)
@@ -133,7 +133,7 @@ module SapiClient
     def bind(options, arg_values)
       vars = path_variables(raw_path)
       if vars.length != arg_values.length
-        raise(SapiClient::Error, "Mismatched args to bind: #{vars.inspect} / #{arg_values.inspect}")
+        raise(SapiError, "Mismatched args to bind: #{vars.inspect} / #{arg_values.inspect}")
       end
 
       vars.zip(arg_values).each do |var_name, value|
