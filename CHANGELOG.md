@@ -2,7 +2,7 @@
 
 All notable changes will be documented in this file.
 
-## 0.9.0 - 2021-09-21
+## 1.0.0 - 2021-09-21
 
 - (Mairead) Update gemspec to point to Github package registry
 
