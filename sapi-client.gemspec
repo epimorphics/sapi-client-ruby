@@ -6,7 +6,7 @@ require 'sapi_client/version'
 
 Gem::Specification.new do |spec| # rubocop:disable Metrics/BlockLength
   spec.required_ruby_version = '>= 2.5'
-  spec.name          = 'sapi-client'
+  spec.name          = 'sapi-client-ruby'
   spec.version       = SapiClient::VERSION
   spec.authors       = ['Ian Dickinson']
   spec.email         = ['i.j.dickinson@gmail.com']
@@ -17,7 +17,7 @@ Gem::Specification.new do |spec| # rubocop:disable Metrics/BlockLength
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
   # to allow pushing to a single host or delete this section to allow pushing to any host.
   if spec.respond_to?(:metadata)
-    spec.metadata['allowed_push_host'] = "TODO: Set to 'http://mygemserver.com'"
+    spec.metadata['allowed_push_host'] = 'https://rubygems.pkg.github.com/epimorphics'
 
     # spec.metadata['homepage_uri'] = 'TODO'
     # spec.metadata['source_code_uri'] = "TODO: Put your gem's public repo URL here."

@@ -2,6 +2,10 @@
 
 All notable changes will be documented in this file.
 
+## 0.9.0 - 2021-09-21
+
+- (Mairead) Update gemspec to point to Github package registry
+
 ## 0.9.0 - 2021-06-24
 
 - (Joseph) Creates a custom exception class (SapiError) specifically
