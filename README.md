@@ -10,11 +10,16 @@ Ruby metaprogramming
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'sapi-client', git: 'git@github.com:epimorphics/sapi-client-ruby.git'
+source "https://rubygems.pkg.github.com/epimorphics" do
+  gem "sapi-client-ruby", "1.0.0"
+end
 ```
 
-And then execute:
+To authenticate with Bundler, configure Bundler to use your personal access token, replacing USERNAME with your GitHub username, TOKEN with your personal access token, and OWNER with the name of the user or organization account that owns the repository containing your project.
 
+```sh
+bundle config https://rubygems.pkg.github.com/OWNER USERNAME:TOKEN
+```
 ```sh
 bundle
 ```
@@ -40,12 +45,10 @@ See `sapi --help` for more details.
 Within a project that depends on `sapi-client-ruby` in the Gemfile, the `sapi` command
 should just work. However, it may be helpful to install it outside of a specific
 project, so that the `sapi` command may also be used from anywhere. Normally, `gem install`
-will normally only install a Rubygem from the `rubygems.org` directory. To install a
-specific gem from a Github URL, use the `specific_install` gem:
+will normally only install a Rubygem from the `rubygems.org` directory. You can install this gem from the Github package registry. Please note: You have to add your credentials in line and you cannot use the `~/.gem/credentials` with gem install
 
 ```sh
-gem install specific_install
-gem specific_install -l 'git@github.com:epimorphics/sapi-client-ruby.git'
+gem install sapi-client-ruby --version "1.0.0" --source "https://{username}:{token}@rubygems.pkg.github.com/epimorphics"
 ```
 
 Then `sapi` should be on your `$PATH`:

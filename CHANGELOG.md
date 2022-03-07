@@ -2,6 +2,10 @@
 
 All notable changes will be documented in this file.
 
+## 1.0.0 - 2022-03-07
+
+- (Mairead) Update gemspec to point to Github package registry
+
 ## 0.9.1 - 2022-03-07
 
 - (Ian) Remove errant require of `byebug`
