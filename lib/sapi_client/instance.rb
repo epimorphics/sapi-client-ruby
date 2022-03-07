@@ -1,8 +1,5 @@
 # frozen-string-literal: true
 
-require 'logger'
-require 'byebug'
-
 module SapiClient
   # Denotes a particular instance of a Sapi-NT API. The instance has the basic
   # capability of invoking a generic endpoint by URL, and we the augment this
