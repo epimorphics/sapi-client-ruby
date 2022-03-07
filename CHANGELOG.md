@@ -2,6 +2,10 @@
 
 All notable changes will be documented in this file.
 
+## 0.9.1 - 2022-03-07
+
+- (Ian) Remove errant require of `byebug`
+
 ## 0.9.0 - 2021-06-24
 
 - (Joseph) Creates a custom exception class (SapiError) specifically
