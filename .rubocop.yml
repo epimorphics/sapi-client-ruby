@@ -20,6 +20,7 @@ Metrics/BlockLength:
   Exclude:
     - test/**/*
     - lib/tasks/*
+    - sapi-client-ruby.gemspec
 
 Metrics/ClassLength:
   Exclude:
