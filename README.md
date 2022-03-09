@@ -1,30 +1,48 @@
-# Sapi-NT client ruby
+# Sapi-NT client for Ruby
 
 This is a simple client library for interacting with Sapi-NT APIs in a Ruby
 or Rails project. The client is initialised with a reference to the Sapi-NT
 modelspec for the API, which is used to generate a custom API class using
 Ruby metaprogramming
 
-## Installation
+## Usage
 
-Add this line to your application's Gemfile:
+See [below](#developer-notes) for notes on developing and updating this gem.
+
+### Installation in a project
+
+To add this library to your Ruby or Rails project, addd this line to your
+application's `Gemfile`:
 
 ```ruby
 source "https://rubygems.pkg.github.com/epimorphics" do
-  gem "sapi-client-ruby", "1.0.0"
+  gem "sapi-client-ruby", "~> 1.0.0"
 end
 ```
 
-To authenticate with Bundler, configure Bundler to use your personal access token, replacing USERNAME with your GitHub username, TOKEN with your personal access token, and OWNER with the name of the user or organization account that owns the repository containing your project.
+You may need to authenticate with Github to allow Bundler to access the GitHub
+Package Registry. To authenticate manually, configure Bundler to use your personal access
+token, replacing USERNAME with your GitHub username, TOKEN with your personal
+access token:
 
 ```sh
-bundle config https://rubygems.pkg.github.com/OWNER USERNAME:TOKEN
-```
-```sh
-bundle
+bundle config https://rubygems.pkg.github.com/epimorphics USERNAME:TOKEN
 ```
 
-## Command line usage
+**Note** that in Epimorphics' projects, our standard pattern is to include a
+`Makefile` in each project, which typically will include an `auth` target for
+authenticating with the GitHub package registry. Thus an equivalent, but simpler,
+command to use instead of the line above is:
+
+```sh
+make auth
+```
+
+This will prompt you to provide a Github personal access tokenn (PAT). See notes
+on the [Epimorphics Wiki](https://github.com/epimorphics/internal/wiki/Ansible-CICD#creating-a-pat-for-gpr-access)
+about creating a PAT.
+
+### Command line usage
 
 To aid debugging and exploring a Sapi-NT endpoint, this library has a command-line
 tool `sapi`.  As required inputs, the tool needs both the base URL for the
@@ -61,7 +79,7 @@ Usage:
 ....
 ```
 
-### Command: inspect
+#### Command: inspect
 
 Inspect is used to list the available endpoints for a SAPI instance, together with the
 Ruby-ified name that can be used to refer to them. E.g:
@@ -85,7 +103,7 @@ establishment_list
   ....
 ```
 
-### Commands to invoke an API endpoint
+#### Commands to invoke an API endpoint
 
 The keys for each of the sections of the `inspect` command, e.g. `authority_list`
 are the names of the Ruby methods that can be invoked on the service object to
@@ -213,7 +231,7 @@ $ sapi establishment_item MBTM1R-A8K4VZ-2FJCYJ -j
       "authorityID": "327",
 ```
 
-## Using Sapi-client from code
+### Using Sapi-client from code
 
 Create a new instance of the `SapiClient::Application`, initialised with the base
 URL and the location of the root YAML file for the application:
@@ -238,7 +256,7 @@ The `*_json` variant of the method will return the raw JSON output. The `*_spec`
 variant will return the specification of the API endpoint (including the name,
 description, etc), while the unadorned version will return the item as a Ruby object.
 
-### Wrapper classes
+#### Wrapper classes
 
 When calling the `*_json` methods, the return value is just JSON, expressed as a
 Ruby `Hash`. Hash presents a fairly low-level API to interact with the data, so
@@ -246,11 +264,11 @@ when calling the main item-getting API methods, the return value will be wrapped
 via some facade class. The base facade is `SapiClient::SapiResource`. SapiResource
 has methods to:
 
-* traverse paths through the structure (e.g. `establishment.authority.name`)
-* provide convenience access to common fields, e.g. `uri`
-* map Ruby method calls to fields in the underlying JSON (e.g. a resource with a
+- traverse paths through the structure (e.g. `establishment.authority.name`)
+- provide convenience access to common fields, e.g. `uri`
+- map Ruby method calls to fields in the underlying JSON (e.g. a resource with a
   `name` property in JSON will respond to a `.name()` method call)
-* pick the best option from a list of language-tagged literals, given a preferred language.
+- pick the best option from a list of language-tagged literals, given a preferred language.
 
 SapiResource is designed to function well as a base class for more domain-specific
 facade classes, such as `Establishment` for establishment resources.
@@ -258,16 +276,16 @@ facade classes, such as `Establishment` for establishment resources.
 To associate the values of an endpoint with a facade class, there are a number
 of options:
 
-* a class may be be passed via the `wrapper` option when invoking an API endpoint
+- a class may be be passed via the `wrapper` option when invoking an API endpoint
   method. E.g: `myEndpoint.establishment_list(_limit: 1, wrapper: MyClass)`
-* if no explicit `wrapper option is available`, the endpoint will look for a
+- if no explicit `wrapper option is available`, the endpoint will look for a
   class that has the same name as the resource-type for the endpoint (e.g. an
   establishments endpoint will have a resource type of `:Establishment`, which
   will then look for an `Establishment` class in Ruby's root namespace)
-* if no matching resource-type class can be found, `SapiClient::SapiResource`
+- if no matching resource-type class can be found, `SapiClient::SapiResource`
   will be used as a default.
 
-### Options
+#### Options
 
 The endpoint methods that actually call the endpoint (i.e. not `_spec`) take
 a hash of options, e.g. the query limit:
@@ -282,7 +300,7 @@ Where an API URL takes a path parameter, also pass this using the options:
 inst.establishment_item(id: 'MBTM1R-A8K4VZ-2FJCYJ')
 ```
 
-### Pagination
+#### Pagination
 
 It is convenient to have a proxy-pattern object that denotes a collection of
 value from the endpoint. This proxy can change its parameters, such as the limit
@@ -303,19 +321,36 @@ endpoint_values =
 collection = endpoint_values.to_a
 ```
 
-## Development
+## Developer notes
 
-After checking out the repo, run `bin/setup` to install dependencies. Then,
-run `rake test` to run the tests. You can also run `bin/console` for an
+After checking out the repo, run `make setup` to install dependencies. Then,
+run `make test` to run the tests. You can also run `make console` for an
 interactive prompt that will allow you to experiment.
 
-To install this gem onto your local machine, run `bundle exec rake install`.
-To release a new version, update the version number in `version.rb`, and then
-run `bundle exec rake release`, which will create a git tag for the version,
-push git commits and tags, and push the `.gem` file
-to [rubygems.org](https://rubygems.org).
+### Code standards
 
-## Contributing
+Rubocop should always return zero warnings. Run `make lint` to run RuboCop.
+
+### Tests
+
+Run the test suite with `make test`. Ideally, the test coverage reported by
+Minitest should not go down as new code is added.
+
+### Publishing
+
+This gem is published to the [GitHub Package Registry](https://github.com/epimorphics/sapi-client-ruby/packages/)
+
+To publish a new version of this gem:
+
+- make the required changes, and have the PR peer-reviewed by at least one
+  other person
+- increment the version number `lib/sapi_client/version.rb` according to
+  whether this is a major, minor or fix change
+- update the `CHANGELOG.md`
+- ensure that `make test` and `make lint` are both free of errors
+- build the gem and push it to the registry with `make publish`
+
+### Contributing
 
 Bug reports and pull requests are welcome on GitHub at
 https://github.com/epimorphics/sapi-client-ruby. This project is
@@ -323,12 +358,12 @@ intended to be a safe, welcoming space for collaboration, and contributors
 are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org)
 code of conduct.
 
-## License
+### License
 
 The gem is available as open source under the terms of
 the [MIT License](https://opensource.org/licenses/MIT).
 
-## Code of Conduct
+### Code of Conduct
 
 Everyone interacting in the Sapi::Client::Ruby project’s
 codebases, issue trackers, chat rooms and mailing lists

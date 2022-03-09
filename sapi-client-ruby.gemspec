@@ -8,16 +8,18 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = '>= 2.5'
   spec.name          = 'sapi-client-ruby'
   spec.version       = SapiClient::VERSION
-  spec.authors       = ['Ian Dickinson']
-  spec.email         = ['i.j.dickinson@gmail.com']
+  spec.authors       = ['Epimorphics Ltd']
+  spec.email         = ['support@epimorphics.com']
+  spec.homepage      = 'https://github.com/epimorphics/sapi-client-ruby'
 
-  spec.summary       = 'Adds Ruby support for interacting with a SAPI-NT API'
+  spec.summary       = 'Adds Ruby support for interacting with a SapiNT API'
   spec.license       = 'MIT'
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
   # to allow pushing to a single host or delete this section to allow pushing to any host.
 
   spec.metadata['allowed_push_host'] = 'https://rubygems.pkg.github.com/epimorphics'
+  spec.metadata['rubygems_mfa_required'] = 'true'
 
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
