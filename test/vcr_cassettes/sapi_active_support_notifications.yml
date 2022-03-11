@@ -1,0 +1,61 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://fsa-rp-test.epimorphics.net//regulated-products/id/regime.json?_limit=1
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.10.0
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      date:
+      - Fri, 11 Mar 2022 16:59:14 GMT
+      content-type:
+      - application/json
+      content-length:
+      - '4218'
+      connection:
+      - keep-alive
+      sleuth-trace-id:
+      - 93a25d41c937cd82
+      sleuth-span-id:
+      - 93a25d41c937cd82
+      vary:
+      - Accept, Origin
+      cache-control:
+      - max-age=1200
+      strict-transport-security:
+      - max-age=15724800; includeSubDomains
+      x-cache-status:
+      - MISS
+    body:
+      encoding: UTF-8
+      string: '{"meta":{"@id":"/http://data.food.gov.uk/regulated-products/id/regime.json?_limit=1","publisher":"Food
+        Standards Agency","license":"http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/","licenseName":"OGL
+        3","comment":"","version":"0.1","hasFormat":["/http://data.food.gov.uk/regulated-products/id/regime.geojson?_limit=1","/http://data.food.gov.uk/regulated-products/id/regime.ttl?_limit=1","/http://data.food.gov.uk/regulated-products/id/regime.csv?_limit=1","/http://data.food.gov.uk/regulated-products/id/regime.rdf?_limit=1","/http://data.food.gov.uk/regulated-products/id/regime.xls?_limit=1","/http://data.food.gov.uk/regulated-products/id/regime.html?_limit=1","/http://data.food.gov.uk/regulated-products/id/regime.json?_limit=1"],"limit":1},"items":[{"@id":"http://data.food.gov.uk/regulated-products/id/regime/feed-additives","governingLegislation":[{"@id":"http://data.food.gov.uk/regulated-products/id/regime/feed-additives/governingLegislation","title":"REGULATION
+        (EC) No 1831/2003 OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL of 22 September
+        2003 on additives for use in animal nutrition.","comment":"Changes to legislation:Regulation
+        (EC) No 1831/2003 of the European Parliament and of the Council is up to date
+        with all changes known to be in force on or before 26 October 2020. There
+        are changes that may be brought into force at a future date. Changes that
+        have been made appear in the content and are referenced with annotations.","downloadURL":{"@id":"https://www.legislation.gov.uk/eur/2003/1831"},"type":[{"@id":"http://data.food.gov.uk/regulated-products/def/core/Document"}],"prefLabel":["Retained
+        EU Regulation 1831/2003"]}],"regimeRegulationSubClass":[{"@id":"http://data.food.gov.uk/regulated-products/def/feed-additives/FeedAdditiveAuthorisation"}],"regulationCollections":[{"@id":"http://data.food.gov.uk/regulated-products/id/feed-additives/group/subject-to-application-submission","description":["Subject
+        to application submission"],"prefLabel":["Subject to application submission"]},{"@id":"http://data.food.gov.uk/regulated-products/id/feed-additives/group/application-for-re-authorisation-submitted","description":["Application
+        for re-authorisation submitted"],"prefLabel":["Application for re-authorisation
+        submitted"]},{"@id":"http://data.food.gov.uk/regulated-products/id/feed-additives/group/subject-to-status-review","description":["Subject
+        to status review"],"prefLabel":["Subject to status review"]},{"@id":"http://data.food.gov.uk/regulated-products/id/feed-additives/group/application-for-renewal-submitted","description":["Application
+        for renewal submitted"],"prefLabel":["Application for renewal submitted"]},{"@id":"http://data.food.gov.uk/regulated-products/id/feed-additives/group/expiry-date-with-transitional-measures-applied","description":["Expiry
+        date with transitional measures applied"],"prefLabel":["Expiry date with transitional
+        measures applied"]},{"@id":"http://data.food.gov.uk/regulated-products/id/feed-additives/group/transitional-measures-applied","description":["Transitional
+        measures applied"],"prefLabel":["Transitional measures applied"]}],"substanceScheme":[{"@id":"http://data.food.gov.uk/regulated-products/id/feed-additives/additive"}],"usageCategoryScheme":[{"@id":"http://data.food.gov.uk/regulated-products/id/feed-additives/category","regime":[{"@id":"http://data.food.gov.uk/regulated-products/id/regime/feed-additives"}],"hasTopConcept":[{"@id":"http://data.food.gov.uk/regulated-products/id/feed-additives/category/4"},{"@id":"http://data.food.gov.uk/regulated-products/id/feed-additives/category/3"},{"@id":"http://data.food.gov.uk/regulated-products/id/feed-additives/category/5"},{"@id":"http://data.food.gov.uk/regulated-products/id/feed-additives/category/2"},{"@id":"http://data.food.gov.uk/regulated-products/id/feed-additives/category/1"}]}],"speciesCollection":[{"@id":"http://data.food.gov.uk/regulated-products/id/feed-additives/species"}],"subclassScheme":[{"@id":"http://data.food.gov.uk/regulated-products/id/feed-additives/subclass"}],"type":[{"@id":"http://data.food.gov.uk/regulated-products/def/core/Regime"}],"notation":"feed-additives","prefLabel":["Feed
+        Additives regulated products regime"]}]}'
+  recorded_at: Fri, 11 Mar 2022 16:59:14 GMT
+recorded_with: VCR 6.0.0

@@ -8,12 +8,15 @@ module SapiClient
   #
   # If the `request_logger` is set, each request and response pair is sent to the
   # just before the request is made and just after the response is received.
-  class Instance
-    def initialize(base_url)
-      @base_url = base_url
-    end
+  class Instance # rubocop:disable Metrics/ClassLength
+    attr_accessor :request_logger
+    attr_reader :base_url, :logger, :instrumenter
 
-    attr_accessor :request_logger, :base_url
+    def initialize(base_url, config = {})
+      @base_url = base_url
+      @logger = config[:logger] || rails_logger
+      @instrumenter = config[:instrumenter] || rails_active_support_notifications
+    end
 
     # Get the resource items from the given endpoint, but then
     # post-process them to create a resource hierarchy using
@@ -43,7 +46,7 @@ module SapiClient
     end
 
     # Get the content from the given URL, using the given content type
-    def get(url, content_type, options = {}) # rubocop:disable Metrics/AbcSize
+    def get(url, content_type, options = {}) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
       conn = faraday_connection(url)
 
       r = conn.get do |req|
@@ -55,9 +58,16 @@ module SapiClient
       end
 
       request_logger.log_response(r) if request_logger.respond_to?(:log_response)
+      instrument_response(r)
       raise SapiError.new(r.body, r.status) unless permissible_response_code?(r)
 
       r.body
+    rescue Faraday::ConnectionFailed => e
+      instrument_connection_failure(e)
+      raise SapiError.new("Failed to connect to remote API endpoint: #{e.message}", nil)
+    rescue RuntimeError => e
+      instrument_service_exception(e)
+      raise SapiError.new("Failed to connect to remote API endpoint: #{e.message}", e.status)
     end
 
     def service_base_url
@@ -103,11 +113,11 @@ module SapiClient
         faraday.use FaradayMiddleware::FollowRedirects
 
         if rails_logging?
-          faraday.use :instrumentation
-          faraday.response(:logger, rails_logger, bodies: Rails.env.development?)
+          faraday.use(:instrumentation)
+          faraday.response(:logger, rails_logger)
         end
 
-        faraday.adapter :net_http
+        faraday.adapter(:net_http)
       end
     end
 
@@ -117,15 +127,14 @@ module SapiClient
     # - we are not in production mode, OR
     # - we are in production mode, but a config option is set
     def rails_logging?
-      defined?(Rails) &&
-        defined?(Rails.logger) &&
+      in_rails? && defined?(Rails.logger) && Rails.logger &&
         (!Rails.env.production? || rails_logging_config_setting)
     end
 
     # Return the value of the `sapi_client_log_api_calls` setting from the
     # Rails configuration, or false-y if that config setting is not defined
     def rails_logging_config_setting
-      defined?(Rails) &&
+      in_rails? &&
         Rails.application.config.respond_to?(:sapi_client_log_api_calls) &&
         Rails.application.config.sapi_client_log_api_calls
     end
@@ -134,8 +143,29 @@ module SapiClient
       rails_logging? && Rails.logger
     end
 
+    def rails_active_support_notifications
+      (in_rails? && defined?(ActiveSupport) && ActiveSupport::Notifications)
+    end
+
     def request_id
       defined?(JsonRailsLogger) && Thread.current[JsonRailsLogger::REQUEST_ID]
+    end
+
+    def instrument_response(response)
+      puts 'Instrument SapiNT response'
+      instrumenter&.instrument('response.sapi_nt', response: response)
+    end
+
+    def instrument_connection_failure(exception)
+      instrumenter&.instrument('connection_failure.sapi_nt', exception: exception)
+    end
+
+    def instrument_service_exception(exception)
+      instrumenter&.instrument('service_exception.sapi_nt', exception: exception)
+    end
+
+    def in_rails?
+      defined?(Rails)
     end
   end
 end

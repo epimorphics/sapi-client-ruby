@@ -29,3 +29,6 @@ Metrics/ClassLength:
 Style/Documentation:
   Exclude:
     - test/**/*
+
+Style/OpenStructUse:
+  Enabled: false

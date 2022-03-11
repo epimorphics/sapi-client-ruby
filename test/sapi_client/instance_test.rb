@@ -81,6 +81,10 @@ module SapiClient
       describe '#get_hierarchy' do
         it('should load a hierarchy from a hierarchy endpoint') do
           VCR.use_cassette('sapi_instance.get_hierarchy') do
+            # mock_rails = Class.new(Object)
+            # mock_rails.define_singleton_method(:logger) { Object.new }
+            # Object.const_set('Rails', mock_rails)
+
             instance = SapiClient::Instance.new('http://fsa-rp-test.epimorphics.net')
 
             hierarchy = instance.get_hierarchy(
@@ -138,7 +142,7 @@ module SapiClient
 
         it 'should log automatically if Rails is in dev mode' do
           mock_env = mock('ruby-env')
-          mock_env.expects(:production?).returns(false)
+          mock_env.expects(:production?).returns(false).at_least(1)
 
           mock_rails = Class.new(Object)
           mock_rails.define_singleton_method(:logger) { Object.new }
@@ -155,10 +159,10 @@ module SapiClient
 
         it 'should not log automatically if Rails is in production mode' do
           mock_env = mock('rails-env')
-          mock_env.expects(:production?).returns(true)
+          mock_env.expects(:production?).returns(true).at_least(1)
 
           mock_config = mock('rails-config')
-          mock_config.expects(:config).returns(OpenStruct.new)
+          mock_config.expects(:config).returns(OpenStruct.new).at_least(1)
 
           mock_rails = Class.new(Object)
           mock_rails.define_singleton_method(:logger) { Object.new }
@@ -176,7 +180,7 @@ module SapiClient
 
         it 'should log automatically if Rails is in production mode but config is set' do
           mock_env = mock('rails-env')
-          mock_env.expects(:production?).returns(true)
+          mock_env.expects(:production?).returns(true).at_least(1)
 
           mock_config = mock('rails-config')
           mock_config.expects(:config).returns(OpenStruct.new(sapi_client_log_api_calls: true)).at_least_once
@@ -250,6 +254,72 @@ module SapiClient
             _(headers['X-Request-ID']).must_equal('Wimbledon-99-bus')
           ensure
             Thread.current[JsonRailsLogger::REQUEST_ID] = nil
+          end
+        end
+      end
+
+      describe 'active support notifications' do
+        it 'should emit ActiveSupport Notification events' do
+          VCR.use_cassette('sapi_active_support_notifications') do
+            mock_env = mock('rails-env')
+            mock_env.expects(:production?).returns(true).at_least(1)
+
+            mock_config = mock('rails-config')
+            mock_config.expects(:config).returns(OpenStruct.new).at_least(1)
+
+            mock_rails = Class.new(Object)
+            mock_rails.define_singleton_method(:logger) { Object.new }
+            mock_rails.define_singleton_method(:env) { mock_env }
+            mock_rails.define_singleton_method(:application) { mock_config }
+            Object.const_set('Rails', mock_rails)
+
+            mock_notifications = mock('Notifications')
+            mock_notifications.expects(:instrument).with { |event, _payload| event == 'response.sapi_nt' }
+
+            mock_active_support = Module.new
+            mock_active_support.const_set('Notifications', mock_notifications)
+            Object.const_set('ActiveSupport', mock_active_support)
+
+            reg_products_base_url = 'https://fsa-rp-test.epimorphics.net/'
+            instance = SapiClient::Instance.new(reg_products_base_url)
+            instance.get_json("#{reg_products_base_url}/regulated-products/id/regime.json", _limit: 1)
+          ensure
+            # clean-up the global `Rails` constant
+            Object.send(:remove_const, 'Rails')
+            Object.send(:remove_const, 'ActiveSupport')
+          end
+        end
+
+        it 'should emit ActiveSupport Notification events on failure' do
+          VCR.use_cassette('sapi_active_support_failure_notifications') do
+            mock_env = mock('rails-env')
+            mock_env.expects(:production?).returns(true).at_least(1)
+
+            mock_config = mock('rails-config')
+            mock_config.expects(:config).returns(OpenStruct.new).at_least(1)
+
+            mock_rails = Class.new(Object)
+            mock_rails.define_singleton_method(:logger) { Object.new }
+            mock_rails.define_singleton_method(:env) { mock_env }
+            mock_rails.define_singleton_method(:application) { mock_config }
+            Object.const_set('Rails', mock_rails)
+
+            mock_notifications = mock('Notifications')
+            mock_notifications.expects(:instrument).with do |event, _payload|
+              event == 'connection_failure.sapi_nt'
+            end
+
+            mock_active_support = Module.new
+            mock_active_support.const_set('Notifications', mock_notifications)
+            Object.const_set('ActiveSupport', mock_active_support)
+
+            reg_products_base_url = 'https://nowhere.epimorphics.net/'
+            instance = SapiClient::Instance.new(reg_products_base_url)
+            _(-> { instance.get_json("#{reg_products_base_url}/id/wombles.json", _limit: 1) }).must_raise
+          ensure
+            # clean-up the global `Rails` constant
+            Object.send(:remove_const, 'Rails')
+            Object.send(:remove_const, 'ActiveSupport')
           end
         end
       end
