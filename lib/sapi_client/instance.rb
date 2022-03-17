@@ -144,7 +144,7 @@ module SapiClient
     end
 
     def rails_active_support_notifications
-      (in_rails? && defined?(ActiveSupport) && ActiveSupport::Notifications)
+      in_rails? && defined?(ActiveSupport) && ActiveSupport::Notifications
     end
 
     def request_id
@@ -152,7 +152,6 @@ module SapiClient
     end
 
     def instrument_response(response)
-      puts 'Instrument SapiNT response'
       instrumenter&.instrument('response.sapi_nt', response: response)
     end
 
