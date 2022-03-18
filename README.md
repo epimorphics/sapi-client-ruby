@@ -321,6 +321,24 @@ endpoint_values =
 collection = endpoint_values.to_a
 ```
 
+#### Instrumentation through `ActiveSupport::Notification`
+
+To assist with adding Prometheus monitoring of an application's interaction
+with a remote SapiNT endpoint, this client library will emit `ActiveSupport`
+`Notification` events, assuming it's being run in a Rails environment.
+These events can be subscribed to, and used to add data to Prometheus client
+gauges.
+
+The events emitted are:
+
+- `response.sapi_nt`
+  which will record normal responses, including response code
+- `connection_failure.sapi_nt`
+  which will record events where Faraday was unable to connect to
+  the remote endpoint
+- `service_exception.sapi_nt`
+  which records other errors states, not including connection failure
+
 ## Developer notes
 
 After checking out the repo, run `make setup` to install dependencies. Then,

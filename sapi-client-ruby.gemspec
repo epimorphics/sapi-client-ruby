@@ -5,7 +5,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'sapi_client/version'
 
 Gem::Specification.new do |spec|
-  spec.required_ruby_version = '>= 2.5'
+  spec.required_ruby_version = '>= 2.7.4'
   spec.name          = 'sapi-client-ruby'
   spec.version       = SapiClient::VERSION
   spec.authors       = ['Epimorphics Ltd']
@@ -36,10 +36,10 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'bundler', '~> 2.1.4'
   spec.add_development_dependency 'byebug', '~> 11.1.3'
   spec.add_development_dependency 'minitest', '~> 5.0'
-  spec.add_development_dependency 'minitest-reporters', '~> 1.4.2'
-  spec.add_development_dependency 'mocha', '~> 1.12.0'
+  spec.add_development_dependency 'minitest-reporters', '~> 1.5.0'
+  spec.add_development_dependency 'mocha', '~> 1.13.0'
   spec.add_development_dependency 'rake', '~> 13.0.1'
-  spec.add_development_dependency 'rubocop', '~> 1.9.0'
+  spec.add_development_dependency 'rubocop', '~> 1.26.0'
   spec.add_development_dependency 'simplecov', '~> 0.21.1'
   spec.add_development_dependency 'vcr', '~> 6.0.0'
 end

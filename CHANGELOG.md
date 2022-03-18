@@ -2,6 +2,12 @@
 
 All notable changes will be documented in this file.
 
+## 1.1.0 - 2022-03-11
+
+- (Ian) Add support for emitting `ActiveSupport::Notification` events
+  when running in a Rails environment. This is in support of instrumenting
+  calls to SapiNT endpoints using Prometheus.
+
 ## 1.0.1 - 2022-03-08
 
 - (Ian) Updating the build scripts

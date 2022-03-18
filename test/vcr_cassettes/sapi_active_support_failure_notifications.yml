@@ -1,0 +1,114 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://fsa-rp-test.epimorphics.net//regulated-products/id/wombles.json?_limit=1
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.10.0
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: ''
+    headers:
+      date:
+      - Fri, 11 Mar 2022 17:08:49 GMT
+      content-type:
+      - application/json;charset=UTF-8
+      content-length:
+      - '196'
+      connection:
+      - keep-alive
+      sleuth-trace-id:
+      - 3ee1ca3ae8f4088f
+      sleuth-span-id:
+      - 3ee1ca3ae8f4088f
+      vary:
+      - Accept, Origin, Access-Control-Request-Method, Access-Control-Request-Headers
+      cache-control:
+      - max-age=1200
+      strict-transport-security:
+      - max-age=15724800; includeSubDomains
+    body:
+      encoding: UTF-8
+      string: |-
+        {
+          "timestamp" : "Fri Mar 11 17:08:49 GMT 2022",
+          "status" : "404",
+          "error" : "Not Found",
+          "message" : "Requested endpoint doesn't exist",
+          "path" : "//regulated-products/id/wombles.json"
+        }
+  recorded_at: Fri, 11 Mar 2022 17:08:49 GMT
+- request:
+    method: get
+    uri: https://fsa-rp-test.epimorphics.net//wimbledon/id/wombles.json?_limit=1
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.10.0
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 301
+      message: Moved Permanently
+    headers:
+      date:
+      - Fri, 11 Mar 2022 17:12:40 GMT
+      content-type:
+      - text/html; charset=utf-8
+      content-length:
+      - '70'
+      connection:
+      - keep-alive
+      location:
+      - "/wimbledon/id/wombles.json?_limit=1"
+      strict-transport-security:
+      - max-age=15724800; includeSubDomains
+      x-cache-status:
+      - MISS
+      vary:
+      - Origin
+    body:
+      encoding: UTF-8
+      string: "<a href=\"/wimbledon/id/wombles.json?_limit=1\">Moved Permanently</a>.\n\n"
+  recorded_at: Fri, 11 Mar 2022 17:12:40 GMT
+- request:
+    method: get
+    uri: https://fsa-rp-test.epimorphics.net/wimbledon/id/wombles.json?_limit=1
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.10.0
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      date:
+      - Fri, 11 Mar 2022 17:12:40 GMT
+      content-type:
+      - text/plain; charset=utf-8
+      content-length:
+      - '21'
+      connection:
+      - keep-alive
+      strict-transport-security:
+      - max-age=15724800; includeSubDomains
+    body:
+      encoding: UTF-8
+      string: default backend - 404
+  recorded_at: Fri, 11 Mar 2022 17:12:40 GMT
+recorded_with: VCR 6.0.0
