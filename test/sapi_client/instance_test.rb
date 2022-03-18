@@ -81,10 +81,6 @@ module SapiClient
       describe '#get_hierarchy' do
         it('should load a hierarchy from a hierarchy endpoint') do
           VCR.use_cassette('sapi_instance.get_hierarchy') do
-            # mock_rails = Class.new(Object)
-            # mock_rails.define_singleton_method(:logger) { Object.new }
-            # Object.const_set('Rails', mock_rails)
-
             instance = SapiClient::Instance.new('http://fsa-rp-test.epimorphics.net')
 
             hierarchy = instance.get_hierarchy(
