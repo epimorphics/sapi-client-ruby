@@ -1,0 +1,10 @@
+name  : regime.list
+type  : endpoint.list
+url   : /cbd-products/id/regime
+query : "?id a core:List. "
+description: List the available product lists aka regimes available
+example: /cbd-products/id/regime
+view:
+  class: "core:List"
+  projection: "*"
+

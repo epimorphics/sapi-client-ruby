@@ -17,19 +17,18 @@ module SapiClient
       ENDPOINT_TYPE_LIST, ENDPOINT_TYPE_ITEM, ENDPOINT_TYPE_FORWARD, ENDPOINT_TYPE_HIERARCHY
     ].freeze
 
-    def initialize(base_url, views_register, specification)
+    def initialize(base_url, specification, view_registry: ViewRegistry)
       raise(SapiError, 'Missing specification type') unless specification.key?('type')
 
       @base_url = base_url
-      @views_register = views_register
       @specification = specification
       @type = specification['type']
-      return if ENDPOINT_TYPES.include?(@type)
+      @view_registry = view_registry
 
-      raise(SapiError, "Unknown endpoint type: #{@type}")
+      raise(SapiError, "Unknown endpoint type: #{@type}") unless ENDPOINT_TYPES.include?(@type)
     end
 
-    attr_reader :base_url, :specification, :views_register
+    attr_reader :base_url, :specification, :view_registry
 
     def item_endpoint?
       @type == ENDPOINT_TYPE_ITEM
@@ -95,7 +94,7 @@ module SapiClient
     end
 
     def named_view(name)
-      views_register[name]
+      view_registry.named_view(name)
     end
 
     # @return A hash of all of the known views to the view specifications

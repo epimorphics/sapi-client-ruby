@@ -1,0 +1,51 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://fsa-cbd-test.epimorphics.net/cbd-products/id/listing?_limit=1
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.10.0
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      date:
+      - Fri, 18 Mar 2022 12:52:30 GMT
+      content-type:
+      - application/json
+      content-length:
+      - '2052'
+      connection:
+      - keep-alive
+      sleuth-trace-id:
+      - 9ce43cd51cacb0fc
+      sleuth-span-id:
+      - 9ce43cd51cacb0fc
+      vary:
+      - Accept, Origin
+      cache-control:
+      - max-age=1200
+      strict-transport-security:
+      - max-age=15724800; includeSubDomains
+      x-cache-status:
+      - MISS
+    body:
+      encoding: UTF-8
+      string: '{"meta":{"@id":"http://data.food.gov.uk/cbd-products/id/listing?_limit=1","publisher":"Food
+        Standards Agency","license":"http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/","licenseName":"OGL
+        3","comment":"","version":"0.1","hasFormat":["http://data.food.gov.uk/cbd-products/id/listing.xls?_limit=1","http://data.food.gov.uk/cbd-products/id/listing.rdf?_limit=1","http://data.food.gov.uk/cbd-products/id/listing.json?_limit=1","http://data.food.gov.uk/cbd-products/id/listing.csv?_limit=1","http://data.food.gov.uk/cbd-products/id/listing.html?_limit=1","http://data.food.gov.uk/cbd-products/id/listing.geojson?_limit=1","http://data.food.gov.uk/cbd-products/id/listing.ttl?_limit=1"],"limit":1},"items":[{"@id":"http://data.food.gov.uk/cbd-products/id/listing/cbdid1497","productName":"1
+        Step CBD Gummies 1000mg, Lemon and Tangerine Slices","type":[{"@id":"http://data.food.gov.uk/cbd-products/def/core/ProductListing"},{"@id":"http://data.food.gov.uk/cbd-products/def/core/Listing"}],"notation":"cbdid1497","searchText":"RP427
+        1ST180 N/A JM Wholesale Ltd 1 Step CBD Gummies 1000mg, Lemon and Tangerine
+        Slices 1 Pack, 200g Gummies per jar Awaiting evidence cbdid1497","dateTimeStamp":"2022-03-15","lastModified":"2022-03-31","memberOf":{"@id":"http://data.food.gov.uk/cbd-products/id/list"},"remark":"N/A","applicationNumber":["RP427"],"status":{"@id":"http://data.food.gov.uk/cbd-products/id/application-status/awaiting-evidence","inScheme":{"@id":"http://data.food.gov.uk/cbd-products/id/application-status"},"prefLabel":"Awaiting
+        evidence","type":[{"@id":"http://data.food.gov.uk/cbd-products/def/core/Concept"}],"notation":"awaiting-evidence"},"manufacturerSupplier":{"@id":"http://data.food.gov.uk/cbd-products/id/supplier/jm-wholesale-ltd","type":[{"@id":"http://data.food.gov.uk/cbd-products/def/core/Agent"}],"notation":"jm-wholesale-ltd","memberOf":{"@id":"http://data.food.gov.uk/cbd-products/id/supplier"},"name":["JM
+        Wholesale Ltd"]},"productId":"1ST180","productSizeVolumeQuantity":"1 Pack,
+        200g Gummies per jar"}]}'
+  recorded_at: Fri, 18 Mar 2022 12:52:30 GMT
+recorded_with: VCR 6.0.0
