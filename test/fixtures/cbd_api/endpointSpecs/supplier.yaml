@@ -1,8 +1,0 @@
-name  : supplier.item
-type  : endpoint.item
-url   : /cbd-products/id/supplier/{__id}
-description: Details of a single supplier
-example: /cbd-products/id/supplier/purelife
-view:
-  class: "core:Agent"
-  projection: "*"

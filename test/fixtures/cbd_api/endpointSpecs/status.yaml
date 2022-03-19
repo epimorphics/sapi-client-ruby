@@ -1,8 +1,0 @@
-name  : status.item
-type  : endpoint.item
-url   : /cbd-products/id/application-status/{__id}
-description: Details of an application status
-example: /cbd-products/id/application-status/awaiting-evidence
-view:
-  class: "core:Concept"
-  projection: "*"

@@ -1,3 +1,0 @@
-name     : dataSource
-type     : remoteSparqlSource
-endpoint : ${server.datasource.endpoint}

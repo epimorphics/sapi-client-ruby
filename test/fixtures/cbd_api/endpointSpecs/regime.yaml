@@ -1,8 +1,0 @@
-name  : regime.item
-type  : endpoint.item
-url   : /cbd-products/id/list
-description: Details of the CDB List
-example: /cbd-products/id/list
-view:
-  class: "core:List"
-  projection: "*"
