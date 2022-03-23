@@ -1,0 +1,47 @@
+spring:
+  application:
+    name: fsa-public-list-api
+sapi-nt:
+  api:
+    name: ${spring.application.name}
+    baseURI: http://data.food.gov.uk/cbd-products
+    title: CBD Products API
+    publisher: Food Standards Agency
+    licenceName: OGL 3
+    licenceURI: http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/
+  config:
+    loadSpecPath: "classpath:endpointSpecs"
+    docSpecPath: "classpath:documentation"
+    defaultItemTemplate: item
+    defaultListTemplate: list
+    maxAge: 1200
+    negotiation:
+      path:
+        ignoreUnknownExtensions: true
+  health:
+    enabled: true
+  web:
+    controller:
+      default:
+        enabled: false
+      doc:
+        enabled: true
+server:
+  servlet:
+    contextPath: /cbd-products
+  datasource:
+    endpoint: http://localhost:3030/ds/query
+management:
+  endpoints:
+    web:
+      exposure:
+        include: prometheus
+  endpoint:
+    prometheus:
+      enabled: true
+    metrics:
+      enabled: true
+  metrics:
+    export:
+      prometheus:
+        enabled: true

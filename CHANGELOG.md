@@ -2,6 +2,11 @@
 
 All notable changes will be documented in this file.
 
+## 1.1.1 - 2022-03-18
+
+- (Ian) Fix reported issue in which view name was not recognised when it was
+  cross-referenced from another endpoint
+
 ## 1.1.0 - 2022-03-11
 
 - (Ian) Add support for emitting `ActiveSupport::Notification` events

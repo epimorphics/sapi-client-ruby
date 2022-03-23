@@ -1,0 +1,23 @@
+name  : listing.item
+type  : endpoint.item
+url   : /cbd-products/id/listing/{__id}
+description: Details of a single product list entry
+example: /cbd-products/id/listing/cbdid1020
+views:
+  default: productListingView
+---
+name: productListingView
+type: view
+view:
+  class: "core:ProductListing"
+  projection: "*,manufacturerSupplier.*,status.*"
+csv   :
+  map :
+    - "id" : "notation"
+    - "productName" : "productName"
+    - "applicationNumber" : "applicationNumber"
+    - "manufacturerSupplier" : "manufacturerSupplier.name"
+    - "productId" : "productId"
+    - "productSizeVolumeQuantity" : "productSizeVolumeQuantity"
+    - "remark" : "remark"
+    - "status" : "status.prefLabel"

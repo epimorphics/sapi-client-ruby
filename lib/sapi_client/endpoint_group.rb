@@ -16,22 +16,17 @@ module SapiClient
     attr_reader :specification, :base_url
 
     def endpoints
-      endpoint_specs = specification.select do |spec|
-        type = spec['type']
-        type && SapiEndpoint::ENDPOINT_TYPES.include?(type)
+      endpoint_specs = []
+
+      specification.each do |spec|
+        if spec['type'] == 'view'
+          ViewRegistry.register(SapiClient::View.new(spec))
+        elsif SapiEndpoint::ENDPOINT_TYPES.include?(spec['type'])
+          endpoint_specs << SapiEndpoint.new(base_url, spec)
+        end
       end
 
-      endpoint_specs.map { |spec| SapiEndpoint.new(base_url, views, spec) }
-    end
-
-    # Returns a hash of view name to view spec object
-    def views
-      @views ||= specification
-                 .select { |spec| spec['type'] == 'view' }
-                 .each_with_object({}) do |view_spec, hash|
-                   view = SapiClient::View.new(view_spec)
-                   hash[view.name] = view
-                 end
+      endpoint_specs
     end
   end
 end

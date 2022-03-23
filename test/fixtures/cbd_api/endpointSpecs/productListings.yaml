@@ -1,0 +1,27 @@
+name  : listing.list
+type  : endpoint.list
+url   : /cbd-products/id/listing
+query : "?id core:memberOf pl-base:list "
+description: List of product listings
+example: /cbd-products/id/listing?_limit=10
+textSearch: true
+unionStyle: true
+# softLimit: 50
+views:
+  default: productListingView
+# ---
+# name: productListingsView
+# type: view
+# view:
+#   class: "core:ProductListing"
+#   projection: "*,manufacturerSupplier.*,status.*"
+# csv   :
+#   map :
+#     - "id" : "notation"
+#     - "productName" : "productName"
+#     - "applicationNumber" : "applicationNumber"
+#     - "manufacturerSupplier" : "manufacturerSupplier.name"
+#     - "productId" : "productId"
+#     - "productSizeVolumeQuantity" : "productSizeVolumeQuantity"
+#     - "remark" : "remark"
+#     - "status" : "status.prefLabel"
