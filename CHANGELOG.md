@@ -2,7 +2,7 @@
 
 All notable changes will be documented in this file.
 
-## 1.1.1-pending - 2022-03-18
+## 1.1.1 - 2022-03-18
 
 - (Ian) Fix reported issue in which view name was not recognised when it was
   cross-referenced from another endpoint
