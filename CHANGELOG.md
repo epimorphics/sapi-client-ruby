@@ -2,6 +2,11 @@
 
 All notable changes will be documented in this file.
 
+## 1.1.2 - 2022-27-03
+
+- (Ian) Record the duration of the API call and add to instrumentation
+- (Ian) Change instrumentation namespace to generic `api`, rather than `sapi_nt`
+
 ## 1.1.1 - 2022-03-18
 
 - (Ian) Fix reported issue in which view name was not recognised when it was
