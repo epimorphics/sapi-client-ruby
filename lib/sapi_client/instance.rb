@@ -47,6 +47,7 @@ module SapiClient
 
     # Get the content from the given URL, using the given content type
     def get(url, content_type, options = {}) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+      start_time = Time.now
       conn = faraday_connection(url)
 
       r = conn.get do |req|
@@ -58,7 +59,7 @@ module SapiClient
       end
 
       request_logger.log_response(r) if request_logger.respond_to?(:log_response)
-      instrument_response(r)
+      instrument_response(r, start_time)
       raise SapiError.new(r.body, r.status) unless permissible_response_code?(r)
 
       r.body
@@ -151,16 +152,20 @@ module SapiClient
       defined?(JsonRailsLogger) && Thread.current[JsonRailsLogger::REQUEST_ID]
     end
 
-    def instrument_response(response)
-      instrumenter&.instrument('response.sapi_nt', response: response)
+    def instrument_response(response, start_time)
+      instrumenter&.instrument(
+        'response.api',
+        response: response,
+        duration: Time.now - start_time
+      )
     end
 
     def instrument_connection_failure(exception)
-      instrumenter&.instrument('connection_failure.sapi_nt', exception: exception)
+      instrumenter&.instrument('connection_failure.api', exception: exception)
     end
 
     def instrument_service_exception(exception)
-      instrumenter&.instrument('service_exception.sapi_nt', exception: exception)
+      instrumenter&.instrument('service_exception.api', exception: exception)
     end
 
     def in_rails?

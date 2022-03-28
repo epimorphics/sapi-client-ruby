@@ -270,7 +270,7 @@ module SapiClient
             Object.const_set('Rails', mock_rails)
 
             mock_notifications = mock('Notifications')
-            mock_notifications.expects(:instrument).with { |event, _payload| event == 'response.sapi_nt' }
+            mock_notifications.expects(:instrument).with { |event, _payload| event == 'response.api' }
 
             mock_active_support = Module.new
             mock_active_support.const_set('Notifications', mock_notifications)
@@ -302,7 +302,7 @@ module SapiClient
 
             mock_notifications = mock('Notifications')
             mock_notifications.expects(:instrument).with do |event, _payload|
-              event == 'connection_failure.sapi_nt'
+              event == 'connection_failure.api'
             end
 
             mock_active_support = Module.new
