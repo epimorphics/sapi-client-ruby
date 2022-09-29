@@ -1,9 +1,12 @@
 # Sapi-NT client for Ruby
 
-This is a simple client library for interacting with Sapi-NT APIs in a Ruby
-or Rails project. The client is initialised with a reference to the Sapi-NT
-modelspec for the API, which is used to generate a custom API class using
-Ruby metaprogramming
+This is a simple client library for interacting with Sapi-NT APIs in a Ruby or
+Rails project. The client is initialised with a reference to the Sapi-NT
+modelspec for the API, which is used to generate a custom API class using Ruby
+metaprogramming
+
+_N.B. This respository's primary branch name has been updated, please see the
+[#important](#important) section below for more information._
 
 ## Usage
 
@@ -21,9 +24,9 @@ end
 ```
 
 You may need to authenticate with Github to allow Bundler to access the GitHub
-Package Registry. To authenticate manually, configure Bundler to use your personal access
-token, replacing USERNAME with your GitHub username, TOKEN with your personal
-access token:
+Package Registry. To authenticate manually, configure Bundler to use your
+personal access token, replacing USERNAME with your GitHub username, TOKEN with
+your personal access token:
 
 ```sh
 bundle config https://rubygems.pkg.github.com/epimorphics USERNAME:TOKEN
@@ -31,24 +34,25 @@ bundle config https://rubygems.pkg.github.com/epimorphics USERNAME:TOKEN
 
 **Note** that in Epimorphics' projects, our standard pattern is to include a
 `Makefile` in each project, which typically will include an `auth` target for
-authenticating with the GitHub package registry. Thus an equivalent, but simpler,
-command to use instead of the line above is:
+authenticating with the GitHub package registry. Thus an equivalent, but
+simpler, command to use instead of the line above is:
 
 ```sh
 make auth
 ```
 
 This will prompt you to provide a Github personal access tokenn (PAT). See notes
-on the [Epimorphics Wiki](https://github.com/epimorphics/internal/wiki/Ansible-CICD#creating-a-pat-for-gpr-access)
+on the [Epimorphics
+Wiki](https://github.com/epimorphics/internal/wiki/Ansible-CICD#creating-a-pat-for-gpr-access)
 about creating a PAT.
 
 ### Command line usage
 
-To aid debugging and exploring a Sapi-NT endpoint, this library has a command-line
-tool `sapi`.  As required inputs, the tool needs both the base URL for the
-Sapi-NT API instance (e.g. `http://localhost:8080`), and the location of the Sapi-NT
-configuration root file. These can either be passed as command-line arguments, or
-as environment variables:
+To aid debugging and exploring a Sapi-NT endpoint, this library has a
+command-line tool `sapi`.  As required inputs, the tool needs both the base URL
+for the Sapi-NT API instance (e.g. `http://localhost:8080`), and the location of
+the Sapi-NT configuration root file. These can either be passed as command-line
+arguments, or as environment variables:
 
 ```sh
 sapi -b http://localhost:8080 -s test/fixtures/unified-view/application.yaml inspect
@@ -60,10 +64,13 @@ sapi inspect
 
 See `sapi --help` for more details.
 
-Within a project that depends on `sapi-client-ruby` in the Gemfile, the `sapi` command
-should just work. However, it may be helpful to install it outside of a specific
-project, so that the `sapi` command may also be used from anywhere. Normally, `gem install`
-will normally only install a Rubygem from the `rubygems.org` directory. You can install this gem from the Github package registry. Please note: You have to add your credentials in line and you cannot use the `~/.gem/credentials` with gem install
+Within a project that depends on `sapi-client-ruby` in the Gemfile, the `sapi`
+command should just work. However, it may be helpful to install it outside of a
+specific project, so that the `sapi` command may also be used from anywhere.
+Normally, `gem install` will normally only install a Rubygem from the
+`rubygems.org` directory. You can install this gem from the Github package
+registry. Please note: You have to add your credentials in line and you cannot
+use the `~/.gem/credentials` with gem install
 
 ```sh
 gem install sapi-client-ruby --version "1.0.0" --source "https://{username}:{token}@rubygems.pkg.github.com/epimorphics"
@@ -81,8 +88,8 @@ Usage:
 
 #### Command: inspect
 
-Inspect is used to list the available endpoints for a SAPI instance, together with the
-Ruby-ified name that can be used to refer to them. E.g:
+Inspect is used to list the available endpoints for a SAPI instance, together
+with the Ruby-ified name that can be used to refer to them. E.g:
 
 ```sh
 $ export SAPI_BASE_URL=http://localhost:8080
@@ -105,10 +112,10 @@ establishment_list
 
 #### Commands to invoke an API endpoint
 
-The keys for each of the sections of the `inspect` command, e.g. `authority_list`
-are the names of the Ruby methods that can be invoked on the service object to
-call that API method. We can also use that method name as a command action in the
-CLI:
+The keys for each of the sections of the `inspect` command, e.g.
+`authority_list` are the names of the Ruby methods that can be invoked on the
+service object to call that API method. We can also use that method name as a
+command action in the CLI:
 
 ```sh
   $ export SAPI_BASE_URL=http://localhost:8080
@@ -233,16 +240,16 @@ $ sapi establishment_item MBTM1R-A8K4VZ-2FJCYJ -j
 
 ### Using Sapi-client from code
 
-Create a new instance of the `SapiClient::Application`, initialised with the base
-URL and the location of the root YAML file for the application:
+Create a new instance of the `SapiClient::Application`, initialised with the
+base URL and the location of the root YAML file for the application:
 
 ```ruby
 irb(main):001:0> app = SapiClient::Application.new('http://localhost:8080', 'test/fixtures/unified-view/application.yaml')
 => #<SapiClient::Application:0x000055c6ef963500 @base_url="http://localhost:8080",
 ```
 
-Create an `Instance` of the API, which will be decorated with methods corresponding
-to the API endpoints:
+Create an `Instance` of the API, which will be decorated with methods
+corresponding to the API endpoints:
 
 ```ruby
 irb(main):002:0> inst = app.instance
@@ -254,30 +261,34 @@ irb(main):003:0> inst.public_methods
 
 The `*_json` variant of the method will return the raw JSON output. The `*_spec`
 variant will return the specification of the API endpoint (including the name,
-description, etc), while the unadorned version will return the item as a Ruby object.
+description, etc), while the unadorned version will return the item as a Ruby
+object.
 
 #### Wrapper classes
 
 When calling the `*_json` methods, the return value is just JSON, expressed as a
 Ruby `Hash`. Hash presents a fairly low-level API to interact with the data, so
 when calling the main item-getting API methods, the return value will be wrapped
-via some facade class. The base facade is `SapiClient::SapiResource`. SapiResource
-has methods to:
+via some facade class. The base facade is `SapiClient::SapiResource`.
+SapiResource has methods to:
 
 - traverse paths through the structure (e.g. `establishment.authority.name`)
 - provide convenience access to common fields, e.g. `uri`
 - map Ruby method calls to fields in the underlying JSON (e.g. a resource with a
   `name` property in JSON will respond to a `.name()` method call)
-- pick the best option from a list of language-tagged literals, given a preferred language.
+- pick the best option from a list of language-tagged literals, given a
+  preferred language.
 
-SapiResource is designed to function well as a base class for more domain-specific
-facade classes, such as `Establishment` for establishment resources.
+SapiResource is designed to function well as a base class for more
+domain-specific facade classes, such as `Establishment` for establishment
+resources.
 
 To associate the values of an endpoint with a facade class, there are a number
 of options:
 
-- a class may be be passed via the `wrapper` option when invoking an API endpoint
-  method. E.g: `myEndpoint.establishment_list(_limit: 1, wrapper: MyClass)`
+- a class may be be passed via the `wrapper` option when invoking an API
+  endpoint method. E.g: `myEndpoint.establishment_list(_limit: 1, wrapper:
+  MyClass)`
 - if no explicit `wrapper option is available`, the endpoint will look for a
   class that has the same name as the resource-type for the endpoint (e.g. an
   establishments endpoint will have a resource type of `:Establishment`, which
@@ -287,8 +298,8 @@ of options:
 
 #### Options
 
-The endpoint methods that actually call the endpoint (i.e. not `_spec`) take
-a hash of options, e.g. the query limit:
+The endpoint methods that actually call the endpoint (i.e. not `_spec`) take a
+hash of options, e.g. the query limit:
 
 ```ruby
 inst.inspection_list(_limit: 10)
@@ -323,27 +334,36 @@ collection = endpoint_values.to_a
 
 #### Instrumentation through `ActiveSupport::Notification`
 
-To assist with adding Prometheus monitoring of an application's interaction
-with a remote SapiNT endpoint, this client library will emit `ActiveSupport`
-`Notification` events, assuming it's being run in a Rails environment.
-These events can be subscribed to, and used to add data to Prometheus client
-gauges.
+To assist with adding Prometheus monitoring of an application's interaction with
+a remote SapiNT endpoint, this client library will emit `ActiveSupport`
+`Notification` events, assuming it's being run in a Rails environment. These
+events can be subscribed to, and used to add data to Prometheus client gauges.
 
 The events emitted are:
 
-- `response.sapi_nt`
-  which will record normal responses, including response code
-- `connection_failure.sapi_nt`
-  which will record events where Faraday was unable to connect to
-  the remote endpoint
-- `service_exception.sapi_nt`
-  which records other errors states, not including connection failure
+- `response.sapi_nt` which will record normal responses, including response code
+- `connection_failure.sapi_nt` which will record events where Faraday was unable
+  to connect to the remote endpoint
+- `service_exception.sapi_nt` which records other errors states, not including
+  connection failure
 
 ## Developer notes
 
-After checking out the repo, run `make setup` to install dependencies. Then,
-run `make test` to run the tests. You can also run `make console` for an
-interactive prompt that will allow you to experiment.
+### Important
+
+If you have already cloned the repository to your local instance, you will need
+to run the following commands to update the primary branch name:
+
+```sh
+git branch -m master main
+git fetch origin
+git branch -u origin/main main
+git remote set-head origin -a
+```
+
+Otherwise , after checking out the repo, run `make setup` to install
+dependencies. Then, run `make test` to run the tests. You can also run `make
+console` for an interactive prompt that will allow you to experiment.
 
 ### Code standards
 
@@ -356,14 +376,15 @@ Minitest should not go down as new code is added.
 
 ### Publishing
 
-This gem is published to the [GitHub Package Registry](https://github.com/epimorphics/sapi-client-ruby/packages/)
+This gem is published to the [GitHub Package
+Registry](https://github.com/epimorphics/sapi-client-ruby/packages/)
 
 To publish a new version of this gem:
 
-- make the required changes, and have the PR peer-reviewed by at least one
-  other person
-- increment the version number `lib/sapi_client/version.rb` according to
-  whether this is a major, minor or fix change
+- make the required changes, and have the PR peer-reviewed by at least one other
+  person
+- increment the version number `lib/sapi_client/version.rb` according to whether
+  this is a major, minor or fix change
 - update the `CHANGELOG.md`
 - ensure that `make test` and `make lint` are both free of errors
 - build the gem and push it to the registry with `make publish`
@@ -371,19 +392,18 @@ To publish a new version of this gem:
 ### Contributing
 
 Bug reports and pull requests are welcome on GitHub at
-https://github.com/epimorphics/sapi-client-ruby. This project is
-intended to be a safe, welcoming space for collaboration, and contributors
-are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org)
-code of conduct.
+<https://github.com/epimorphics/sapi-client-ruby>. This project is intended to
+be a safe, welcoming space for collaboration, and contributors are expected to
+adhere to the [Contributor Covenant](http://contributor-covenant.org) code of
+conduct.
 
 ### License
 
-The gem is available as open source under the terms of
-the [MIT License](https://opensource.org/licenses/MIT).
+The gem is available as open source under the terms of the [MIT
+License](https://opensource.org/licenses/MIT).
 
 ### Code of Conduct
 
-Everyone interacting in the Sapi::Client::Ruby project’s
-codebases, issue trackers, chat rooms and mailing lists
-is expected to follow the
-[code of conduct](https://github.com/epimorphics/sapi-client-ruby/blob/master/CODE_OF_CONDUCT.md).
+Everyone interacting in the Sapi::Client::Ruby project’s codebases, issue
+trackers, chat rooms and mailing lists is expected to follow the [code of
+conduct](https://github.com/epimorphics/sapi-client-ruby/blob/master/CODE_OF_CONDUCT.md).
