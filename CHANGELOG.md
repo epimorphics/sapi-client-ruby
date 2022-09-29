@@ -2,6 +2,12 @@
 
 All notable changes will be documented in this file.
 
+## [Unreleased]
+
+- (Jon) Changed the primary branch name to `main` from `master`. Updated README
+  to reflect this change alongside adding instructions for renaming the branch
+  locally.
+
 ## 1.1.2 - 2022-27-03
 
 - (Ian) Record the duration of the API call and add to instrumentation
@@ -14,9 +20,9 @@ All notable changes will be documented in this file.
 
 ## 1.1.0 - 2022-03-11
 
-- (Ian) Add support for emitting `ActiveSupport::Notification` events
-  when running in a Rails environment. This is in support of instrumenting
-  calls to SapiNT endpoints using Prometheus.
+- (Ian) Add support for emitting `ActiveSupport::Notification` events when
+  running in a Rails environment. This is in support of instrumenting calls to
+  SapiNT endpoints using Prometheus.
 
 ## 1.0.1 - 2022-03-08
 
@@ -32,25 +38,25 @@ All notable changes will be documented in this file.
 
 ## 0.9.0 - 2021-06-24
 
-- (Joseph) Creates a custom exception class (SapiError) specifically
-  allowing for better surfacing of http response status codes.
+- (Joseph) Creates a custom exception class (SapiError) specifically allowing
+  for better surfacing of http response status codes.
 
 ## 0.8.1 - 2021-06-18
 
-- (Ian) Guard against calling log methods when handed instance of
-  loggers that may not contain those methods
+- (Ian) Guard against calling log methods when handed instance of loggers that
+  may not contain those methods
 
 ## 0.8.0 - 2021-02-25
 
-- Turn off logging of calls to remote API when running in
-  production mode (if in Rails) - GH-26
+- Turn off logging of calls to remote API when running in production mode (if in
+  Rails) - GH-26
 
 ## 0.7.0 - 2021-02-08
 
-- (Ian) Pass the `X-Request-ID` header to outbound calls if the
-  value is set via a thread-local variable
-- (Ian) allow snake_case names as aliases for camel-case identifiers
-  in JSON data
+- (Ian) Pass the `X-Request-ID` header to outbound calls if the value is set via
+  a thread-local variable
+- (Ian) allow snake_case names as aliases for camel-case identifiers in JSON
+  data
 - (Ian) update dependencies
 
 ## 0.6.1 - 2020-11-16 (Ian)
@@ -88,7 +94,8 @@ No changes yet
 
 ## [0.4.11]
 
-- Fix GH-11 by supporting multi-valued parameters for filters we pass to Sapi-NT.
+- Fix GH-11 by supporting multi-valued parameters for filters we pass to
+  Sapi-NT.
 
 ## [0.4.10]
 
@@ -96,7 +103,8 @@ No changes yet
 
 ## [0.4.9]
 
-- Fix GH-10: the lib was using the wrong attribute in JSON-LD for a human language
+- Fix GH-10: the lib was using the wrong attribute in JSON-LD for a human
+  language
 
 ## [0.4.8]
 
@@ -105,8 +113,8 @@ No changes yet
 
 ## [0.4.7]
 
-- Add a feature to return the slug from a URI, e.g. `http://wimbledon.org/common`
-  has the slug `common`
+- Add a feature to return the slug from a URI, e.g.
+  `http://wimbledon.org/common` has the slug `common`
 - Fix API spec parsing to also recognise `forward` endpoint specs
 
 ## [0.4.6]
@@ -147,12 +155,12 @@ No changes yet
 
 - Renamed EndpointSpec to EndpointGroup to reduce confusion. Even though the
   containing directory is `endpointSpecs`, a `*.yaml` file in that directory
-  typically contains multiple endpoints. Each document in the YAML stream is
-  a spec of an endpoint, so it was ambiguous whether an EndpointSpec was the
+  typically contains multiple endpoints. Each document in the YAML stream is a
+  spec of an endpoint, so it was ambiguous whether an EndpointSpec was the
   container for a set of endpoints, or a single endpoint. Hence the change of
   name.
 
 ### Added
 
-- Added resource wrapper classes, a default wrapper SapiClient::SapiResource
-  and strategies for associating wrappers with endpoints. Details in README.
+- Added resource wrapper classes, a default wrapper SapiClient::SapiResource and
+  strategies for associating wrappers with endpoints. Details in README.
