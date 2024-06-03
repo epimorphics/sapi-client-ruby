@@ -1,0 +1,23 @@
+name: Release and Publish Gem
+on:
+  release:
+    types: [published]
+
+jobs:
+  build:
+    name: "Build gem package"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: "Publish gem"
+        shell: bash
+        run: |
+          mkdir ~/.gem
+          echo '---' > ~/.gem/credentials
+          echo ':github: Bearer ${{ secrets.GIT_REPOSITORY_FULL_ACCESS_PAT }}' >> ~/.gem/credentials
+          chmod 0600 ~/.gem/credentials
+          make publish
