@@ -2,8 +2,16 @@
 
 All notable changes will be documented in this file.
 
-## [Unreleased]
+## 1.1.3 - 2024-06-03
 
+- (AlexT) require 'ostruct' to fix tests in Ruby 3.3.1. Use Matrix tests to check 
+  multiple Ruby versions, 2.7 to 3.3. Bump deps:
+  - rexml 3.2.5 -> 3.2.8 fixing CVE-2024-35176
+  - concurrent-ruby 1.1.9 -> 1.3.1
+  - farady 1.10.0 -> 1.10.3
+  - faraday-multipart 1.0.3 -> 1.0.4
+  - i18n 1.10.0 -> 1.14.5
+  - multipart-post 2.1.1 -> 2.4.
 - (Jon) Changed the primary branch name to `main` from `master`. Updated README
   to reflect this change alongside adding instructions for renaming the branch
   locally.
