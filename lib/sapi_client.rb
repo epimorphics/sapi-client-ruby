@@ -5,6 +5,7 @@ require 'faraday_middleware'
 require 'json'
 require 'logger'
 require 'i18n'
+require 'ostruct'
 
 require 'sapi_client/version'
 require 'sapi_client/sapi_endpoint'
