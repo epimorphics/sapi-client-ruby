@@ -19,6 +19,7 @@ Gem::Specification.new do |spec|
   # to allow pushing to a single host or delete this section to allow pushing to any host.
 
   spec.metadata['allowed_push_host'] = 'https://rubygems.pkg.github.com/epimorphics'
+  spec.metadata['github_repo'] = 'git@github.com:epimorphics/sapi-client-ruby.git'
   spec.metadata['rubygems_mfa_required'] = 'true'
 
   # Specify which files should be added to the gem when it is released.
