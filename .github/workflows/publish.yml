@@ -14,4 +14,10 @@ jobs:
           fetch-depth: 0
 
       - name: "Publish gem"
-        run: "make publish"
+        shell: bash
+        run: |
+          mkdir ~/.gem
+          echo '---' > ~/.gem/credentials
+          echo ':github: Bearer ${{ secrets.GITHUB_TOKEN }}' >> ~/.gem/credentials
+          chmod 0600 ~/.gem/credentials
+          make publish
