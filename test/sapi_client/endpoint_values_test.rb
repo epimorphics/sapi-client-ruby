@@ -46,19 +46,26 @@ module SapiClient
     end
 
     describe '#to_a' do
-      let(:spec) { 'test/fixtures/unified-view/application.yaml' }
-      let(:base_url) { "http://localhost:#{sapi_api_port}" }
+      [
+        'test/fixtures/unified-view/application.yaml',
+        'test/fixtures/unified-view/endpointSpecs'
+      ].each do |spec_file_or_dir|
+        let(:spec) { 'test/fixtures/unified-view/application.yaml' }
+        let(:base_url) { "http://localhost:#{sapi_api_port}" }
 
-      it 'should invoke the endpoint with the parameters' do
-        app = SapiClient::Application.new(base_url, spec)
-        inst = app.instance
+        describe "#with #{spec_file_or_dir}" do
+          it 'should invoke the endpoint with the parameters' do
+            app = SapiClient::Application.new(base_url, spec)
+            inst = app.instance
 
-        VCR.use_cassette('endpoint_values.test_to_a') do
-          evs = SapiClient::EndpointValues.new(inst, :establishment_list)
-          evs.limit(1)
-          establishments = evs.to_a
-          _(establishments).must_be_kind_of(Array)
-          _(establishments.length).must_equal(1)
+            VCR.use_cassette('endpoint_values.test_to_a') do
+              evs = SapiClient::EndpointValues.new(inst, :establishment_list)
+              evs.limit(1)
+              establishments = evs.to_a
+              _(establishments).must_be_kind_of(Array)
+              _(establishments.length).must_equal(1)
+            end
+          end
         end
       end
     end
