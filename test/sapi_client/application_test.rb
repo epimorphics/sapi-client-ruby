@@ -9,7 +9,7 @@ module SapiClient
       [
         'test/fixtures/unified-view/application.yaml',
         'test/fixtures/unified-view/endpointSpecs'
-      ].each do |spec_file_or_dir |
+      ].each do |spec_file_or_dir|
         let(:spec) { spec_file_or_dir }
         let(:base_url) { "http://localhost:#{sapi_api_port}" }
 

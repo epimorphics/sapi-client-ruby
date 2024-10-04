@@ -11,7 +11,7 @@ module SapiClient
           'test/fixtures/cbd_api/application.yaml',
           'test/fixtures/cbd_api/endpointSpecs'
         ].each do |spec_file_or_dir|
-          describe "#with {spec_file_or_dir}" do
+          describe "#with #{spec_file_or_dir}" do
             let(:spec) { 'test/fixtures/cbd_api/application.yaml' }
             let(:base_url) { 'https://fsa-cbd-test.epimorphics.net' }
 
