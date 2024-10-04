@@ -11,8 +11,8 @@ module SapiClient
       end
 
       @base_url = base_url
-      @application_spec_file = application_or_endpoints if File.file?(application_or_endpoints)
-      @endpoints_path = application_or_endpoints if File.directory?(application_or_endpoints)
+      @application_spec_file = File.file?(application_or_endpoints) ? application_or_endpoints : nil 
+      @endpoints_path = File.directory?(application_or_endpoints) ? application_or_endpoints : nil 
       @specification = (@application_spec_file && YAML.load_file(application_or_endpoints)) || {
         'sapi-nt' => { 'config' => { 'loadSpecPath' => 'classpath:endpointSpecs' } }
       }
