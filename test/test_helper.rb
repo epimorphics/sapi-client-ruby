@@ -36,9 +36,7 @@ VCR.configure do |config|
   config.default_cassette_options = default_cassette_options
 end
 
-unless ENV['RM_INFO']
-  Minitest::Reporters.use! [Minitest::Reporters::DefaultReporter.new(color: true)]
-end
+Minitest::Reporters.use! [Minitest::Reporters::DefaultReporter.new(color: true)]
 
 # Helper to get the test API port number from the environment, or return a default
 def sapi_api_port
