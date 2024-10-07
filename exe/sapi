@@ -7,12 +7,12 @@ require 'sapi_client'
 
 options = {
   base: ENV['SAPI_BASE_URL'],
-  spec: ENV['SAPI_SPEC_FILE']
+  spec: ENV['SAPI_SPEC_FILE'] || ENV['SAPI_SPEC']
 }
 
-def spec_file(options)
+def spec_file_or_dir(options)
   unless File.exist?(options[:spec])
-    puts "Could not find spec file #{options[:spec]}"
+    puts "Could not find spec file/directory #{options[:spec]}"
     exit(1)
   end
 
@@ -22,13 +22,13 @@ end
 def usage
   <<~USAGE
     Usage:
-    sapi [-b SAPI_BASE_URL] [-s SAPI_SPEC_FILE] inspect
-    sapi [-b SAPI_BASE_URL] [-s SAPI_SPEC_FILE] <endpoint-name>
+    sapi [-b SAPI_BASE_URL] [-s SAPI_SPEC] inspect
+    sapi [-b SAPI_BASE_URL] [-s SAPI_SPEC] <endpoint-name>
 
     Full list of options:
     sapi -h
 
-    Base URL and spec file can also be set as environment variables.
+    Base URL and spec file/dir can also be set as environment variables.
 
     v#{SapiClient::VERSION}
   USAGE
@@ -49,7 +49,7 @@ end
 
 def sapi_application(options)
   SapiClient::Application
-    .new(options.delete(:base), spec_file(options))
+    .new(options.delete(:base), spec_file_or_dir(options))
 end
 
 def inspect_sapi(options)
@@ -90,7 +90,8 @@ OptionParser.new do |parser|
     options[:base] = url
   end
 
-  parser.on('-s', '--spec-file SAPI_SPEC_FILE', 'The location of the specification file') do |file_name|
+  parser.on('-s', '--spec-file SAPI_SPEC',
+            'The directory with specification files, or location of sapi-nt application.yaml') do |file_name|
     options[:spec] = file_name
   end
 
