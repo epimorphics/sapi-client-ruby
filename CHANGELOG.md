@@ -2,6 +2,11 @@
 
 All notable changes will be documented in this file.
 
+## 1.2.0 - 2024-10-06
+
+- (AlexT) allow passing endpoint specifications directory in initializer
+  Bump deps including minitest 5.15.0 -> 5.25.1 and rexml 3.2.8 -> 3.3.8.
+
 ## 1.1.3 - 2024-06-03
 
 - (AlexT) require 'ostruct' to fix tests in Ruby 3.3.1. Use Matrix tests to check 
