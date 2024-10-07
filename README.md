@@ -19,7 +19,7 @@ application's `Gemfile`:
 
 ```ruby
 source "https://rubygems.pkg.github.com/epimorphics" do
-  gem "sapi-client-ruby", "~> 1.2.0"
+  gem "sapi-client-ruby", "~> 1.2"
 end
 ```
 
