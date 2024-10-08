@@ -5,14 +5,17 @@ module SapiClient
   # enclosed endpoint specifications to perform various operations, such as creating
   # methods we can call
   class Application
-    def initialize(base_url, application_spec)
-      unless File.exist?(application_spec)
-        raise(SapiError, "Could not find application spec #{application_spec}")
+    def initialize(base_url, application_or_endpoints)
+      unless File.exist?(application_or_endpoints)
+        raise(SapiError, "Could not find spec file/directory #{application_or_endpoints}")
       end
 
       @base_url = base_url
-      @application_spec_file = application_spec
-      @specification = YAML.load_file(application_spec)
+      @application_spec_file = File.file?(application_or_endpoints) ? application_or_endpoints : nil
+      @endpoints_path = File.directory?(application_or_endpoints) ? application_or_endpoints : nil
+      @specification = (@application_spec_file && YAML.load_file(application_or_endpoints)) || {
+        'sapi-nt' => { 'config' => { 'loadSpecPath' => 'classpath:endpointSpecs' } }
+      }
     end
 
     attr_reader :base_url, :specification
@@ -30,11 +33,15 @@ module SapiClient
     end
 
     def load_spec_path
-      configuration['loadSpecPath'].sub(/^classpath:/, '')
+      @endpoints_path || configuration['loadSpecPath'].sub(/^classpath:/, '')
     end
 
     def endpoint_group_files
-      Dir["#{application_spec_dir}/#{load_spec_path}/*.yaml"]
+      if @endpoints_path.nil?
+        Dir["#{application_spec_dir}/#{load_spec_path}/*.yaml"]
+      else
+        Dir["#{@endpoints_path}/*.yaml"]
+      end
     end
 
     def endpoints

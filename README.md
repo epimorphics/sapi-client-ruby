@@ -6,7 +6,7 @@ modelspec for the API, which is used to generate a custom API class using Ruby
 metaprogramming
 
 _N.B. This respository's primary branch name has been updated, please see the
-[#important](#important) section below for more information._
+[Main branch](#main-branch) section below for more information._
 
 ## Usage
 
@@ -19,7 +19,7 @@ application's `Gemfile`:
 
 ```ruby
 source "https://rubygems.pkg.github.com/epimorphics" do
-  gem "sapi-client-ruby", "~> 1.0.0"
+  gem "sapi-client-ruby", "~> 1.2"
 end
 ```
 
@@ -51,15 +51,21 @@ about creating a PAT.
 To aid debugging and exploring a Sapi-NT endpoint, this library has a
 command-line tool `sapi`.  As required inputs, the tool needs both the base URL
 for the Sapi-NT API instance (e.g. `http://localhost:8080`), and the location of
-the Sapi-NT configuration root file. These can either be passed as command-line
-arguments, or as environment variables:
+the Sapi-NT modelspec files (see [Modelspec files](#modelspec-files) below).
+These can either be passed as command-line arguments, or as environment variables:
 
 ```sh
 sapi -b http://localhost:8080 -s test/fixtures/unified-view/application.yaml inspect
-
+```
+or
+```sh
 export SAPI_BASE_URL=http://localhost:8080
 export SAPI_SPEC_FILE=test/fixtures/unified-view/application.yaml
 sapi inspect
+```
+or, using the endpoint specs directory
+```sh
+sapi -b http://localhost:8080 -s test/fixtures/unified-view/endpointSpecs inspect
 ```
 
 See `sapi --help` for more details.
@@ -241,7 +247,9 @@ $ sapi establishment_item MBTM1R-A8K4VZ-2FJCYJ -j
 ### Using Sapi-client from code
 
 Create a new instance of the `SapiClient::Application`, initialised with the
-base URL and the location of the root YAML file for the application:
+base URL and either the location of the root YAML file for the application, or 
+the directory containing the endpoint specification YAML files (see [Modelspec 
+files](#modelspec-files) below).
 
 ```ruby
 irb(main):001:0> app = SapiClient::Application.new('http://localhost:8080', 'test/fixtures/unified-view/application.yaml')
@@ -286,7 +294,7 @@ resources.
 To associate the values of an endpoint with a facade class, there are a number
 of options:
 
-- a class may be be passed via the `wrapper` option when invoking an API
+- a class may be passed via the `wrapper` option when invoking an API
   endpoint method. E.g: `myEndpoint.establishment_list(_limit: 1, wrapper:
   MyClass)`
 - if no explicit `wrapper option is available`, the endpoint will look for a
@@ -349,7 +357,22 @@ The events emitted are:
 
 ## Developer notes
 
-### Important
+### Modelspec files
+
+Both `sapi-nt` and `sapi-client-ruby` are configured using a set of "modelspec"
+files that detail the endpoint URL templates, arguments and responses of a given 
+API.
+
+`sapi-nt` uses an `application.yaml` configuration file that, amongst other things, 
+points to the location of the directory of these modelspec (YAML) files, although 
+often these are resources in a JAR file, so use Java's classpath machinery.
+
+As a step away from too closely coupling `sapi-nt` and `sapi-client-ruby`, we now 
+additionally allow initialization of the `SapiClient::Application` using the 
+location of the directory containing the modelspec files, usually called 
+`endpointSpecs`.
+
+### Main branch
 
 If you have already cloned the repository to your local instance, you will need
 to run the following commands to update the primary branch name:
