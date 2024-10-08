@@ -16,8 +16,4 @@ jobs:
       - name: "Publish gem"
         shell: bash
         run: |
-          mkdir ~/.gem
-          echo '---' > ~/.gem/credentials
-          echo ':github: Bearer ${{ secrets.GITHUB_TOKEN }}' >> ~/.gem/credentials
-          chmod 0600 ~/.gem/credentials
-          make publish
+          PAT=${{ secrets.GITHUB_TOKEN }} make publish

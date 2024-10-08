@@ -5,7 +5,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'sapi_client/version'
 
 Gem::Specification.new do |spec|
-  spec.required_ruby_version = '>= 2.7.4'
+  spec.required_ruby_version = '>= 2.7.8'
   spec.name          = 'sapi-client-ruby'
   spec.version       = SapiClient::VERSION
   spec.authors       = ['Epimorphics Ltd']

@@ -12,7 +12,7 @@ SPEC=${NAME}.gemspec
 
 all: publish
 
-${AUTH}:
+${AUTH}: ${PAT}
 	@mkdir -p ${HOME}/.gem
 	@echo '---' > ${AUTH}
 	@echo ':github: Bearer ${PAT}' >> ${AUTH}
@@ -37,9 +37,9 @@ lint: gem
 test: gem setup
 	@rake test
 
-publish: ${GEM}
+publish: ${GEM} ${AUTH}
 	@echo Publishing package ${NAME}:${VERSION} to ${OWNER} ...
-	gem push --key github --host ${GPR} ${GEM}
+	@gem push --key github --host ${GPR} ${GEM}
 	@echo Done.
 
 clean:
