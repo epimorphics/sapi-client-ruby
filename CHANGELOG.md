@@ -6,7 +6,7 @@ All notable changes will be documented in this file.
 
 - (AlexT) allow passing endpoint specifications directory in initializer
   Bump deps including minitest 5.15.0 -> 5.25.1, mocha 1.13.0 -> 2.4.5 and
-  rexml 3.2.8 -> 3.3.8.
+  minitest-reporters 1.5.0 -> 1.7.1.
 
 ## 1.1.4 - 2024-10-08
 
