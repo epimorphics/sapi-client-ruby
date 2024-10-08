@@ -12,7 +12,7 @@ SPEC=${NAME}.gemspec
 
 all: publish
 
-${AUTH}: ${PAT}
+${AUTH}:
 	@mkdir -p ${HOME}/.gem
 	@echo '---' > ${AUTH}
 	@echo ':github: Bearer ${PAT}' >> ${AUTH}
