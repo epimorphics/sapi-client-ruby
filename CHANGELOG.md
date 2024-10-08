@@ -2,9 +2,13 @@
 
 All notable changes will be documented in this file.
 
+## 1.1.4 - 2024-10-08
+
+- (Dan) Upgrades ruby version to 2.7.8 and version cadence to 1.1.4
+
 ## 1.1.3 - 2024-06-03
 
-- (AlexT) require 'ostruct' to fix tests in Ruby 3.3.1. Use Matrix tests to check 
+- (AlexT) require 'ostruct' to fix tests in Ruby 3.3.1. Use Matrix tests to check
   multiple Ruby versions, 2.7 to 3.3. Bump deps:
   - rexml 3.2.5 -> 3.2.8 fixing CVE-2024-35176
   - concurrent-ruby 1.1.9 -> 1.3.1
