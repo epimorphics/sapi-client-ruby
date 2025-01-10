@@ -34,7 +34,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'faraday_middleware', '~> 1.0.0'
   spec.add_dependency 'i18n', '~> 1.5'
 
-  spec.add_development_dependency 'bundler', '~> 2.1.4'
+  spec.add_development_dependency 'bundler', '~> 2.4.22'
   spec.add_development_dependency 'byebug', '~> 11.1.3'
   spec.add_development_dependency 'minitest', '~> 5.25'
   spec.add_development_dependency 'minitest-reporters', '~> 1.7'
