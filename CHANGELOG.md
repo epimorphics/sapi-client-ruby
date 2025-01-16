@@ -2,6 +2,10 @@
 
 All notable changes will be documented in this file.
 
+## 1.3.0 - 2025-01-16
+
+- (AlexT) Add template endpoints https://github.com/epimorphics/sapi-client-ruby/pull/64
+
 ## 1.2.0 - 2024-10-08
 
 - (AlexT) allow passing endpoint specifications directory in initializer
