@@ -31,10 +31,16 @@ module SapiClient
     # class constant with the same name. If no such value is
     # found, return the default resource wrapper
     def self.find_wrapper_type(types)
-      Array(types).each do |type|
-        wrapper = wrapper_class_constant(de_uri(type))
-        return wrapper if wrapper
-      end
+      all_wrapped = Array(types)
+                    .map { |type| wrapper_class_constant(de_uri(type)) }
+                    .filter { |wrapper| !wrapper.nil? }
+      most_specific_wrapped = all_wrapped
+                              .filter { |t|
+        all_wrapped.none? { |a|
+          t != a && a.respond_to?(:ancestors) && a.ancestors.include?(t)
+        }
+      }
+      return most_specific_wrapped[0] unless most_specific_wrapped.empty?
 
       default_resource_wrapper_type
     end

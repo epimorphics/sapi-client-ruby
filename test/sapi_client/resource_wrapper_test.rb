@@ -3,8 +3,11 @@
 require 'test_helper'
 require 'sapi_client'
 
-class WombleResource
+class CommonResource
   def initialize(_ignored); end
+end
+
+class WombleResource < CommonResource
 end
 
 module SapiClient
@@ -39,6 +42,13 @@ module SapiClient
           _(
             ResourceWrapper
             .find_wrapper_type(%i[Wimbledon WombleResource Array])
+          ).must_equal(WombleResource)
+        end
+
+        it 'should find the most specific matching wrapper type' do
+          _(
+            ResourceWrapper
+              .find_wrapper_type(%i[CommonResource Wimbledon WombleResource Array])
           ).must_equal(WombleResource)
         end
 
