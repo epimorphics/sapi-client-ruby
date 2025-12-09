@@ -1,0 +1,64 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://fsa-rpa-dev.epimorphics.net/regulated-product-applications/id/application/RP-3099
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.10.4
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      date:
+      - Tue, 09 Dec 2025 17:21:57 GMT
+      content-type:
+      - application/json
+      content-length:
+      - '6989'
+      connection:
+      - keep-alive
+      sleuth-trace-id:
+      - ''
+      sleuth-span-id:
+      - ''
+      vary:
+      - Accept, Origin
+      cache-control:
+      - max-age=1200
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      x-cache-status:
+      - HIT
+    body:
+      encoding: UTF-8
+      string: '{"meta":{"@id":"http://data.food.gov.uk/regulated-product-applications/id/application/RP-3099","publisher":"Food
+        Standards Agency","license":"http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/","licenseName":"OGL
+        3","comment":"","version":"1.0.1","hasFormat":["http://data.food.gov.uk/regulated-product-applications/id/application/RP-3099.xls","http://data.food.gov.uk/regulated-product-applications/id/application/RP-3099.html","http://data.food.gov.uk/regulated-product-applications/id/application/RP-3099.csv","http://data.food.gov.uk/regulated-product-applications/id/application/RP-3099.ttl","http://data.food.gov.uk/regulated-product-applications/id/application/RP-3099.json","http://data.food.gov.uk/regulated-product-applications/id/application/RP-3099.geojson","http://data.food.gov.uk/regulated-product-applications/id/application/RP-3099.rdf"]},"items":[{"@id":"http://data.food.gov.uk/regulated-product-applications/id/application/RP-3099","phase":{"@id":"http://data.food.gov.uk/regulated-product-applications/def/risk-assessment","seeAlso":[{"@id":"https://www.food.gov.uk/sites/default/files/media/document/csa-report-risk-analysis.pdf#page=13"},{"@id":"https://cot.food.gov.uk/jointexpertgroups"},{"@id":"https://sac.food.gov.uk/"}],"label":["Risk
+        assessment"],"comment":"this is to decide if the product or process is safe
+        to be placed on the market in England, Wales and\n    Scotland. This will
+        involve risk assessment by one of our Joint Expert Groups (Opens in a new
+        window) and/or\n    Scientific Advisory Committees and a consideration of
+        other legitimate factors (for example,\n    risks to the environment). These
+        will be combined to form an evidence package.","type":[{"@id":"http://data.food.gov.uk/regulated-product-applications/def/AssessmentPhase"},{"@id":"http://data.food.gov.uk/regulated-product-applications/def/PBOTier2AssessmentPhase"}]},"identifier":3099,"product":[{"@id":"http://data.food.gov.uk/regulated-product-applications/id/product/50f37755774054e1b6819298d09f8e39fd677c0e","productName":"Vitamin-C
+        Enriched Grapes","pboIdentifier":"PBM-2025-001","pboBatchIdentifier":"PBM-2025-001/5","pboApplicableRegulation":{"@id":"http://data.food.gov.uk/regulated-product-applications/def/regulation-22"},"marketingName":"VitaGrape","type":[{"@id":"http://data.food.gov.uk/regulated-product-applications/def/PBOs","productRegime":{"@id":"http://data.food.gov.uk/regulated-products/id/regime/pbo","prefLabel":"PBO
+        authorisations","notation":"pbo","type":[{"@id":"http://data.food.gov.uk/regulated-products/def/core/Regime"}]},"productAltLabel":["Precision
+        Bred Organisms","PBO"],"subClassOf":[{"@id":"http://data.food.gov.uk/regulated-product-applications/def/Product"},{"onProperty":{"@id":"http://data.food.gov.uk/regulated-product-applications/def/pboIdentifier"},"cardinality":1,"type":[{"@id":"http://www.w3.org/2002/07/owl#Restriction"}]},{"onProperty":{"@id":"http://data.food.gov.uk/regulated-product-applications/def/pboApplicableRegulation"},"cardinality":1,"type":[{"@id":"http://www.w3.org/2002/07/owl#Restriction"}]}],"seeAlso":[{"@id":"https://www.food.gov.uk/business-guidance/what-are-precision-bred-organisms"}],"label":["Precision
+        bred organisms (PBOs) "],"type":[{"@id":"http://www.w3.org/2002/07/owl#Class"}]}]}],"lastModified":"2025-11-01","type":[{"@id":"http://data.food.gov.uk/regulated-product-applications/def/Application","subClassOf":[{"onProperty":{"@id":"http://data.food.gov.uk/regulated-product-applications/def/phase"},"cardinality":1,"type":[{"@id":"http://www.w3.org/2002/07/owl#Restriction"}]},{"onProperty":{"@id":"http://data.food.gov.uk/regulated-products/def/core/regulatingRegime"},"allValuesFrom":{"@id":"http://data.food.gov.uk/regulated-products/def/core/Regime"},"type":[{"@id":"http://www.w3.org/2002/07/owl#Restriction"}]},{"onProperty":{"@id":"http://data.food.gov.uk/regulated-products/def/core/hasAuthorisation"},"allValuesFrom":{"@id":"http://data.food.gov.uk/regulated-product-applications/def/Authorisation"},"type":[{"@id":"http://www.w3.org/2002/07/owl#Restriction"}]},{"onProperty":{"@id":"http://data.food.gov.uk/regulated-product-applications/def/advice"},"maxCardinality":1,"type":[{"@id":"http://www.w3.org/2002/07/owl#Restriction"}]},{"onProperty":{"@id":"http://data.food.gov.uk/regulated-product-applications/def/id"},"cardinality":1,"type":[{"@id":"http://www.w3.org/2002/07/owl#Restriction"}]},{"onProperty":{"@id":"http://data.food.gov.uk/regulated-product-applications/def/summary"},"cardinality":1,"type":[{"@id":"http://www.w3.org/2002/07/owl#Restriction"}]},{"onProperty":{"@id":"http://data.food.gov.uk/regulated-products/def/core/lastModified"},"maxCardinality":1,"type":[{"@id":"http://www.w3.org/2002/07/owl#Restriction"}]},{"onProperty":{"@id":"http://data.food.gov.uk/regulated-product-applications/def/status"},"cardinality":1,"type":[{"@id":"http://www.w3.org/2002/07/owl#Restriction"}]},{"onProperty":{"@id":"http://data.food.gov.uk/regulated-products/def/core/regulatingRegime"},"cardinality":1,"type":[{"@id":"http://www.w3.org/2002/07/owl#Restriction"}]},{"@id":"http://data.food.gov.uk/regulated-products/def/core/Application"},{"onProperty":{"@id":"http://data.food.gov.uk/regulated-product-applications/def/applicant"},"allValuesFrom":{"@id":"http://data.food.gov.uk/regulated-products/def/core/Organization"},"type":[{"@id":"http://www.w3.org/2002/07/owl#Restriction"}]}],"comment":"An
+        application for a regulated product in the process of being assessed.","label":["Application"],"type":[{"@id":"http://www.w3.org/2002/07/owl#Class"}]}],"searchText":"3099
+        Vitamin-C Enriched Grapes Description of Product. Some additional details
+        have been provided up to 2000 max characters. Healthy Crops Limited RP-3099","status":{"@id":"http://data.food.gov.uk/regulated-product-applications/def/in-progress","label":["In
+        progress"],"comment":"An application in risk assessment, risk management or
+        authorisation stages.","type":[{"@id":"http://data.food.gov.uk/regulated-product-applications/def/ApplicationStatus"}]},"summary":"Description
+        of Product. Some additional details have been provided up to 2000 max characters.","regulatingRegime":{"@id":"http://data.food.gov.uk/regulated-products/id/regime/pbo","prefLabel":"PBO
+        authorisations","notation":"pbo","type":[{"@id":"http://data.food.gov.uk/regulated-products/def/core/Regime"}]},"notation":"RP-3099","applicant":[{"@id":"http://data.food.gov.uk/regulated-product-applications/id/agent/bd7cc563fa8add9eb3c58c8cd54c39161b0380ba","name":"Healthy
+        Crops Limited","notation":"bd7cc563fa8add9eb3c58c8cd54c39161b0380ba","type":[{"@id":"http://data.food.gov.uk/regulated-products/def/core/Agent"}]}],"pboConfirmation":[{"page":{"@id":"https://www.gov.uk/government/publications/qualifying-higher-plant-notification-reference-25q09"},"label":["Qualifying
+        higher plant notification (reference: 25/Q09)"],"type":[{"@id":"http://data.food.gov.uk/regulated-product-applications/def/PBOConfrirmationDocument"}]}]}]}'
+  recorded_at: Tue, 09 Dec 2025 17:21:57 GMT
+recorded_with: VCR 6.3.1
