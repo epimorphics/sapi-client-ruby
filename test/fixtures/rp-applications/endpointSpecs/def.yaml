@@ -1,0 +1,9 @@
+name  : def.item
+type  : endpoint.item
+url   : /regulated-product-applications/def/{__id}
+isDescribe: true
+description: Description of a vocabulary entry
+example: /regulated-product-applications/def/applicant
+view:
+  class: ":DefGeneric"
+  projection: "*"

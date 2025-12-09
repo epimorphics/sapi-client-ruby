@@ -1,0 +1,8 @@
+name  : regime.item
+type  : endpoint.item
+url   : /regulated-product-applications/id/registry
+description: Details of the RPA registry
+example: /regulated-product-applications/id/registry
+view:
+  class: ":Registry"
+  projection: "*"

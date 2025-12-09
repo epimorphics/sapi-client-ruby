@@ -1,0 +1,10 @@
+name  : product.list
+type  : endpoint.list
+url   : /regulated-product-applications/id/product
+query : "[] :product ?id"
+distinct: true
+description: List all products for which applications exist
+example: /regulated-product-applications/id/product
+view:
+  class: ":Product"
+  projection: "*"

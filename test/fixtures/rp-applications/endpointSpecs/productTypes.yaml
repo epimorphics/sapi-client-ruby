@@ -1,0 +1,9 @@
+name  : productTypes.list
+type  : endpoint.list
+url   : /regulated-product-applications/def/product-types
+query : "?id rdfs:subClassOf :Product"
+description: List all product types
+example: /regulated-product-applications/def/product-types
+view:
+  class: ":ProductClass"
+  projection: "*"

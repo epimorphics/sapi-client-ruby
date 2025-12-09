@@ -1,0 +1,41 @@
+name  : application.list
+type  : endpoint.list
+url   : /regulated-product-applications/id/application
+query : "?id a :Application . "
+description: List all applications
+example: /regulated-product-applications/id/application
+textSearch: true
+views:
+  default: applicationView
+---
+name: applicationView
+type: view
+view:
+  class: ":Application"
+  projection: "*,applicant.*,phase.label,status.label,product(productName,marketingName,type.label,pboIdentifier,pboBatchIdentifier,pboApplicableRegulation.label),scientificReport(label,page),riskAssessment(label,page),consultation.*,consultationResponse.page,hasAuthorisation.*,pboConfirmation(label,page)"
+csv   :
+  map :
+    - "ApplicationID" : "notation"
+    - "ApplicationIDOrdinal" : "identifier"
+    - "Product/PBOName" : "product.productName"
+    - "ProductType" : "product.type.label"
+    - "ProductMarketingName" : "product.marketingName"
+    - "Summary" : "summary"
+    - "PublicSummary" : "publicSummary"
+    - "Applicant" : "applicant.name"
+    - "PhaseOfAssessment" : "phase.label"
+    - "Status" : "status.label"
+    - "ScientificInformationTitle" : "scientificReport.label"
+    - "ScientificInformationDownloadURL" : "scientificReport.page"
+    - "FSA/FSSSafetyAssessmentTitle" : "riskAssessment.label"
+    - "FSA/FSSSafetyDownloadURL" : "riskAssessment.page"
+    - "ConsultationTitle": "consultation.label"
+    - "ConsultationDownloadURL" : "consultation.page"
+    - "ConsultionResponseDownloadURLs" : "consultationResponse.page"
+    - "AdviceToMinisters" : "advice"
+    - "Authorisations" : "hasAuthorisation.page"
+    - "PBOIdentifier" : "product.pboIdentifier"
+    - "PBOBatchIdentifier" : "product.pboBatchIdentifier"
+    - "PBOApplicableRegulation" : "product.pboApplicableRegulation.label"
+    - "PBOConfirmationTitle" : "pboConfirmation.label"
+    - "PBOConfirmationDownloadURL" : "pboConfirmation.page"

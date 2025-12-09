@@ -1,0 +1,8 @@
+name  : application.item
+type  : endpoint.item
+url   : /regulated-product-applications/id/application/{__id}
+description: Details of the application
+example: /regulated-product-applications/id/application/131
+view:
+  class: ":Application"
+  projection: "*,applicant.*,phase.label,status.label,product(productName,type.label)"

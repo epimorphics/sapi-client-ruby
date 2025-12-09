@@ -1,0 +1,9 @@
+name  : agent.list
+type  : endpoint.list
+url   : /regulated-product-applications/id/agent
+query : "?id a core:Agent . "
+description: List the applicants (agents)
+example: /regulated-product-applications/id/agent
+view:
+  class: "core:Agent"
+  projection: "*"

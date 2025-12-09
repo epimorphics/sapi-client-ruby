@@ -1,0 +1,7 @@
+name  : agent.item
+type  : endpoint.item
+url   : /regulated-product-applications/id/agent/{__id}
+description: Details of the agent (applicant)
+view:
+  class: "core:Agent"
+  projection: "*"

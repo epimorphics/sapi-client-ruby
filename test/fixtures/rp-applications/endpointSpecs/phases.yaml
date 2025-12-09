@@ -1,0 +1,9 @@
+name  : phases.list
+type  : endpoint.list
+url   : /regulated-product-applications/def/phases
+query : "?id a :AssessmentPhase . "
+description: List all assessment phases
+example: /regulated-product-applications/def/phases
+view:
+  class: ":AssessmentPhase"
+  projection: "*"

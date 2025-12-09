@@ -1,0 +1,380 @@
+type: model
+name: model
+prefixes:
+  ?
+  : "http://data.food.gov.uk/regulated-product-applications/def/"
+  geo-def: "http://data.food.gov.uk/codes/geographies/def/terms/"
+  owl: "http://www.w3.org/2002/07/owl#"
+  org: "http://www.w3.org/ns/org#"
+  regime: "http://data.food.gov.uk/regulated-products/id/regime/"
+  xsd: "http://www.w3.org/2001/XMLSchema#"
+  skos: "http://www.w3.org/2004/02/skos/core#"
+  rdfs: "http://www.w3.org/2000/01/rdf-schema#"
+  vcard: "http://www.w3.org/2006/vcard/ns#"
+  core: "http://data.food.gov.uk/regulated-products/def/core/"
+  cdt: "http://w3id.org/lindt/custom_datatypes#"
+  dct: "http://purl.org/dc/terms/"
+  rdf: "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  prov-dc: "http://www.w3.org/ns/prov-dc#"
+  rov: "http://www.w3.org/ns/regorg#"
+  provo: "http://example.org/provo#"
+  time: "http://www.w3.org/2006/time#"
+  dcat: "http://www.w3.org/ns/dcat#"
+  foaf: "http://xmlns.com/foaf/0.1/"
+  dc: "http://purl.org/dc/elements/1.1/"
+
+properties:
+  - prop: "rdf:type"
+    name: "type"
+    kind: "object"
+    type: "rdfs:Resource"
+    optional: true
+    multi: true
+    unique: false
+  - prop: "rdfs:label"
+    type: "rdf:langString"
+    optional: true
+    multi: true
+  - prop: "rdfs:comment"
+    type: "rdf:langString"
+    optional: true
+  - prop: "rdfs:seeAlso"
+    name: "seeAlso"
+    kind: object
+    optional: true
+    multi: true
+  - prop: "core:searchText"
+    name: "searchText"
+    type: "xsd:string"
+    optional: true
+  - prop: "skos:notation"
+    name: "notation"
+    type: "xsd:string"  
+    optional: true
+
+classes:
+
+- class: ":Application"
+  name: "Application"
+  properties:
+  - "rdf:type"
+  - "skos:notation"
+  - prop: ":advice"
+    name: "advice"
+    kind: "datatype"
+    optional: true
+    multi: false
+    unique: false
+  - prop: ":applicant"
+    name: "applicant"
+    kind: "object"
+    type: "core:Agent"
+    optional: true
+    multi: true
+    unique: false
+    comment: "This is the name of the company that has applied to the regulated products\
+      \ application service"
+  - prop: ":consultation"
+    name: "consultation"
+    kind: "object"
+    type: ":ConsultationReport"
+    optional: true
+    multi: true
+    unique: false
+  - prop: ":consultationResponse"
+    name: "consultationResponse"
+    kind: "object"
+    type: ":ConsultationResponse"
+    optional: true
+    multi: true
+    unique: false
+  - prop: ":id"
+    name: "identifier"
+    kind: "datatype"
+    type: "xsd:positiveInteger"
+    optional: false
+    multi: false
+    unique: false
+    comment: "This is the regulated product (RP) application identification number\
+      \ used for each application entered into the regulated products application\
+      \ service."
+  - prop: ":pboConfirmation"
+    name: "pboConfirmation"
+    kind: "object"
+    type: ":PBOConfrirmationDocument"
+    optional: true
+    multi: true
+    unique: false
+    comment: "Confirmation document from Defra."
+  - prop: ":phase"
+    name: "phase"
+    kind: "object"
+    type: ":AssessmentPhase"
+    valueBase: "http://data.food.gov.uk/regulated-product-applications/def/"
+    optional: false
+    multi: false
+    unique: false
+    comment: "This refers to the stage in which the application is currently being\
+      \ evaluated under."
+  - prop: ":product"
+    name: "product"
+    kind: "object"
+    type: ":Product"
+    optional: true
+    multi: true
+    unique: false
+  - prop: ":publicSummary"
+    name: "publicSummary"
+    kind: "datatype"
+    type: "rdf:langString"
+    optional: true
+    multi: true
+    unique: false
+    comment: "Summary provided by the applicant with information about the product,\
+      \ intended use and how the application meets the regulatory requirements."
+  - prop: ":riskAssessment"
+    name: "riskAssessment"
+    kind: "object"
+    type: ":SafetyAssessment"
+    optional: true
+    multi: true
+    unique: false
+  - prop: ":scientificReport"
+    name: "scientificReport"
+    kind: "object"
+    type: ":ScientificReport"
+    optional: true
+    multi: true
+    unique: false
+  - prop: ":status"
+    name: "status"
+    kind: "object"
+    type: ":ApplicationStatus"
+    optional: false
+    multi: false
+    unique: false
+  - prop: ":summary"
+    name: "summary"
+    kind: "datatype"
+    type: "https://www.w3.org/ns/iana/media-types/text/markdown#Resource"
+    optional: false
+    multi: false
+    unique: false
+    comment: "A brief overview about the product and intended use, created by the\
+      \ FSA."
+  - prop: "core:hasAuthorisation"
+    name: "hasAuthorisation"
+    kind: "object"
+    type: ":Authorisation"
+    optional: true
+    multi: true
+    unique: false
+    comment: "The authorisation(s) that have resulted from this application."
+  - prop: "core:lastModified"
+    name: "lastModified"
+    kind: "datatype"
+    type:
+      - "xsd:date"
+      - "xsd:dateTime"
+      - "xsd:string"
+    optional: true
+    multi: false
+    unique: false
+    comment: "Date or date time of the most recent modification."
+  - prop: "core:regulatingRegime"
+    name: "regulatingRegime"
+    kind: "object"
+    type: "core:Regime"
+    optional: false
+    multi: false
+    unique: false
+    comment: "The regime (`core:Regime`) under which the given regulation is made."
+  - prop: "core:searchText"
+  comment: "An application for a regulated product in the process of being assessed."
+  polymorphic: false
+- class: ":ApplicationStatus"
+  name: "ApplicationStatus"
+  properties:
+    - "rdf:type"
+    - "rdfs:label"
+    - "rdfs:seeAlso"
+    - "rdfs:comment"
+  
+- class: ":AssessmentPhase"
+  name: "AssessmentPhase"
+  properties:
+    - "rdf:type"
+    - "rdfs:label"
+    - "rdfs:seeAlso"
+    - "rdfs:comment"
+
+- class: ":Authorisation"
+  name: "Authorisation"
+  properties:
+    - prop: "foaf:page"
+      name: "page"
+      kind: "object"
+      optional: false
+      multi: false
+      unique: false
+  polymorphic: false
+- class: ":ConsultationReport"
+  name: "ConsultationReport"
+  properties:
+    - "rdf:type"
+    - "rdfs:label"
+    - "rdfs:seeAlso"
+    - "rdfs:comment"
+    - prop: "foaf:page"
+      name: "page"
+      kind: "object"
+      optional: false
+      multi: false
+      unique: false
+  polymorphic: false
+- class: ":ConsultationResponse"
+  name: "ConsultationResponse"
+  properties:
+    - "rdf:type"
+    - "rdfs:label"
+    - "rdfs:seeAlso"
+    - "rdfs:comment"
+    - prop: "foaf:page"
+      kind: object
+  polymorphic: false
+- class: ":PBOApplicableRegulation"
+  name: "PBOApplicableRegulation"
+  properties: ["rdfs:label"]
+  polymorphic: false
+- class: ":PBOConfrirmationDocument"
+  name: "PBOConfrirmationDocument"
+  properties: ["rdfs:label", "foaf:page"]
+- class: ":PBOs"
+  name: "PBOs"
+  subClassOf: ":Product"
+  properties:
+  - prop: ":marketingName"
+    name: "marketingName"
+    kind: "datatype"
+    type: "rdf:PlainLiteral"
+    optional: true
+    multi: true
+    unique: false
+  - prop: ":pboApplicableRegulation"
+    name: "pboApplicableRegulation"
+    kind: "object"
+    type: ":PBOApplicableRegulation"
+    optional: true # due to polymorphic issue
+    multi: false
+    unique: false
+  - prop: ":pboBatchIdentifier"
+    name: "pboBatchIdentifier"
+    kind: "datatype"
+    type: "rdf:PlainLiteral"
+    optional: true
+    multi: true
+    unique: false
+    comment: "Created by Defra. Not all entries will have a batch identifier as not\
+      \ all submissions will be batched. Some applications may have multiple batch\
+      \ identifiers."
+  - prop: ":pboIdentifier"
+    name: "pboIdentifier"
+    kind: "datatype"
+    type: "rdf:PlainLiteral"
+    optional: true # due to polymorphic issue
+    multi: false
+    unique: false
+    comment: "PBO individual unique identifier"
+  polymorphic: false
+- class: ":Product"
+  properties:
+    - prop: ":productName"
+      name: "productName"
+      kind: "datatype"
+      type: "rdf:PlainLiteral"
+      optional: false
+      multi: false
+      unique: false
+      comment: "This is the given name of the product or precision bred organism for\
+        \ which the applicant is seeking authorisation."
+    - prop: "rdf:type"
+      type: ":ProductClass"
+      valueBase: "http://data.food.gov.uk/regulated-product-applications/def/"
+  polymorphic: true
+- class: ":ProductClass"
+  properties:
+    - "rdfs:label"
+    - "rdfs:seeAlso"
+    - prop: ":productAltLabel"
+      type: "xsd:string"
+      optional: true
+      multi: true
+    - prop: ":productRegime"
+      kind: object
+
+- class: ":SafetyAssessment"
+  name: "SafetyAssessment"
+  properties:
+    - "rdf:type"
+    - "rdfs:label"
+    - prop: "foaf:page"
+      kind: object
+  polymorphic: false
+- class: ":ScientificReport"
+  name: "ScientificReport"
+  properties:
+    - "rdf:type"
+    - "rdfs:label"
+    - prop: "foaf:page"
+      kind: object
+  polymorphic: false
+
+- class: "core:Agent"
+  name: "Agent"
+  subClassOf: "core:Thing"
+  properties:
+  - prop: "foaf:name"
+    kind: "datatype"
+    type: "xsd:string"
+  - prop: "core:hasAddress"
+    name: "hasAddress"
+    kind: "object"
+    type: "core:Address"
+    optional: true
+    multi: true
+    unique: false
+  - prop: "org:memberOf"
+    name: "memberOf"
+    kind: "object"
+    type: "core:Organization"
+    optional: true
+    multi: true
+    unique: false
+    comment: "Indicates that a person is a member of the Organization with no indication\
+      \ of the nature of that membership or the role played. Note that the choice\
+      \ of property name is not meant to limit the property to only formal membership\
+      \ arrangements, it is also indended to cover related concepts such as affilliation\
+      \ or other involvement in the organization. Extensions can specialize this relationship\
+      \ to indicate particular roles within the organization or more nuanced relationships\
+      \ to the organization. Has an optional inverse, `org:hasmember`."
+  comment: "Local analog of `foaf:Agent` and `prov:Agent` indicating locally expected\
+    \ property usage."
+  polymorphic: false
+
+- class: ":DefGeneric"
+  properties:
+    - "rdf:type"
+    - "rdfs:label"
+    - "rdfs:comment"
+
+- class: ":Registry"
+  name: "Registry"
+  properties:
+    - "rdf:type"
+    - prop: "core:lastModified"
+      optional: true
+    - prop: "skos:prefLabel"
+      name: "prefLabel"
+      type: "rdf:langString"
+      optional: true
+      multi: false

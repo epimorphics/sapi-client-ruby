@@ -1,0 +1,7 @@
+name  : product.item
+type  : endpoint.item
+url   : /regulated-product-applications/id/product/{__id}
+description: Details of the product
+view:
+  class: ":Product"
+  projection: "*"

@@ -1,0 +1,9 @@
+name  : statuses.list
+type  : endpoint.list
+url   : /regulated-product-applications/def/statuses
+query : "?id a :ApplicationStatus . "
+description: List all application statuses
+example: /regulated-product-applications/def/statuses
+view:
+  class: ":ApplicationStatus"
+  projection: "*"

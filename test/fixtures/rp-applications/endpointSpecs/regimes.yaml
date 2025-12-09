@@ -1,0 +1,10 @@
+name  : regime.list
+type  : endpoint.list
+url   : /regulated-product-applications/id/regime
+query : "?id a :Registry. "
+description: List the available regimes/registries
+example: /regulated-product-applications/id/regime
+view:
+  class: ":Registry"
+  projection: "*"
+
