@@ -2,6 +2,10 @@
 
 All notable changes will be documented in this file.
 
+## 1.4.0 - 2026-03-04
+
+- (AlexT) When finding wrapper type, select the most specific type if more are available
+
 ## 1.3.0 - 2025-01-16
 
 - (AlexT) Add template endpoints https://github.com/epimorphics/sapi-client-ruby/pull/64
