@@ -18,6 +18,9 @@ module SapiClient
       @specification = (@application_spec_file && YAML.load_file(application_or_endpoints)) || {
         'sapi-nt' => { 'config' => { 'loadSpecPath' => 'classpath:endpointSpecs' } }
       }
+
+      # Call method to parse model spec before returning
+      parse_model_spec
     end
 
     attr_reader :base_url, :specification
