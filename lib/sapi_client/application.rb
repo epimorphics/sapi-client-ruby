@@ -104,6 +104,31 @@ module SapiClient
       end
     end
     # Helper method for parsing model spec file
+    def type2ruby(typ, prefix2uri, qname2local, builtins)
+      full_uri = type2fulltype(typ, prefix2uri)
+      if qname2local.include? typ
+        qname2local[typ]
+      elsif builtins.include? full_uri
+        builtins[full_uri]
+      else
+        'String'
+      end
+    rescue StandardError
+      'String'
+    end
+
+    # Helper method for parsing model spec file
+    def returns(types)
+      if types.size > 1
+        "( #{types.join(' | ')} )"
+      elsif types.size == 1
+        types.first
+      else
+        'untyped'
+      end
+    end
+
+    # Helper method for parsing model spec file
     def to_underscore(string)
       string.gsub('::', '/')
             .gsub(/([A-Z\d]+)([A-Z][a-z])/, '\1_\2')
