@@ -104,6 +104,61 @@ module SapiClient
       end
     end
 
+    # Parses the API model spec file and populates Hash with resulting class names and properties
+    def parse_model_spec # rubocop:disable Metrics/AbcSize,Metrics/CyclomaticComplexity,Metrics/MethodLength,Metrics/PerceivedComplexity
+      # Load model spec file
+      model_spec = final_path.gsub('/*.yaml', '/model.yaml')
+      m = YAML.load_file(model_spec)
+
+      # Parse class names and prefixes
+      qname2local = {}
+      m['classes'].each do |cls|
+        qname2local[cls['class']] = cls['name']
+      end
+      prefix2uri = m['prefixes']
+      builtins = {
+        'http://www.w3.org/1999/02/22-rdf-syntax-ns#langString' => 'String',
+        'http://www.w3.org/2001/XMLSchema#string' => 'String',
+        'http://www.w3.org/2000/01/rdf-schema#Literal' => 'String',
+        'http://www.w3.org/2001/XMLSchema#boolean' => 'bool',
+        'http://www.w3.org/2001/XMLSchema#date' => 'Date',
+        'http://www.w3.org/2001/XMLSchema#dateTime' => 'DateTime',
+        'http://www.w3.org/2001/XMLSchema#integer' => 'Integer',
+        'http://www.w3.org/2001/XMLSchema#decimal' => 'BigDecimal',
+        'http://www.w3.org/2001/XMLSchema#double' => 'Float'
+      }
+
+      # Parse classes and properties and populate PARSED_MODEL_SPEC
+      m['classes'].each do |cls|
+        # Skip if class has already been parsed
+        next if PARSED_MODEL_SPEC.keys.include?(type2fulltype(cls['class'], prefix2uri))
+
+        # If not, parse class and properties
+        PARSED_MODEL_SPEC[type2fulltype(cls['class'], prefix2uri)] = {}
+        cls['properties'].each do |prop|
+          ts = Set.new
+
+          if prop['type'].is_a?(Array)
+            prop['type'].each do |t|
+              ts << type2ruby(t, prefix2uri, qname2local, builtins)
+            end
+          else
+            ts << type2ruby(prop['type'], prefix2uri, qname2local, builtins)
+          end
+          ts << 'nil' if prop['optional']
+
+          PARSED_MODEL_SPEC[type2fulltype(cls['class'], prefix2uri)][prop['name']] = returns(ts)
+          snake_prop = to_underscore(prop['name'])
+          if snake_prop != prop['name']
+            PARSED_MODEL_SPEC[type2fulltype(cls['class'], prefix2uri)][snake_prop] =
+              returns(ts)
+          end
+        end
+      end
+
+      nil
+    end
+
     # Helper method for parsing model spec file
     def type2fulltype(typ, prefix2uri)
       spl = typ.split(':')
