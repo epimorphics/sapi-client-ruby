@@ -1,10 +1,12 @@
-# frozen-string-literal: true
+# frozen_string_literal: true
 
 module SapiClient
   # Wraps an entire Sapi-NT application, such that we can walk over all of the
   # enclosed endpoint specifications to perform various operations, such as creating
   # methods we can call
   class Application
+    PARSED_MODEL_SPEC = {} # rubocop:disable Style/MutableConstant
+
     def initialize(base_url, application_or_endpoints)
       unless File.exist?(application_or_endpoints)
         raise(SapiError, "Could not find spec file/directory #{application_or_endpoints}")
