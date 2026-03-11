@@ -103,6 +103,16 @@ module SapiClient
         inst.get_hierarchy(endpoint_url, options, scheme)
       end
     end
+
+    # Helper method for parsing model spec file
+    def type2fulltype(typ, prefix2uri)
+      spl = typ.split(':')
+      pref = prefix2uri[spl[0]]
+      pref + spl[1]
+    rescue StandardError
+      typ
+    end
+
     # Helper method for parsing model spec file
     def type2ruby(typ, prefix2uri, qname2local, builtins)
       full_uri = type2fulltype(typ, prefix2uri)
