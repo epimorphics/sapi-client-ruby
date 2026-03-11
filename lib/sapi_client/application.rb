@@ -38,12 +38,16 @@ module SapiClient
       @endpoints_path || configuration['loadSpecPath'].sub(/^classpath:/, '')
     end
 
-    def endpoint_group_files
+    def final_path
       if @endpoints_path.nil?
-        Dir["#{application_spec_dir}/#{load_spec_path}/*.yaml"]
+        "#{application_spec_dir}/#{load_spec_path}/*.yaml"
       else
-        Dir["#{@endpoints_path}/*.yaml"]
+        "#{@endpoints_path}/*.yaml"
       end
+    end
+
+    def endpoint_group_files
+      Dir[final_path]
     end
 
     def endpoints
