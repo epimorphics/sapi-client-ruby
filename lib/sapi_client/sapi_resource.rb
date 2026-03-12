@@ -258,7 +258,8 @@ module SapiClient
     def property_in_model_spec?(property)
       types&.any? do |typ|
         full_type = type_to_string(typ)
-        Application::PARSED_MODEL_SPEC.key?(full_type) && Application::PARSED_MODEL_SPEC[full_type].key?(property.to_s)
+        Application::PARSED_MODEL_SPEC.key?(full_type) &&
+          Application::PARSED_MODEL_SPEC[full_type].key?(property.to_s)
       end
     end
   end

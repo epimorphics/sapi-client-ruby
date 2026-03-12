@@ -4,7 +4,7 @@ module SapiClient
   # Wraps an entire Sapi-NT application, such that we can walk over all of the
   # enclosed endpoint specifications to perform various operations, such as creating
   # methods we can call
-  class Application
+  class Application # rubocop:disable Metrics/ClassLength
     PARSED_MODEL_SPEC = {} # rubocop:disable Style/MutableConstant
 
     def initialize(base_url, application_or_endpoints)
