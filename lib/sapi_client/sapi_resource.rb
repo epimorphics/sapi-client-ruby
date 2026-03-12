@@ -246,5 +246,12 @@ module SapiClient
       typ.is_a?(String) ? typ : typ['@id']
     end
 
+    # Helper method to find if property is in PARSED_MODEL_SPEC for the corresponding type
+    def property_in_model_spec?(property)
+      types&.any? do |typ|
+        full_type = type_to_string(typ)
+        Application::PARSED_MODEL_SPEC.key?(full_type) && Application::PARSED_MODEL_SPEC[full_type].key?(property.to_s)
+      end
+    end
   end
 end
