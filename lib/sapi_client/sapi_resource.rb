@@ -193,7 +193,7 @@ module SapiClient
     # Return the given value as an un-wrapped resource. A Hash given to this
     # method will have its keys transformed to symbols.
     def as_resource(res)
-      if res.is_a?(SapiResource) # rubocop:disable Style/CaseLikeIf
+      if res.is_a?(SapiResource)
         res.resource.clone
       elsif res.is_a?(Hash)
         hash_with_symbol_keys(res)
