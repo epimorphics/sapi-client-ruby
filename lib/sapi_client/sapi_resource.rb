@@ -1,4 +1,4 @@
-# frozen-string-literal: true
+# frozen_string_literal: true
 
 module SapiClient
   # Encapsulates a JSON-LD -style resource that we get back from a Sapi-NT endpoint,
@@ -92,7 +92,7 @@ module SapiClient
 
     # @return True if this resource has the given URI among its types
     def type?(uri)
-      type_uris = types&.map { |typ| typ.is_a?(String) ? typ : typ['@id'] }
+      type_uris = types&.map { |typ| type_to_string(typ) }
       type_uris&.include?(uri)
     end
 
@@ -240,5 +240,11 @@ module SapiClient
       first_segment, *remaining_segments = str.to_s.split('_')
       [first_segment, *remaining_segments.map(&:capitalize)].join.to_sym
     end
+
+    # Helper method to convert type to string
+    def type_to_string(typ)
+      typ.is_a?(String) ? typ : typ['@id']
+    end
+
   end
 end
