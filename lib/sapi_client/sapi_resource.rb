@@ -134,7 +134,10 @@ module SapiClient
     end
 
     def respond_to_missing?(property, _include_private = false)
-      resource.key?(property) || resource.key?(as_camel_case_method_name(property))
+      resource.key?(property) ||
+        resource.key?(as_camel_case_method_name(property)) ||
+        property_in_model_spec?(property) ||
+        property_in_model_spec?(as_camel_case_method_name(property))
     end
 
     def method_missing(property, *_args)
