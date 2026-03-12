@@ -200,9 +200,10 @@ module SapiClient
     # Return the given value as an un-wrapped resource. A Hash given to this
     # method will have its keys transformed to symbols.
     def as_resource(res)
-      if res.is_a?(SapiResource)
+      case res
+      when SapiResource
         res.resource.clone
-      elsif res.is_a?(Hash)
+      when Hash
         hash_with_symbol_keys(res)
       else
         { '@id': res.to_s }
