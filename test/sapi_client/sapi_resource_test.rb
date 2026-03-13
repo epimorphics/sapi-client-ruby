@@ -1,4 +1,4 @@
-# frozen-string-literal: true
+# frozen_string_literal: true
 
 require 'test_helper'
 require 'sapi_client'
@@ -343,6 +343,13 @@ module SapiClient
         it 'should allow snake_case method names to be used in place of camelCase' do
           fixture = SapiClient::SapiResource.new(prefLabel: 'I am Womble!')
           _(fixture.pref_label).must_equal('I am Womble!')
+        end
+
+        it 'should return nil for a property that is not present on the resource but is in the model spec' do
+          SapiClient::Application.stub_const(:PARSED_MODEL_SPEC, { 'http://wimbledon.org/Womble' => { 'home' => 'String' } }) do
+            fixture = SapiClient::SapiResource.new(name: 'Tobermory', type: { '@id' => 'http://wimbledon.org/Womble' })
+            _(fixture.home).must_be_nil
+          end
         end
       end
 
