@@ -1,0 +1,216 @@
+type:    model
+name:    model
+prefixes:
+  core: http://data.food.gov.uk/cbd-products/def/core/
+  dct:  http://purl.org/dc/terms/
+  owl:  http://www.w3.org/2002/07/owl#
+  rdf:  http://www.w3.org/1999/02/22-rdf-syntax-ns#
+  rdfs: http://www.w3.org/2000/01/rdf-schema#
+  skos: http://www.w3.org/2004/02/skos/core#
+  xsd:  http://www.w3.org/2001/XMLSchema#
+  dcat: http://www.w3.org/ns/dcat#
+  foaf: http://xmlns.com/foaf/0.1/
+  vcard: http://www.w3.org/2006/vcard/ns#
+  def-cbd:        http://data.food.gov.uk/cbd-products/def/
+  pl-base:        http://data.food.gov.uk/cbd-products/id/
+  cbd-base:       http://data.food.gov.uk/cbd-products/id/
+  codespace:      http://data.food.gov.uk/cbd-products/id/codespace/
+  cdt:            http://w3id.org/lindt/custom_datatypes#
+  cbd-listing:    http://data.food.gov.uk/cbd-products/id/listing/
+  cbd-supplier:   http://data.food.gov.uk/cbd-products/id/supplier/
+  cbd-status:     http://data.food.gov.uk/cbd-products/id/application-status/
+
+properties:
+  - prop: "rdf:type"
+    name: "type"
+    kind: "object"
+    type: "rdfs:Resource"
+    optional: true
+    multi: true
+    unique: false
+  - prop: "core:searchText"
+    name: "searchText"
+    type: "xsd:string"
+    optional: true
+  - prop: "skos:notation"
+    name: "notation"
+    type: "xsd:string"  
+    optional: true
+  - prop: "core:memberOf"
+    name: "memberOf"
+    type: "code:Collection"
+    multi: false
+    optional: true
+  - prop: "core:dateTimeStamp"
+    name: "dateTimeStamp"
+    type: "xsd:date"
+    optional: true
+  - prop: "core:lastModified"
+    name: "lastModified"
+    type: "xsd:date"
+    optional: true
+  - prop: "core:remark"
+    name: "remark"
+    type: "xsd:string"
+    optional: true
+  - prop: "core:status"
+    name: "status"
+    type: "core:Concept"
+    optional: true
+
+classes:
+  - class: "core:Thing"
+    name: "Thing"
+    properties:
+      - "rdf:type"
+      - "skos:notation"
+      - "core:searchText"
+      - "core:dateTimeStamp"
+      - "core:memberOf"
+
+  - class: "core:Agent"
+    name: "Agent"
+    properties:
+      - "rdf:type"
+      - "skos:notation"
+      - "core:searchText"
+      - "core:dateTimeStamp"
+      - "core:memberOf"
+      - prop: "foaf:name"
+        name: "name"
+        kind: "datatype"
+        type: "rdf:langString"
+        optional: true
+        multi: true
+        unique: false
+        comment: "A name for some thing."
+
+  - class: "core:Concept"
+    name: "Concept"
+    properties:
+      - "rdf:type"
+      - "skos:notation"
+      - "core:searchText"
+      - "core:dateTimeStamp"
+      - "core:memberOf"
+      - prop: "skos:inScheme"
+        name: "inScheme"
+        type: "core:Concept"
+      - prop: "skos:prefLabel"
+        name: "prefLabel"
+        type: "xsd:string"
+        multi: false
+
+  - class: "core:ConceptScheme"
+    name: "ConceptScheme"
+    properties:
+      - "rdf:type"
+      - "skos:notation"
+      - "core:searchText"
+      - "core:dateTimeStamp"
+      - "core:memberOf"
+      - prop: "skos:hasTopConcept"
+        name: "hasTopConcept"
+        type: "core:Concept"
+  
+  - class: "core:List"
+    name: "List"
+    properties:
+      - "rdf:type"
+      - "skos:notation"
+      - "core:searchText"
+      - "core:dateTimeStamp"
+      - "core:memberOf"
+      - prop: "core:statusScheme"
+        name: "statusScheme"
+        type: "core:ConceptScheme"
+      - prop: "core:supplierGroup"
+        name: "supplierGroup"
+        type: "core:Collection"
+      - prop: "core:listEntryClass"
+        name: "listEntryClass"
+        type: "owl:Class"
+
+  - class: "core:Listing"
+    name: "Listing"
+    properties:
+      - "rdf:type"
+      - "skos:notation"
+      - "core:searchText"
+      - "core:dateTimeStamp"
+      - prop: "core:memberOf"
+        name: "memberOf"
+        type: "core:List"
+      - "core:status"
+      - "core:remark"
+
+  - class: "core:ProductListing"
+    name: "ProductListing"
+    properties:
+      - "rdf:type"
+      - "skos:notation"
+      - "core:searchText"
+      - "core:dateTimeStamp"
+      - "core:lastModified"
+      - prop: "core:memberOf"
+        name: "memberOf"
+        type: "core:List"
+      - "core:remark"
+      - prop: "core:applicationNumber"
+        name: "applicationNumber"
+        optional: true
+        multi: true
+        type: "xsd:string"
+      - prop: "core:status"
+        name: "status"
+        type: "core:Concept"
+        optional: true
+        valueBase: "cbd-status:"
+      - prop: "core:manufacturerSupplier"
+        name: "manufacturerSupplier"
+        type: "core:Agent"
+        optional: true
+        valueBase: "cbd-supplier:"
+      - prop: "core:productId"
+        name: "productId"
+        optional: true
+        type: "xsd:string"
+      - prop: "core:productLinkedToApplication"
+        name: "productLinkedToApplication"
+        optional: true
+        type: "xsd:string"
+      - prop: "core:productName"
+        name: "productName"
+        type: "xsd:string"
+      - prop: "core:productSizeVolumeQuantity"
+        name: "productSizeVolumeQuantity"
+        optional: true
+        type: "xsd:string"
+  - class: "core:List"
+    name: "List"
+    properties:
+      - "rdf:type"
+      - "skos:notation"
+      - "core:searchText"
+      - "core:lastModified"
+      - prop: "skos:prefLabel"
+        name: "prefLabel"
+        type: "xsd:string"
+        multi: false
+      - prop: "core:memberOf"
+        name: "memberOf"
+        type: "core:List"
+      - "core:status"
+      - "core:remark"
+      - prop: "core:listEntryClass"
+        name: "listEntryClass"
+        type: "owl:Class"
+        optional: true
+      - prop: "core:statusScheme"
+        name: "statusScheme"
+        type: "skos:ConceptScheme"
+        optional: true
+      - prop: "core:supplierGroup"
+        name: "supplierGroup"
+        type: "core:Collection"
+        optional: true
