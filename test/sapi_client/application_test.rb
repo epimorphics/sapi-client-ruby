@@ -97,6 +97,18 @@ module SapiClient
                 _(hierarchy.roots.size).must_equal(5)
               end
             end
+
+            describe '#parsed_model_spec' do
+              it 'should populate the parsed model spec on initialization' do
+                VCR.use_cassette('application.test_parsed_model_spec') do
+                  app = SapiClient::Application.new(
+                    'http://fsa-rp-test.epimorphics.net',
+                    'test/fixtures/regulated-products/application.yaml'
+                  )
+                  _(app.class.const_get(:PARSED_MODEL_SPEC).size).must_be :>, 0
+                end
+              end
+            end
           end
         end
       end
