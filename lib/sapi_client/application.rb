@@ -160,6 +160,8 @@ module SapiClient
       end
 
       nil
+    rescue StandardError => e
+      puts(SapiError, "Error parsing model spec file #{model_spec}: #{e.message}")
     end
 
     # Helper method for parsing model spec file
