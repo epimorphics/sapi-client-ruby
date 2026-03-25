@@ -142,10 +142,7 @@ module SapiClient
 
     def method_missing(property, *_args)
       return self[property] if resource.key?(property)
-      # If the property is not found, check if it's in the model spec for this resource's type(s)
-      return nil if property_in_model_spec?(property)
-
-      # If still not found, try looking for a camelCase version of the property as well
+      # If not found, try looking for a camelCase version of the property as well
       cc_property = as_camel_case_method_name(property)
       return self[cc_property] if resource.key?(cc_property)
       return nil if property_in_model_spec?(cc_property)
