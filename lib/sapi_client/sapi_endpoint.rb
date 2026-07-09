@@ -1,4 +1,4 @@
-# frozen-string-literal: true
+# frozen_string_literal: true
 
 module SapiClient
   # Denotes a single SAPI-NT endpoint, which we can call to get back JSON data

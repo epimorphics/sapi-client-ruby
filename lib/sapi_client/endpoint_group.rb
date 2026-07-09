@@ -1,4 +1,4 @@
-# frozen-string-literal: true
+# frozen_string_literal: true
 
 module SapiClient
   # Encapsulates the specification of a group of SAPI endpoints, and some

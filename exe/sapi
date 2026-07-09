@@ -1,13 +1,13 @@
 #!/usr/bin/env ruby
-# frozen-string-literal: true
+# frozen_string_literal: true
 
 require 'bundler/setup'
 require 'optparse'
 require 'sapi_client'
 
 options = {
-  base: ENV['SAPI_BASE_URL'],
-  spec: ENV['SAPI_SPEC_FILE'] || ENV['SAPI_SPEC']
+  base: ENV.fetch('SAPI_BASE_URL', nil),
+  spec: ENV['SAPI_SPEC_FILE'] || ENV.fetch('SAPI_SPEC', nil)
 }
 
 def spec_file_or_dir(options)
