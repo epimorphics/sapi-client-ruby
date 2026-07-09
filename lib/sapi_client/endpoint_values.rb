@@ -1,4 +1,4 @@
-# frozen-string-literal: true
+# frozen_string_literal: true
 
 module SapiClient
   # Encapsulates a set of values from a given endpoint, conditioned by various

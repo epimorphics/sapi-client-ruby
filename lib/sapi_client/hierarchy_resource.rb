@@ -8,7 +8,7 @@ module SapiClient
     attr_reader :children, :parent
 
     def initialize(resource)
-      super(resource)
+      super
       @children = []
     end
 
