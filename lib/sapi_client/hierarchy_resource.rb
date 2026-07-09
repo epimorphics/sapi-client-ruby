@@ -22,8 +22,8 @@ module SapiClient
       resource.send(:parent=, self, add_reciprocal: false) if add_reciprocal
     end
 
-    def each_child(&block)
-      children.each(&block)
+    def each_child(&)
+      children.each(&)
     end
   end
 end
