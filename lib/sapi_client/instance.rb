@@ -1,4 +1,4 @@
-# frozen-string-literal: true
+# frozen_string_literal: true
 
 module SapiClient
   # Denotes a particular instance of a Sapi-NT API. The instance has the basic

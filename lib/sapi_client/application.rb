@@ -1,4 +1,4 @@
-# frozen-string-literal: true
+# frozen_string_literal: true
 
 module SapiClient
   # Wraps an entire Sapi-NT application, such that we can walk over all of the

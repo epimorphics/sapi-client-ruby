@@ -2,6 +2,11 @@
 
 All notable changes will be documented in this file.
 
+## Unreleased
+
+- (Bogdan) Moved development dependencies from `gemspec` to `Gemfile` and updated
+  all dependencies [#37](https://github.com/epimorphics/nrw-landing/issues/37)
+
 ## 1.4.0 - 2026-03-04
 
 - (AlexT) When finding wrapper type, select the most specific type if more are available
