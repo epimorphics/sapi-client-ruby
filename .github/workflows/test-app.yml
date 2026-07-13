@@ -1,19 +1,26 @@
 name: Ruby tests
 
-on: [push, pull_request]
+on: pull_request
 
 jobs:
   test:
     strategy:
       matrix:
-        ruby: ['2.7', '3.0', '3.1', '3.2', '3.3']
+        # In support versions of Ruby this Gem will be tested against.
+        # This should correspond to the version range in the gemfile.
+        ruby: ['3.3', '3.4']
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
     - name: Set up Ruby
-      uses: ruby/setup-ruby@v1
+      uses: ruby/setup-ruby@v1.316.0
       with:
         ruby-version: ${{ matrix.ruby }}
         bundler-cache: true
+    - name: Run Rubocop
+      # Note that Rubocop will conservatively use the minimal version from the gemfile for its rules
+      # we should only run it on the minimal Ruby version
+      if: matrix.ruby == '3.3'
+      run: bundle exec rubocop
     - name: Run tests
       run: bundle exec rake test
