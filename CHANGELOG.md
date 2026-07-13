@@ -2,7 +2,7 @@
 
 All notable changes will be documented in this file.
 
-## Unreleased
+## 1.4.1 - 2026-07
 
 - (Bogdan) Moved development dependencies from `gemspec` to `Gemfile` and updated
   all dependencies [#37](https://github.com/epimorphics/nrw-landing/issues/37)
