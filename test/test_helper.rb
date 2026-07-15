@@ -19,7 +19,6 @@ require 'sapi_client'
 require 'minitest/autorun'
 require 'minitest/mock'
 require 'minitest/reporters'
-require 'minitest/stub_const'
 require 'mocha/minitest'
 require 'vcr'
 
