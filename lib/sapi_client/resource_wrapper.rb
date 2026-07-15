@@ -30,11 +30,11 @@ module SapiClient
     # Find the first wrapper type for which there is an existing
     # class constant with the same name. If no such value is
     # found, return the default resource wrapper
-    # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength
+    # rubocop:disable Metrics/MethodLength
     def self.find_wrapper_type(types)
       all_wrapped = Array(types)
                     .map { |type| wrapper_class_constant(de_uri(type)) }
-                    .filter { |wrapper| !wrapper.nil? }
+                    .compact
       most_specific_wrapped = all_wrapped
                               .filter do |t|
         all_wrapped.none? do |a|
@@ -45,7 +45,7 @@ module SapiClient
 
       default_resource_wrapper_type
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength
+    # rubocop:enable Metrics/MethodLength
 
     # Return the wrapper class for the given resource. If the
     # `options` specifies the wrapper class, then use that.

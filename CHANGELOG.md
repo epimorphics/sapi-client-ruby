@@ -2,9 +2,13 @@
 
 All notable changes will be documented in this file.
 
-## 1.4.0 - 2026-04
+## 1.4.1 - 2026-07
 
-- (Bogdan) Direct property access will return the value if that property is in the API returned JSON, nil if the property is not in the returned JSON but is in the model spec, or raise a MethodMissing exception if none of the above evaluates to true
+- (Bogdan) Moved development dependencies from `gemspec` to `Gemfile` and updated
+  all dependencies [#37](https://github.com/epimorphics/nrw-landing/issues/37)
+
+## 1.4.0 - 2026-03-04
+
 - (AlexT) When finding wrapper type, select the most specific type if more are available
 
 ## 1.3.0 - 2025-01-16

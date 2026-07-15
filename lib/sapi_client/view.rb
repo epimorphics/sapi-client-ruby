@@ -1,4 +1,4 @@
-# frozen-string-literal: true
+# frozen_string_literal: true
 
 module SapiClient
   # Encapsulates a view of a Sapi-NT endpoint, which tells us information about
