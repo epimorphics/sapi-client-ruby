@@ -130,7 +130,7 @@ module SapiClient
         'http://www.w3.org/2001/XMLSchema#double' => 'Float'
       }
 
-      # Parse classes and properties and populate @parsed_model_spec with resulting class names and properties
+      # Parse classes and properties and populate @parsed_model_spec with the results
       m['classes'].each do |cls|
         # Skip if class has already been parsed
         next if @parsed_model_spec.keys.include?(type2fulltype(cls['class'], prefix2uri))
