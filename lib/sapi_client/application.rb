@@ -5,7 +5,7 @@ module SapiClient
   # enclosed endpoint specifications to perform various operations, such as creating
   # methods we can call
   class Application # rubocop:disable Metrics/ClassLength
-    def initialize(base_url, application_or_endpoints)
+    def initialize(base_url, application_or_endpoints) # rubocop:disable Metrics/MethodLength
       unless File.exist?(application_or_endpoints)
         raise(SapiError, "Could not find spec file/directory #{application_or_endpoints}")
       end
