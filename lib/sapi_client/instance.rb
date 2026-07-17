@@ -12,8 +12,9 @@ module SapiClient
     attr_accessor :request_logger
     attr_reader :base_url, :logger, :instrumenter
 
-    def initialize(base_url, config = {})
+    def initialize(base_url, parsed_model_spec = {}, config = {})
       @base_url = base_url
+      SapiClient::SapiResource.parsed_model_spec = parsed_model_spec
       @logger = config[:logger] || rails_logger
       @instrumenter = config[:instrumenter] || rails_active_support_notifications
     end
