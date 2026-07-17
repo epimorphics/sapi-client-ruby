@@ -9,6 +9,10 @@ module SapiClient
   # Commonly, this class will be the base class for creating domain-specific
   # model classes to encapsulate particular API values.
   class SapiResource # rubocop:disable Metrics/ClassLength
+    class << self
+      attr_accessor :parsed_model_spec
+    end
+
     # Create a new Sapi Resource, wrapping an existing value. The possible values
     # for `resource` are:
     # - a hash of values; hash keys will be transformed to symbols
