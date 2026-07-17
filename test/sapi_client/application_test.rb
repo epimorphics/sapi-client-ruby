@@ -105,7 +105,7 @@ module SapiClient
                     'http://fsa-rp-test.epimorphics.net',
                     'test/fixtures/regulated-products/application.yaml'
                   )
-                  _(app.class.const_get(:PARSED_MODEL_SPEC).size).must_be :>, 0
+                  _(app.instance_variable_get(:@parsed_model_spec).size).must_be :>, 0
                 end
               end
             end
