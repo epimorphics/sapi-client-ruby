@@ -5,8 +5,6 @@ module SapiClient
   # enclosed endpoint specifications to perform various operations, such as creating
   # methods we can call
   class Application # rubocop:disable Metrics/ClassLength
-    PARSED_MODEL_SPEC = {} # rubocop:disable Style/MutableConstant
-
     def initialize(base_url, application_or_endpoints)
       unless File.exist?(application_or_endpoints)
         raise(SapiError, "Could not find spec file/directory #{application_or_endpoints}")
@@ -19,7 +17,8 @@ module SapiClient
         'sapi-nt' => { 'config' => { 'loadSpecPath' => 'classpath:endpointSpecs' } }
       }
 
-      # Call method to parse model spec before returning
+      # Initialize parsed_model_spec and call parse_model_spec before returning
+      @parsed_model_spec = {}
       parse_model_spec
     end
 
