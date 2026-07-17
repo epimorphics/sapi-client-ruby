@@ -130,13 +130,13 @@ module SapiClient
         'http://www.w3.org/2001/XMLSchema#double' => 'Float'
       }
 
-      # Parse classes and properties and populate PARSED_MODEL_SPEC
+      # Parse classes and properties and populate @parsed_model_spec with resulting class names and properties
       m['classes'].each do |cls|
         # Skip if class has already been parsed
-        next if PARSED_MODEL_SPEC.keys.include?(type2fulltype(cls['class'], prefix2uri))
+        next if @parsed_model_spec.keys.include?(type2fulltype(cls['class'], prefix2uri))
 
         # If not, parse class and properties
-        PARSED_MODEL_SPEC[type2fulltype(cls['class'], prefix2uri)] = {}
+        @parsed_model_spec[type2fulltype(cls['class'], prefix2uri)] = {}
         cls['properties'].each do |prop|
           ts = Set.new
 
@@ -149,10 +149,10 @@ module SapiClient
           end
           ts << 'nil' if prop['optional']
 
-          PARSED_MODEL_SPEC[type2fulltype(cls['class'], prefix2uri)][prop['name']] = returns(ts)
+          @parsed_model_spec[type2fulltype(cls['class'], prefix2uri)][prop['name']] = returns(ts)
           snake_prop = to_underscore(prop['name'])
           if snake_prop != prop['name']
-            PARSED_MODEL_SPEC[type2fulltype(cls['class'], prefix2uri)][snake_prop] =
+            @parsed_model_spec[type2fulltype(cls['class'], prefix2uri)][snake_prop] =
               returns(ts)
           end
         end
