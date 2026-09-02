@@ -344,6 +344,17 @@ module SapiClient
           fixture = SapiClient::SapiResource.new(prefLabel: 'I am Womble!')
           _(fixture.pref_label).must_equal('I am Womble!')
         end
+
+        it 'should return nil for a property that is not present on the resource but is in the model spec' do
+          original_spec = SapiClient::SapiResource.parsed_model_spec
+          SapiClient::SapiResource.parsed_model_spec = { 'http://wimbledon.org/Womble' => { 'home' => 'String' } }
+          begin
+            fixture = SapiClient::SapiResource.new(name: 'Tobermory', type: { '@id' => 'http://wimbledon.org/Womble' })
+            _(fixture.home).must_be_nil
+          ensure
+            SapiClient::SapiResource.parsed_model_spec = original_spec
+          end
+        end
       end
 
       describe 'assignment' do

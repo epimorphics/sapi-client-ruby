@@ -1,9 +1,0 @@
-name: establishmentTypeList
-type: list
-url: /business/def/establishment-type
-query: "?id skos:inScheme code-business:establishment"
-view:
-  class: ":EstablishmentType"
-  projection: "*"
-
-description: "List of establishment types"
