@@ -47,11 +47,11 @@ module SapiClient
 
     describe '#to_a' do
       [
-        'test/fixtures/unified-view/application.yaml',
-        'test/fixtures/unified-view/endpointSpecs'
+        'test/fixtures/regulated-products/application.yaml',
+        'test/fixtures/regulated-products/endpointSpecs'
       ].each do |spec_file_or_dir|
-        let(:spec) { 'test/fixtures/unified-view/application.yaml' }
         let(:base_url) { "http://localhost:#{sapi_api_port}" }
+        let(:spec) { 'test/fixtures/regulated-products/application.yaml' }
 
         describe "#with #{spec_file_or_dir}" do
           it 'should invoke the endpoint with the parameters' do
@@ -59,11 +59,11 @@ module SapiClient
             inst = app.instance
 
             VCR.use_cassette('endpoint_values.test_to_a') do
-              evs = SapiClient::EndpointValues.new(inst, :establishment_list)
+              evs = SapiClient::EndpointValues.new(inst, :feed_additives_list)
               evs.limit(1)
-              establishments = evs.to_a
-              _(establishments).must_be_kind_of(Array)
-              _(establishments.length).must_equal(1)
+              additives = evs.to_a
+              _(additives).must_be_kind_of(Array)
+              _(additives.length).must_equal(1)
             end
           end
         end

@@ -40,7 +40,7 @@ module SapiClient
         it 'should load JSON formatted data on request' do
           VCR.use_cassette('sapi_instance.get_json') do
             instance = SapiClient::Instance.new(base_url)
-            json = instance.get_json("#{base_url}/business/id/establishment", _limit: 1)
+            json = instance.get_json("#{base_url}/regulated-products/id/feed-additives/additive", _limit: 1)
             _(json).must_be_kind_of Hash
             _(json['items']).must_be_kind_of Array
             _(json['items'].length).must_equal 1
@@ -51,16 +51,16 @@ module SapiClient
           VCR.use_cassette('sapi_instance.get_json') do
             instance = SapiClient::Instance.new(base_url)
             json = instance.get_json(
-              "#{base_url}/business/id/establishment",
+              "#{base_url}/regulated-products/id/feed-additives/additive",
               _limit: 10,
-              establishmentType: [
-                'http://data.food.gov.uk/codes/business/establishment/RC-HG',
-                'http://data.food.gov.uk/codes/business/establishment/RC-SC'
+              casNo: [
+                'http://data.food.gov.uk/regulated-products/id/codespace/cas/78-83-1',
+                'http://data.food.gov.uk/regulated-products/id/codespace/cas/2785-89-9'
               ]
             )
             _(json).must_be_kind_of Hash
             _(json['items']).must_be_kind_of Array
-            _(json['items'].length).must_equal 10
+            _(json['items'].length).must_equal 3
           end
         end
       end
@@ -72,7 +72,11 @@ module SapiClient
             mock_wrapper.expect(:new, :wrapped_item, [Hash])
 
             instance = SapiClient::Instance.new(base_url)
-            items = instance.get_items("#{base_url}/business/id/establishment", wrapper: mock_wrapper, _limit: 1)
+            items = instance.get_items(
+              "#{base_url}/regulated-products/id/feed-additives/additive",
+              wrapper: mock_wrapper,
+              _limit: 1
+            )
             _(items).must_equal [:wrapped_item]
           end
         end
@@ -101,7 +105,7 @@ module SapiClient
           VCR.use_cassette('sapi_instance.get_missing_item') do
             assert_raises(RuntimeError) do
               instance = SapiClient::Instance.new(base_url)
-              instance.get_items("#{base_url}/business/id/establishment/womble", _limit: 1)
+              instance.get_items("#{base_url}/regulated-products/id/feed-additives/additive/womble", _limit: 1)
             end
           end
         end
@@ -109,7 +113,7 @@ module SapiClient
         it 'should return an error-wrapped-JSON value when fetching from a URL that returns 404' do
           VCR.use_cassette('sapi_instance.get_missing_item') do
             instance = SapiClient::Instance.new(base_url)
-            instance.get_items("#{base_url}/business/id/establishment/womble", _limit: 1)
+            instance.get_items("#{base_url}/regulated-products/id/feed-additives/additive/womble", _limit: 1)
           rescue RuntimeError => e
             _(e.status).must_equal 404
           end
@@ -125,7 +129,7 @@ module SapiClient
 
             instance = SapiClient::Instance.new(base_url)
             instance.request_logger = logger
-            json = instance.get_json("#{base_url}/business/id/establishment", _limit: 1)
+            json = instance.get_json("#{base_url}/regulated-products/id/feed-additives/additive", _limit: 1)
             _(json).must_be_kind_of Hash
           end
         end
@@ -210,12 +214,12 @@ module SapiClient
           VCR.use_cassette('sapi_instance.resolve') do
             resource = mock('resource')
             resource.expects(:resolvable?).returns(true)
-            resource.expects(:uri).returns('http://data.food.gov.uk/business/id/establishment/EHMQY4-DG9V0T-PTSDJH')
+            resource.expects(:uri).returns('http://data.food.gov.uk/regulated-products/id/regime')
 
             instance = SapiClient::Instance.new(base_url)
             resolved_resource = instance.resolve(resource)
 
-            _(resolved_resource.label).must_match(/nando/i)
+            _(resolved_resource.prefLabel).must_match(/authorisations/i)
           end
         end
       end
@@ -227,7 +231,7 @@ module SapiClient
 
             instance = SapiClient::Instance.new(base_url)
             instance.request_logger = logger
-            json = instance.get_json("#{base_url}/business/id/establishment", _limit: 1)
+            json = instance.get_json("#{base_url}/regulated-products/id/feed-additives/additive", _limit: 1)
             _(json).must_be_kind_of Hash
 
             headers = logger.request.headers
@@ -242,7 +246,7 @@ module SapiClient
 
             instance = SapiClient::Instance.new(base_url)
             instance.request_logger = logger
-            json = instance.get_json("#{base_url}/business/id/establishment", _limit: 1)
+            json = instance.get_json("#{base_url}/regulated-products/id/feed-additives/additive", _limit: 1)
             _(json).must_be_kind_of Hash
 
             headers = logger.request.headers

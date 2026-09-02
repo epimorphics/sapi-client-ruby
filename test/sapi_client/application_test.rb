@@ -7,8 +7,8 @@ module SapiClient
   class ApplicationTest < Minitest::Test
     describe 'Application' do
       [
-        'test/fixtures/unified-view/application.yaml',
-        'test/fixtures/unified-view/endpointSpecs'
+        'test/fixtures/regulated-products/application.yaml',
+        'test/fixtures/regulated-products/endpointSpecs'
       ].each do |spec_file_or_dir|
         let(:spec) { spec_file_or_dir }
         let(:base_url) { "http://localhost:#{sapi_api_port}" }
@@ -45,7 +45,7 @@ module SapiClient
               app = SapiClient::Application.new(base_url, spec)
               file_names = app.endpoint_group_files
               _(file_names.length).must_be :>, 5
-              _(file_names).must_include('test/fixtures/unified-view/endpointSpecs/establishment.yaml')
+              _(file_names).must_include('test/fixtures/regulated-products/endpointSpecs/feedAdditives.yaml')
             end
           end
 
@@ -56,7 +56,7 @@ module SapiClient
               _(eps).must_be_kind_of Array
               _(eps.length).must_be :>, 5
 
-              _(eps.map(&:raw_path)).must_include '/business/id/establishment'
+              _(eps.map(&:raw_path)).must_include '/regulated-products/id/feed-additives/additive'
             end
           end
 
@@ -65,12 +65,12 @@ module SapiClient
               app = SapiClient::Application.new(base_url, spec)
               inst = app.instance
               methods = inst.public_methods
-              _(methods).must_include(:establishment_list)
-              _(methods).must_include(:establishment_list_spec)
+              _(methods).must_include(:feed_additives_list)
+              _(methods).must_include(:feed_additives_list_spec)
             end
 
             it 'should wrap a list of instances' do
-              class ::Establishment # rubocop:disable Lint/ConstantDefinitionInBlock
+              class ::FeedAdditive # rubocop:disable Lint/ConstantDefinitionInBlock
                 def initialize(_json)
                   @invoked = true
                 end
@@ -81,9 +81,9 @@ module SapiClient
               inst = app.instance
 
               VCR.use_cassette('application.test_instance_wrapping') do
-                establishments = inst.establishment_list(_limit: 1)
-                _(establishments.first).must_be_kind_of(Establishment)
-                assert establishments.first.invoked
+                additives = inst.feed_additives_list(_limit: 1)
+                _(additives.first).must_be_kind_of(FeedAdditive)
+                assert additives.first.invoked
               end
             end
 
