@@ -2,13 +2,13 @@
 http_interactions:
 - request:
     method: get
-    uri: http://localhost:8090/business/id/establishment/womble?_limit=1
+    uri: https://fsa-dev-rp.epimorphics.net/regulated-products/id/feed-additives/additive/womble?_limit=1
     body:
       encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
-      - Faraday v1.1.0
+      - Faraday v1.10.6
       Accept:
       - application/json
   response:
@@ -16,29 +16,29 @@ http_interactions:
       code: 404
       message: ''
     headers:
-      sleuth-trace-id:
-      - 3711b32ce5ab876d
-      sleuth-span-id:
-      - 3711b32ce5ab876d
+      date:
+      - Tue, 01 Sep 2026 16:53:59 GMT
+      content-type:
+      - application/json
+      content-length:
+      - '197'
+      connection:
+      - keep-alive
       vary:
       - Accept, Origin, Access-Control-Request-Method, Access-Control-Request-Headers
       cache-control:
-      - max-age=300
-      content-type:
-      - application/json;charset=UTF-8
-      content-length:
-      - '177'
-      date:
-      - Fri, 30 Oct 2020 15:33:55 GMT
+      - max-age=1200
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
     body:
       encoding: UTF-8
       string: |-
         {
-          "timestamp" : "Fri Oct 30 15:33:55 GMT 2020",
+          "timestamp" : "Tue Sep 01 16:53:59 GMT 2026",
           "status" : "404",
           "error" : "Not Found",
           "message" : "No results found",
-          "path" : "/business/id/establishment/womble"
+          "path" : "/regulated-products/id/feed-additives/additive/womble"
         }
-  recorded_at: Fri, 30 Oct 2020 15:33:55 GMT
-recorded_with: VCR 6.0.0
+  recorded_at: Tue, 01 Sep 2026 16:53:59 GMT
+recorded_with: VCR 6.4.0
