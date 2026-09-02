@@ -291,36 +291,37 @@ module SapiClient
         end
 
         it 'should emit ActiveSupport Notification events on failure' do
-          VCR.use_cassette('sapi_active_support_failure_notifications') do
-            mock_env = mock('rails-env')
-            mock_env.expects(:production?).returns(true).at_least(1)
+          mock_env = mock('rails-env')
+          mock_env.expects(:production?).returns(true).at_least(1)
 
-            mock_config = mock('rails-config')
-            mock_config.expects(:config).returns(OpenStruct.new).at_least(1)
+          mock_config = mock('rails-config')
+          mock_config.expects(:config).returns(OpenStruct.new).at_least(1)
 
-            mock_rails = Class.new(Object)
-            mock_rails.define_singleton_method(:logger) { Object.new }
-            mock_rails.define_singleton_method(:env) { mock_env }
-            mock_rails.define_singleton_method(:application) { mock_config }
-            Object.const_set('Rails', mock_rails)
+          mock_rails = Class.new(Object)
+          mock_rails.define_singleton_method(:logger) { Object.new }
+          mock_rails.define_singleton_method(:env) { mock_env }
+          mock_rails.define_singleton_method(:application) { mock_config }
+          Object.const_set('Rails', mock_rails)
 
-            mock_notifications = mock('Notifications')
-            mock_notifications.expects(:instrument).with do |event, _payload|
-              event == 'connection_failure.api'
-            end
-
-            mock_active_support = Module.new
-            mock_active_support.const_set('Notifications', mock_notifications)
-            Object.const_set('ActiveSupport', mock_active_support)
-
-            reg_products_base_url = 'https://nowhere.epimorphics.net/'
-            instance = SapiClient::Instance.new(reg_products_base_url)
-            _(-> { instance.get_json("#{reg_products_base_url}/id/wombles.json", _limit: 1) }).must_raise
-          ensure
-            # clean-up the global `Rails` constant
-            Object.send(:remove_const, 'Rails')
-            Object.send(:remove_const, 'ActiveSupport')
+          mock_notifications = mock('Notifications')
+          mock_notifications.expects(:instrument).with do |event, _payload|
+            event == 'connection_failure.api'
           end
+
+          mock_active_support = Module.new
+          mock_active_support.const_set('Notifications', mock_notifications)
+          Object.const_set('ActiveSupport', mock_active_support)
+
+          reg_products_base_url = 'https://nowhere.epimorphics.net/'
+          instance = SapiClient::Instance.new(reg_products_base_url)
+
+          VCR.turned_off do
+            _(-> { instance.get_json("#{reg_products_base_url}/id/wombles.json", _limit: 1) }).must_raise
+          end
+        ensure
+          # clean-up the global `Rails` constant
+          Object.send(:remove_const, 'Rails')
+          Object.send(:remove_const, 'ActiveSupport')
         end
       end
     end
