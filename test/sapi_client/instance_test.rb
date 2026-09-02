@@ -85,10 +85,10 @@ module SapiClient
       describe '#get_hierarchy' do
         it('should load a hierarchy from a hierarchy endpoint') do
           VCR.use_cassette('sapi_instance.get_hierarchy') do
-            instance = SapiClient::Instance.new('http://fsa-rp-test.epimorphics.net')
+            instance = SapiClient::Instance.new('https://fsa-dev-rp.epimorphics.net')
 
             hierarchy = instance.get_hierarchy(
-              'http://fsa-rp-test.epimorphics.net/regulated-products/id/feed-additives/category',
+              'https://fsa-dev-rp.epimorphics.net/regulated-products/id/feed-additives/category',
               { _all: true },
               :skos
             )
@@ -280,7 +280,7 @@ module SapiClient
             mock_active_support.const_set('Notifications', mock_notifications)
             Object.const_set('ActiveSupport', mock_active_support)
 
-            reg_products_base_url = 'https://fsa-rp-test.epimorphics.net/'
+            reg_products_base_url = 'https://fsa-dev-rp.epimorphics.net'
             instance = SapiClient::Instance.new(reg_products_base_url)
             instance.get_json("#{reg_products_base_url}/regulated-products/id/regime.json", _limit: 1)
           ensure
