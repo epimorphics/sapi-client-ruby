@@ -89,10 +89,7 @@ module SapiClient
 
             it 'should retrieve a hierarchy' do
               VCR.use_cassette('application.test_hierarchy') do
-                app = SapiClient::Application.new(
-                  'http://fsa-rp-test.epimorphics.net',
-                  'test/fixtures/regulated-products/application.yaml'
-                )
+                app = SapiClient::Application.new(base_url, spec)
                 hierarchy = app.instance.feed_category_hierarchy_hierarchy({}, :skos)
                 _(hierarchy.roots.size).must_equal(5)
               end
@@ -100,13 +97,8 @@ module SapiClient
 
             describe '#parsed_model_spec' do
               it 'should populate the parsed model spec on initialization' do
-                VCR.use_cassette('application.test_parsed_model_spec') do
-                  app = SapiClient::Application.new(
-                    'http://fsa-rp-test.epimorphics.net',
-                    'test/fixtures/regulated-products/application.yaml'
-                  )
-                  _(app.instance_variable_get(:@parsed_model_spec).size).must_be :>, 0
-                end
+                app = SapiClient::Application.new(base_url, spec)
+                _(app.instance_variable_get(:@parsed_model_spec).size).must_be :>, 0
               end
             end
           end
