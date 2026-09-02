@@ -1,3 +1,0 @@
-name: defaultDataSource
-type: remoteSparqlSource
-endpoint: http://localhost:3030/ds/query
