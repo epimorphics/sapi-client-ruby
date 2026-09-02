@@ -50,8 +50,8 @@ module SapiClient
         'test/fixtures/regulated-products/application.yaml',
         'test/fixtures/regulated-products/endpointSpecs'
       ].each do |spec_file_or_dir|
-        let(:base_url) { "http://localhost:#{sapi_api_port}" }
         let(:spec) { 'test/fixtures/regulated-products/application.yaml' }
+        let(:base_url) { 'https://fsa-dev-rp.epimorphics.net' }
 
         describe "#with #{spec_file_or_dir}" do
           it 'should invoke the endpoint with the parameters' do

@@ -24,7 +24,7 @@ end
 module SapiClient
   class SapiEndpointTest < Minitest::Test
     describe 'Instance' do
-      let(:base_url) { "http://localhost:#{sapi_api_port}" }
+      let(:base_url) { 'https://fsa-dev-rp.epimorphics.net' }
 
       describe '#base_url' do
         it 'should return the base URL' do

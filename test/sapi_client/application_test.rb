@@ -11,7 +11,7 @@ module SapiClient
         'test/fixtures/regulated-products/endpointSpecs'
       ].each do |spec_file_or_dir|
         let(:spec) { spec_file_or_dir }
-        let(:base_url) { "http://localhost:#{sapi_api_port}" }
+        let(:base_url) { 'https://fsa-dev-rp.epimorphics.net' }
 
         describe "with #{spec_file_or_dir}" do
           describe '#initialize' do
