@@ -17,4 +17,10 @@ group :development do
   gem 'rubocop'
   gem 'simplecov'
   gem 'vcr', '~> 6.0'
+
+  source 'https://rubygems.pkg.github.com/epimorphics' do
+    gem 'fsa-cbd-api'
+    gem 'fsa-rpa-api'
+    gem 'fsa-rp-api'
+  end
 end

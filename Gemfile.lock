@@ -87,6 +87,16 @@ GEM
     unicode-emoji (4.2.0)
     vcr (6.4.0)
 
+GEM
+  remote: https://rubygems.pkg.github.com/epimorphics/
+  specs:
+    fsa-cbd-api (1.0.0)
+      sapi-client-ruby
+    fsa-rp-api (2.0.2)
+      sapi-client-ruby
+    fsa-rpa-api (1.1.0)
+      sapi-client-ruby
+
 PLATFORMS
   ruby
   x86_64-darwin-24
@@ -94,6 +104,9 @@ PLATFORMS
 DEPENDENCIES
   bundler
   byebug
+  fsa-cbd-api!
+  fsa-rp-api!
+  fsa-rpa-api!
   minitest (~> 5.0)
   minitest-reporters (~> 1.0)
   mocha (~> 2.0)
@@ -121,6 +134,9 @@ CHECKSUMS
   faraday-rack (1.0.0) sha256=ef60ec969a2bb95b8dbf24400155aee64a00fc8ba6c6a4d3968562bcc92328c0
   faraday-retry (1.0.4) sha256=dc659233777fabf96c69c2ffe56c0a5d2c102af90321a42cc6c90157bcd716aa
   faraday_middleware (1.0.0) sha256=19e808539681bbf2e65df30dfbe27bb402bde916a1dceb4c7496dbe8de14334a
+  fsa-cbd-api (1.0.0) sha256=fe89c7b1333da2ac7d90b396ddf6fe45625f311a2977e352bba45147c80fd2c7
+  fsa-rp-api (2.0.2) sha256=63c8d7ca48d882f714349bba3bb5621c70a818d8b50a55b2b42dbd80316e522b
+  fsa-rpa-api (1.1.0) sha256=6f84d2a4c9eb61513b7b3dc980316fb0601ce27bf5ff488f5d637de4a25d8926
   i18n (1.15.2) sha256=00f9eb62412fe593b2a65a97daa75300d37abb8f7202ec748e94b6d46a9dd1b5
   io-console (0.8.2) sha256=d6e3ae7a7cc7574f4b8893b4fca2162e57a825b223a177b7afa236c5ef9814cc
   json (2.21.1) sha256=13a43df75d95641443f5702dff350f237164a9d811ff0f2c2800d4d980220583
