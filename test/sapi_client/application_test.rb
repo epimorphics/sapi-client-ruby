@@ -7,8 +7,8 @@ module SapiClient
   class ApplicationTest < Minitest::Test
     describe 'Application' do
       [
-        'test/fixtures/regulated-products/application.yaml',
-        'test/fixtures/regulated-products/endpointSpecs'
+        REGULATED_PRODUCTS_SPEC_FILE,
+        REGULATED_PRODUCTS_SPEC_DIR
       ].each do |spec_file_or_dir|
         let(:spec) { spec_file_or_dir }
         let(:base_url) { 'https://fsa-dev-rp.epimorphics.net' }
@@ -45,7 +45,7 @@ module SapiClient
               app = SapiClient::Application.new(base_url, spec)
               file_names = app.endpoint_group_files
               _(file_names.length).must_be :>, 5
-              _(file_names).must_include('test/fixtures/regulated-products/endpointSpecs/feedAdditives.yaml')
+              _(file_names).must_include(File.join(REGULATED_PRODUCTS_SPEC_DIR, 'feedAdditives.yaml'))
             end
           end
 

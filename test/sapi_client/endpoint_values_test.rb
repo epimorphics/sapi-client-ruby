@@ -47,10 +47,10 @@ module SapiClient
 
     describe '#to_a' do
       [
-        'test/fixtures/regulated-products/application.yaml',
-        'test/fixtures/regulated-products/endpointSpecs'
+        REGULATED_PRODUCTS_SPEC_FILE,
+        REGULATED_PRODUCTS_SPEC_DIR
       ].each do |spec_file_or_dir|
-        let(:spec) { 'test/fixtures/regulated-products/application.yaml' }
+        let(:spec) { REGULATED_PRODUCTS_SPEC_FILE }
         let(:base_url) { 'https://fsa-dev-rp.epimorphics.net' }
 
         describe "#with #{spec_file_or_dir}" do
