@@ -44,6 +44,10 @@ module SapiClient
       SapiClient::SapiResource
     end
 
+    def self.model_class_names
+      SapiClient::SapiResource.model_class_names || {}
+    end
+
     # Find the first wrapper type for which there is an existing
     # class constant with the same name. If no such value is
     # found, return the default resource wrapper
