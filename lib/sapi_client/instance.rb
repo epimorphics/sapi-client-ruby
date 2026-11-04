@@ -95,6 +95,12 @@ module SapiClient
 
     private
 
+    def set_declared_type(resource, declared_type)
+      return unless declared_type
+
+      resource.declared_type = declared_type if resource.respond_to?(:declared_type=)
+    end
+
     def permissible_response_code?(response)
       permissible_response_codes.include?(response.status)
     end
