@@ -10,7 +10,7 @@ module SapiClient
   # model classes to encapsulate particular API values.
   class SapiResource # rubocop:disable Metrics/ClassLength
     class << self
-      attr_accessor :parsed_model_spec
+      attr_accessor :parsed_model_spec, :model_class_names
     end
 
     # Create a new Sapi Resource, wrapping an existing value. The possible values
@@ -23,6 +23,7 @@ module SapiClient
     end
 
     attr_reader :resource
+    attr_accessor :declared_type
 
     def equal?(other)
       other.respond_to?(:identity_value) && identity_value.equal?(other.identity_value)
