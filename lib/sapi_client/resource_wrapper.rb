@@ -37,7 +37,7 @@ module SapiClient
     # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
     def self.de_uri(maybe_uri)
-      maybe_uri.to_s.sub(%r{^https?://.*/}, '').to_sym
+      type_string(maybe_uri).sub(%r{^https?://.*/}, '').to_sym
     end
 
     def self.default_resource_wrapper_type
