@@ -138,29 +138,40 @@ module SapiClient
 
       # Parse classes and properties and populate @parsed_model_spec with the results
       m['classes'].each do |cls|
-        # Skip if class has already been parsed
-        next if @parsed_model_spec.keys.include?(type2fulltype(cls['class'], prefix2uri))
+        full_type = type2fulltype(cls['class'], prefix2uri)
+        local_name = cls['name']
+        qname = cls['class']
 
-        # If not, parse class and properties
-        @parsed_model_spec[type2fulltype(cls['class'], prefix2uri)] = {}
+        # Skip if class has already been parsed
+        next if @parsed_model_spec.key?(full_type)
+
+        properties = {}
         cls['properties'].each do |prop|
+          prop_name = property_name(prop)
+          next unless prop_name
+
           ts = Set.new
 
-          if prop['type'].is_a?(Array)
+          if prop.is_a?(Hash) && prop['type'].is_a?(Array)
             prop['type'].each do |t|
               ts << type2ruby(t, prefix2uri, qname2local, builtins)
             end
-          else
+          elsif prop.is_a?(Hash) && prop['type']
             ts << type2ruby(prop['type'], prefix2uri, qname2local, builtins)
           end
-          ts << 'nil' if prop['optional']
+          ts << 'nil' if prop.is_a?(Hash) && prop['optional']
 
-          @parsed_model_spec[type2fulltype(cls['class'], prefix2uri)][prop['name']] = returns(ts)
-          snake_prop = to_underscore(prop['name'])
-          if snake_prop != prop['name']
-            @parsed_model_spec[type2fulltype(cls['class'], prefix2uri)][snake_prop] =
-              returns(ts)
-          end
+          properties[prop_name] = returns(ts)
+          snake_prop = to_underscore(prop_name)
+          properties[snake_prop] = returns(ts) if snake_prop != prop_name
+        end
+
+        # Index the properties and remember the Ruby class name under each known
+        # form of the class identifier, so that resources can be matched whether
+        # they carry a full URI, a QName, or just the local class name.
+        [full_type, qname, local_name].uniq.each do |key|
+          @parsed_model_spec[key] = properties
+          @model_class_names[key] = local_name
         end
       end
 
