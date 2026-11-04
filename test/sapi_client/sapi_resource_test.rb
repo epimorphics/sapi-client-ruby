@@ -193,6 +193,13 @@ module SapiClient
           r = SapiClient::SapiResource.new({})
           refute r.type?('http://wimbledon.org/Womble')
         end
+
+        it 'should fall back to the declared type when the resource has no explicit type' do
+          r = SapiClient::SapiResource.new(name: 'Tobermory')
+          r.declared_type = 'http://wimbledon.org/Womble'
+
+          _(r.types.map(&:uri)).must_equal(['http://wimbledon.org/Womble'])
+        end
       end
 
       describe '#value_of' do
@@ -343,6 +350,31 @@ module SapiClient
         it 'should allow snake_case method names to be used in place of camelCase' do
           fixture = SapiClient::SapiResource.new(prefLabel: 'I am Womble!')
           _(fixture.pref_label).must_equal('I am Womble!')
+        end
+
+        it 'should return nil for a property that is not present on the resource but is in the model spec' do
+          original_spec = SapiClient::SapiResource.parsed_model_spec
+          SapiClient::SapiResource.parsed_model_spec = { 'http://wimbledon.org/Womble' => { 'home' => 'String' } }
+          begin
+            fixture = SapiClient::SapiResource.new(name: 'Tobermory', type: { '@id' => 'http://wimbledon.org/Womble' })
+            _(fixture.home).must_be_nil
+          ensure
+            SapiClient::SapiResource.parsed_model_spec = original_spec
+          end
+        end
+
+        it 'should allow a declared-type property when the resource has no explicit type' do
+          original_spec = SapiClient::SapiResource.parsed_model_spec
+          SapiClient::SapiResource.parsed_model_spec = { 'http://wimbledon.org/Womble' => { 'home' => 'String' } }
+          begin
+            fixture = SapiClient::SapiResource.new(name: 'Tobermory')
+            fixture.declared_type = 'http://wimbledon.org/Womble'
+
+            assert fixture.respond_to?(:home)
+            _(fixture.home).must_be_nil
+          ensure
+            SapiClient::SapiResource.parsed_model_spec = original_spec
+          end
         end
       end
 

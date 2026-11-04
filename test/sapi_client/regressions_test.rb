@@ -8,11 +8,11 @@ module SapiClient
     describe 'Regression tests' do
       describe 'https://github.com/epimorphics/sapi-client-ruby/issues/44' do
         [
-          'test/fixtures/cbd_api/application.yaml',
-          'test/fixtures/cbd_api/endpointSpecs'
+          CBD_API_SPEC_FILE,
+          CBD_API_SPEC_DIR
         ].each do |spec_file_or_dir|
           describe "#with #{spec_file_or_dir}" do
-            let(:spec) { 'test/fixtures/cbd_api/application.yaml' }
+            let(:spec) { CBD_API_SPEC_FILE }
             let(:base_url) { 'https://fsa-cbd-test.epimorphics.net' }
 
             it 'should return a list containing SapiResource items' do

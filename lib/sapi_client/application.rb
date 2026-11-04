@@ -4,8 +4,8 @@ module SapiClient
   # Wraps an entire Sapi-NT application, such that we can walk over all of the
   # enclosed endpoint specifications to perform various operations, such as creating
   # methods we can call
-  class Application
-    def initialize(base_url, application_or_endpoints)
+  class Application # rubocop:disable Metrics/ClassLength
+    def initialize(base_url, application_or_endpoints) # rubocop:disable Metrics/MethodLength
       unless File.exist?(application_or_endpoints)
         raise(SapiError, "Could not find spec file/directory #{application_or_endpoints}")
       end
@@ -16,6 +16,11 @@ module SapiClient
       @specification = (@application_spec_file && YAML.load_file(application_or_endpoints)) || {
         'sapi-nt' => { 'config' => { 'loadSpecPath' => 'classpath:endpointSpecs' } }
       }
+
+      # Initialize parsed_model_spec and model_class_names before returning
+      @parsed_model_spec = {}
+      @model_class_names = {}
+      parse_model_spec
     end
 
     attr_reader :base_url, :specification
@@ -36,12 +41,16 @@ module SapiClient
       @endpoints_path || configuration['loadSpecPath'].sub(/^classpath:/, '')
     end
 
-    def endpoint_group_files
+    def final_path
       if @endpoints_path.nil?
-        Dir["#{application_spec_dir}/#{load_spec_path}/*.yaml"]
+        "#{application_spec_dir}/#{load_spec_path}/*.yaml"
       else
-        Dir["#{@endpoints_path}/*.yaml"]
+        "#{@endpoints_path}/*.yaml"
       end
+    end
+
+    def endpoint_group_files
+      Dir[final_path]
     end
 
     def endpoints
@@ -56,7 +65,11 @@ module SapiClient
     # and endpoint `e` will have a methdod `e()` to get the JSON items for
     # that endpoint, and a method `e_spec()` to get the endpoint specification
     def instance # rubocop:disable Metrics/MethodLength
-      inst = SapiClient::Instance.new(base_url)
+      inst = SapiClient::Instance.new(
+        base_url,
+        @parsed_model_spec,
+        model_class_names: @model_class_names
+      )
 
       endpoints.each do |endpoint|
         inst.define_singleton_method(:"#{endpoint.name}", get_items_proc(endpoint, inst))
@@ -78,6 +91,7 @@ module SapiClient
     def get_items_proc(endpoint, inst)
       proc do |options|
         options[:wrapper] ||= endpoint.resource_type_wrapper_class
+        options[:declared_type] ||= endpoint.resource_type
         endpoint_url = endpoint.url(options)
         inst.get_items(endpoint_url, options)
       end
@@ -96,6 +110,128 @@ module SapiClient
         endpoint_url = endpoint.url(options)
         inst.get_hierarchy(endpoint_url, options, scheme)
       end
+    end
+
+    # Parses the API model spec file and populates Hash with resulting class names and properties
+    def parse_model_spec # rubocop:disable Metrics/AbcSize,Metrics/CyclomaticComplexity,Metrics/MethodLength,Metrics/PerceivedComplexity
+      # Load model spec file
+      model_spec = final_path.gsub('/*.yaml', '/model.yaml')
+      m = YAML.load_file(model_spec)
+
+      # Parse class names and prefixes
+      qname2local = {}
+      m['classes'].each do |cls|
+        qname2local[cls['class']] = cls['name']
+      end
+      prefix2uri = m['prefixes']
+      builtins = {
+        'http://www.w3.org/1999/02/22-rdf-syntax-ns#langString' => 'String',
+        'http://www.w3.org/2001/XMLSchema#string' => 'String',
+        'http://www.w3.org/2000/01/rdf-schema#Literal' => 'String',
+        'http://www.w3.org/2001/XMLSchema#boolean' => 'bool',
+        'http://www.w3.org/2001/XMLSchema#date' => 'Date',
+        'http://www.w3.org/2001/XMLSchema#dateTime' => 'DateTime',
+        'http://www.w3.org/2001/XMLSchema#integer' => 'Integer',
+        'http://www.w3.org/2001/XMLSchema#decimal' => 'BigDecimal',
+        'http://www.w3.org/2001/XMLSchema#double' => 'Float'
+      }
+
+      # Parse classes and properties and populate @parsed_model_spec with the results
+      m['classes'].each do |cls|
+        full_type = type2fulltype(cls['class'], prefix2uri)
+        local_name = cls['name']
+        qname = cls['class']
+
+        # Skip if class has already been parsed
+        next if @parsed_model_spec.key?(full_type)
+
+        properties = {}
+        cls['properties'].each do |prop|
+          prop_name = property_name(prop)
+          next unless prop_name
+
+          ts = Set.new
+
+          if prop.is_a?(Hash) && prop['type'].is_a?(Array)
+            prop['type'].each do |t|
+              ts << type2ruby(t, prefix2uri, qname2local, builtins)
+            end
+          elsif prop.is_a?(Hash) && prop['type']
+            ts << type2ruby(prop['type'], prefix2uri, qname2local, builtins)
+          end
+          ts << 'nil' if prop.is_a?(Hash) && prop['optional']
+
+          properties[prop_name] = returns(ts)
+          snake_prop = to_underscore(prop_name)
+          properties[snake_prop] = returns(ts) if snake_prop != prop_name
+        end
+
+        # Index the properties and remember the Ruby class name under each known
+        # form of the class identifier, so that resources can be matched whether
+        # they carry a full URI, a QName, or just the local class name.
+        [full_type, qname, local_name].uniq.each do |key|
+          @parsed_model_spec[key] = properties
+          @model_class_names[key] = local_name
+        end
+      end
+
+      nil
+    rescue StandardError => e
+      puts(SapiError, "Error parsing model spec file #{model_spec}: #{e.message}")
+    end
+
+    # Helper method for parsing model spec file
+    def type2fulltype(typ, prefix2uri)
+      spl = typ.split(':')
+      pref = prefix2uri[spl[0]]
+      pref + spl[1]
+    rescue StandardError
+      typ
+    end
+
+    # Helper method for parsing model spec file. Properties can be given either
+    # as a plain QName string (e.g. "rdf:type") or as a Hash with a `name` key,
+    # so derive the local property name in either case.
+    def property_name(prop)
+      if prop.is_a?(Hash)
+        prop['name'] || prop['prop']&.sub(/^[^:]*:/, '')
+      else
+        prop.to_s.sub(/^[^:]*:/, '')
+      end
+    end
+
+    # Helper method for parsing model spec file
+    def type2ruby(typ, prefix2uri, qname2local, builtins)
+      full_uri = type2fulltype(typ, prefix2uri)
+      if qname2local.include? typ
+        qname2local[typ]
+      elsif builtins.include? full_uri
+        builtins[full_uri]
+      else
+        'String'
+      end
+    rescue StandardError
+      'String'
+    end
+
+    # Helper method for parsing model spec file
+    def returns(types)
+      if types.size > 1
+        "( #{types.join(' | ')} )"
+      elsif types.size == 1
+        types.first
+      else
+        'untyped'
+      end
+    end
+
+    # Helper method for parsing model spec file
+    def to_underscore(string)
+      string.gsub('::', '/')
+            .gsub(/([A-Z\d]+)([A-Z][a-z])/, '\1_\2')
+            .gsub(/([a-z\d])([A-Z])/, '\1_\2')
+            .tr('-', '_')
+            .downcase
     end
   end
 end

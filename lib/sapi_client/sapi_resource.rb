@@ -9,6 +9,10 @@ module SapiClient
   # Commonly, this class will be the base class for creating domain-specific
   # model classes to encapsulate particular API values.
   class SapiResource # rubocop:disable Metrics/ClassLength
+    class << self
+      attr_accessor :parsed_model_spec, :model_class_names
+    end
+
     # Create a new Sapi Resource, wrapping an existing value. The possible values
     # for `resource` are:
     # - a hash of values; hash keys will be transformed to symbols
@@ -19,6 +23,7 @@ module SapiClient
     end
 
     attr_reader :resource
+    attr_accessor :declared_type
 
     def equal?(other)
       other.respond_to?(:identity_value) && identity_value.equal?(other.identity_value)
@@ -85,14 +90,19 @@ module SapiClient
       uri&.match(%r{\A.*[/#]([^#/]+)\Z})&.[](1)
     end
 
-    # @return An array of all of the type (i.e. rdf:type) values for this resource, or nil
+    # @return An array of all of the type (i.e. rdf:type) values for this resource.
+    # If the resource does not carry an explicit type in the JSON response, fall
+    # back to the type declared in the model spec.
     def types
-      path_all(:type)
+      explicit_types = path_all(:type)
+      return explicit_types unless explicit_types.empty?
+
+      declared_type ? [SapiResource.new('@id' => declared_type.to_s)] : []
     end
 
     # @return True if this resource has the given URI among its types
     def type?(uri)
-      type_uris = types&.map { |typ| typ.is_a?(String) ? typ : typ['@id'] }
+      type_uris = types&.map { |typ| type_to_string(typ) }
       type_uris&.include?(uri)
     end
 
@@ -134,14 +144,21 @@ module SapiClient
     end
 
     def respond_to_missing?(property, _include_private = false)
-      resource.key?(property) || resource.key?(as_camel_case_method_name(property))
+      resource.key?(property) ||
+        resource.key?(as_camel_case_method_name(property)) ||
+        property_in_model_spec?(property) ||
+        property_in_model_spec?(as_camel_case_method_name(property))
     end
 
     def method_missing(property, *_args)
       return self[property] if resource.key?(property)
 
+      # If not found, try looking for a camelCase version of the property
       cc_property = as_camel_case_method_name(property)
       return self[cc_property] if resource.key?(cc_property)
+
+      # If still not found, check if it's in the model spec for this resource's type(s)
+      return nil if property_in_model_spec?(property) || property_in_model_spec?(cc_property)
 
       super
     end
@@ -193,9 +210,10 @@ module SapiClient
     # Return the given value as an un-wrapped resource. A Hash given to this
     # method will have its keys transformed to symbols.
     def as_resource(res)
-      if res.is_a?(SapiResource)
+      case res
+      when SapiResource
         res.resource.clone
-      elsif res.is_a?(Hash)
+      when Hash
         hash_with_symbol_keys(res)
       else
         { '@id': res.to_s }
@@ -239,6 +257,21 @@ module SapiClient
     def as_camel_case_method_name(str)
       first_segment, *remaining_segments = str.to_s.split('_')
       [first_segment, *remaining_segments.map(&:capitalize)].join.to_sym
+    end
+
+    # Helper method to convert type to string
+    def type_to_string(typ)
+      typ.is_a?(String) ? typ : typ['@id']
+    end
+
+    # Helper method to find if property is in parsed_model_spec for the corresponding type
+    def property_in_model_spec?(property)
+      return false unless (spec = self.class.parsed_model_spec)
+
+      types&.any? do |typ|
+        full_type = type_to_string(typ)
+        spec.key?(full_type) && spec[full_type].key?(property.to_s)
+      end
     end
   end
 end
