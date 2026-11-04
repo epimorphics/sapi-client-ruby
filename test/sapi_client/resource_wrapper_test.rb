@@ -116,6 +116,30 @@ module SapiClient
       end
     end
 
+    describe('#wrapper_class_name') do
+      it 'should use the declared model class name when available' do
+        original_names = SapiClient::SapiResource.model_class_names
+        SapiClient::SapiResource.model_class_names = {
+          'http://wimbledon.com/womble' => 'WombleResource'
+        }
+        begin
+          _(ResourceWrapper.wrapper_class_name('http://wimbledon.com/womble'))
+            .must_equal('WombleResource')
+        ensure
+          SapiClient::SapiResource.model_class_names = original_names
+        end
+      end
+
+      it 'should fall back to the final URI segment when not declared' do
+        original_names = SapiClient::SapiResource.model_class_names
+        SapiClient::SapiResource.model_class_names = {}
+        begin
+          _(ResourceWrapper.wrapper_class_name('http://wimbledon.com/WombleResource'))
+            .must_equal(:WombleResource)
+        ensure
+          SapiClient::SapiResource.model_class_names = original_names
+        end
+      end
     end
   end
 end
