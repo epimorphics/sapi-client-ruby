@@ -17,8 +17,9 @@ module SapiClient
         'sapi-nt' => { 'config' => { 'loadSpecPath' => 'classpath:endpointSpecs' } }
       }
 
-      # Initialize parsed_model_spec and call parse_model_spec before returning
+      # Initialize parsed_model_spec and model_class_names before returning
       @parsed_model_spec = {}
+      @model_class_names = {}
       parse_model_spec
     end
 
