@@ -97,6 +97,25 @@ module SapiClient
       end
     end
 
+    describe('#type_string') do
+      it 'should normalise a URI string' do
+        _(ResourceWrapper.type_string('http://wimbledon.com/WombleResource'))
+          .must_equal('http://wimbledon.com/WombleResource')
+      end
+
+      it 'should extract the id from a resource' do
+        resource = SapiClient::SapiResource.new('@id' => 'http://wimbledon.com/WombleResource')
+        _(ResourceWrapper.type_string(resource)).must_equal('http://wimbledon.com/WombleResource')
+      end
+
+      it 'should extract the id from a hash with string or symbol keys' do
+        _(ResourceWrapper.type_string({ '@id' => 'http://wimbledon.com/WombleResource' }))
+          .must_equal('http://wimbledon.com/WombleResource')
+        _(ResourceWrapper.type_string({ :@id => 'http://wimbledon.com/WombleResource' }))
+          .must_equal('http://wimbledon.com/WombleResource')
+      end
+    end
+
     end
   end
 end
