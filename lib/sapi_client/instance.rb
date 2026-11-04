@@ -29,12 +29,16 @@ module SapiClient
 
     def get_items(url, options = {})
       wrapper = options.delete(:wrapper)
+      declared_type = options.delete(:declared_type)
       raise(SapiError, "Unexpected relative URL #{url}") unless absolute_url?(url)
 
       json = get_json(url, options)
       items = json['error'] ? [json] : json['items'] || []
 
-      wrapper ? items.map { |item| wrapper.new(item) } : items
+      items = items.map { |item| wrapper.new(item) } if wrapper
+      items.each { |item| set_declared_type(item, declared_type) }
+
+      items
     end
 
     # Get parsed JSON from the given URL
