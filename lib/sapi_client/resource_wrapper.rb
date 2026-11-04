@@ -44,6 +44,14 @@ module SapiClient
       SapiClient::SapiResource
     end
 
+    # Determine the local class name to use for the given type. If the type is
+    # declared in the model spec, use the declared class name, otherwise fall
+    # back to the final segment of the type URI.
+    def self.wrapper_class_name(type)
+      type_name = type_string(type)
+      model_class_names[type_name] || de_uri(type_name)
+    end
+
     def self.model_class_names
       SapiClient::SapiResource.model_class_names || {}
     end
