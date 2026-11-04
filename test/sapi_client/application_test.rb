@@ -101,6 +101,17 @@ module SapiClient
                 _(app.instance_variable_get(:@parsed_model_spec).size).must_be :>, 0
               end
             end
+
+            describe '#model_class_names' do
+              it 'should populate the model class names on initialization' do
+                app = SapiClient::Application.new(base_url, spec)
+                names = app.instance_variable_get(:@model_class_names)
+                _(names.size).must_be :>, 0
+                _(
+                  names['http://data.food.gov.uk/regulated-products/def/feed-additives/FeedAdditive']
+                ).must_equal('FeedAdditive')
+              end
+            end
           end
         end
       end
