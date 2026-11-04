@@ -90,9 +90,14 @@ module SapiClient
       uri&.match(%r{\A.*[/#]([^#/]+)\Z})&.[](1)
     end
 
-    # @return An array of all of the type (i.e. rdf:type) values for this resource, or nil
+    # @return An array of all of the type (i.e. rdf:type) values for this resource.
+    # If the resource does not carry an explicit type in the JSON response, fall
+    # back to the type declared in the model spec.
     def types
-      path_all(:type)
+      explicit_types = path_all(:type)
+      return explicit_types unless explicit_types.empty?
+
+      declared_type ? [SapiResource.new('@id' => declared_type.to_s)] : []
     end
 
     # @return True if this resource has the given URI among its types
