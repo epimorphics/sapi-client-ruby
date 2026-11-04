@@ -62,7 +62,7 @@ module SapiClient
     # rubocop:disable Metrics/MethodLength
     def self.find_wrapper_type(types)
       all_wrapped = Array(types)
-                    .map { |type| wrapper_class_constant(de_uri(type)) }
+                    .map { |type| wrapper_class_constant(wrapper_class_name(type)) }
                     .compact
       most_specific_wrapped = all_wrapped
                               .filter do |t|
