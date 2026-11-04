@@ -65,7 +65,11 @@ module SapiClient
     # and endpoint `e` will have a methdod `e()` to get the JSON items for
     # that endpoint, and a method `e_spec()` to get the endpoint specification
     def instance # rubocop:disable Metrics/MethodLength
-      inst = SapiClient::Instance.new(base_url, @parsed_model_spec)
+      inst = SapiClient::Instance.new(
+        base_url,
+        @parsed_model_spec,
+        model_class_names: @model_class_names
+      )
 
       endpoints.each do |endpoint|
         inst.define_singleton_method(:"#{endpoint.name}", get_items_proc(endpoint, inst))
