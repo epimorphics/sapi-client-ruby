@@ -362,6 +362,20 @@ module SapiClient
             SapiClient::SapiResource.parsed_model_spec = original_spec
           end
         end
+
+        it 'should allow a declared-type property when the resource has no explicit type' do
+          original_spec = SapiClient::SapiResource.parsed_model_spec
+          SapiClient::SapiResource.parsed_model_spec = { 'http://wimbledon.org/Womble' => { 'home' => 'String' } }
+          begin
+            fixture = SapiClient::SapiResource.new(name: 'Tobermory')
+            fixture.declared_type = 'http://wimbledon.org/Womble'
+
+            assert fixture.respond_to?(:home)
+            _(fixture.home).must_be_nil
+          ensure
+            SapiClient::SapiResource.parsed_model_spec = original_spec
+          end
+        end
       end
 
       describe 'assignment' do
