@@ -80,6 +80,23 @@ module SapiClient
 
         _(ResourceWrapper.wrap_resource(resource)).must_be_kind_of(WombleResource)
       end
+
+      it 'should use the declared type of a resource to find the wrapper' do
+        original_names = SapiClient::SapiResource.model_class_names
+        SapiClient::SapiResource.model_class_names = {
+          'http://wimbledon.com/WombleResource' => 'WombleResource'
+        }
+        begin
+          resource = SapiClient::SapiResource.new('@id' => 'http://wimbledon.com/tobermory')
+          resource.declared_type = 'http://wimbledon.com/WombleResource'
+
+          _(ResourceWrapper.wrap_resource(resource)).must_be_kind_of(WombleResource)
+        ensure
+          SapiClient::SapiResource.model_class_names = original_names
+        end
+      end
+    end
+
     end
   end
 end
