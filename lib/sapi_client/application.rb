@@ -178,6 +178,17 @@ module SapiClient
       typ
     end
 
+    # Helper method for parsing model spec file. Properties can be given either
+    # as a plain QName string (e.g. "rdf:type") or as a Hash with a `name` key,
+    # so derive the local property name in either case.
+    def property_name(prop)
+      if prop.is_a?(Hash)
+        prop['name'] || prop['prop']&.sub(/^[^:]*:/, '')
+      else
+        prop.to_s.sub(/^[^:]*:/, '')
+      end
+    end
+
     # Helper method for parsing model spec file
     def type2ruby(typ, prefix2uri, qname2local, builtins)
       full_uri = type2fulltype(typ, prefix2uri)
