@@ -193,6 +193,13 @@ module SapiClient
           r = SapiClient::SapiResource.new({})
           refute r.type?('http://wimbledon.org/Womble')
         end
+
+        it 'should fall back to the declared type when the resource has no explicit type' do
+          r = SapiClient::SapiResource.new(name: 'Tobermory')
+          r.declared_type = 'http://wimbledon.org/Womble'
+
+          _(r.types.map(&:uri)).must_equal(['http://wimbledon.org/Womble'])
+        end
       end
 
       describe '#value_of' do
