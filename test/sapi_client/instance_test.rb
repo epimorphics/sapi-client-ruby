@@ -24,7 +24,7 @@ end
 module SapiClient
   class SapiEndpointTest < Minitest::Test
     describe 'Instance' do
-      let(:base_url) { "http://localhost:#{sapi_api_port}" }
+      let(:base_url) { 'https://fsa-dev-rp.epimorphics.net' }
 
       describe '#base_url' do
         it 'should return the base URL' do
@@ -40,7 +40,7 @@ module SapiClient
         it 'should load JSON formatted data on request' do
           VCR.use_cassette('sapi_instance.get_json') do
             instance = SapiClient::Instance.new(base_url)
-            json = instance.get_json("#{base_url}/business/id/establishment", _limit: 1)
+            json = instance.get_json("#{base_url}/regulated-products/id/feed-additives/additive", _limit: 1)
             _(json).must_be_kind_of Hash
             _(json['items']).must_be_kind_of Array
             _(json['items'].length).must_equal 1
@@ -51,16 +51,16 @@ module SapiClient
           VCR.use_cassette('sapi_instance.get_json') do
             instance = SapiClient::Instance.new(base_url)
             json = instance.get_json(
-              "#{base_url}/business/id/establishment",
+              "#{base_url}/regulated-products/id/feed-additives/additive",
               _limit: 10,
-              establishmentType: [
-                'http://data.food.gov.uk/codes/business/establishment/RC-HG',
-                'http://data.food.gov.uk/codes/business/establishment/RC-SC'
+              casNo: [
+                'http://data.food.gov.uk/regulated-products/id/codespace/cas/78-83-1',
+                'http://data.food.gov.uk/regulated-products/id/codespace/cas/2785-89-9'
               ]
             )
             _(json).must_be_kind_of Hash
             _(json['items']).must_be_kind_of Array
-            _(json['items'].length).must_equal 10
+            _(json['items'].length).must_equal 3
           end
         end
       end
@@ -72,7 +72,11 @@ module SapiClient
             mock_wrapper.expect(:new, :wrapped_item, [Hash])
 
             instance = SapiClient::Instance.new(base_url)
-            items = instance.get_items("#{base_url}/business/id/establishment", wrapper: mock_wrapper, _limit: 1)
+            items = instance.get_items(
+              "#{base_url}/regulated-products/id/feed-additives/additive",
+              wrapper: mock_wrapper,
+              _limit: 1
+            )
             _(items).must_equal [:wrapped_item]
           end
         end
@@ -81,10 +85,10 @@ module SapiClient
       describe '#get_hierarchy' do
         it('should load a hierarchy from a hierarchy endpoint') do
           VCR.use_cassette('sapi_instance.get_hierarchy') do
-            instance = SapiClient::Instance.new('http://fsa-rp-test.epimorphics.net')
+            instance = SapiClient::Instance.new('https://fsa-dev-rp.epimorphics.net')
 
             hierarchy = instance.get_hierarchy(
-              'http://fsa-rp-test.epimorphics.net/regulated-products/id/feed-additives/category',
+              'https://fsa-dev-rp.epimorphics.net/regulated-products/id/feed-additives/category',
               { _all: true },
               :skos
             )
@@ -101,7 +105,7 @@ module SapiClient
           VCR.use_cassette('sapi_instance.get_missing_item') do
             assert_raises(RuntimeError) do
               instance = SapiClient::Instance.new(base_url)
-              instance.get_items("#{base_url}/business/id/establishment/womble", _limit: 1)
+              instance.get_items("#{base_url}/regulated-products/id/feed-additives/additive/womble", _limit: 1)
             end
           end
         end
@@ -109,7 +113,7 @@ module SapiClient
         it 'should return an error-wrapped-JSON value when fetching from a URL that returns 404' do
           VCR.use_cassette('sapi_instance.get_missing_item') do
             instance = SapiClient::Instance.new(base_url)
-            instance.get_items("#{base_url}/business/id/establishment/womble", _limit: 1)
+            instance.get_items("#{base_url}/regulated-products/id/feed-additives/additive/womble", _limit: 1)
           rescue RuntimeError => e
             _(e.status).must_equal 404
           end
@@ -125,7 +129,7 @@ module SapiClient
 
             instance = SapiClient::Instance.new(base_url)
             instance.request_logger = logger
-            json = instance.get_json("#{base_url}/business/id/establishment", _limit: 1)
+            json = instance.get_json("#{base_url}/regulated-products/id/feed-additives/additive", _limit: 1)
             _(json).must_be_kind_of Hash
           end
         end
@@ -210,12 +214,12 @@ module SapiClient
           VCR.use_cassette('sapi_instance.resolve') do
             resource = mock('resource')
             resource.expects(:resolvable?).returns(true)
-            resource.expects(:uri).returns('http://data.food.gov.uk/business/id/establishment/EHMQY4-DG9V0T-PTSDJH')
+            resource.expects(:uri).returns('http://data.food.gov.uk/regulated-products/id/regime')
 
             instance = SapiClient::Instance.new(base_url)
             resolved_resource = instance.resolve(resource)
 
-            _(resolved_resource.label).must_match(/nando/i)
+            _(resolved_resource.prefLabel).must_match(/authorisations/i)
           end
         end
       end
@@ -227,7 +231,7 @@ module SapiClient
 
             instance = SapiClient::Instance.new(base_url)
             instance.request_logger = logger
-            json = instance.get_json("#{base_url}/business/id/establishment", _limit: 1)
+            json = instance.get_json("#{base_url}/regulated-products/id/feed-additives/additive", _limit: 1)
             _(json).must_be_kind_of Hash
 
             headers = logger.request.headers
@@ -242,7 +246,7 @@ module SapiClient
 
             instance = SapiClient::Instance.new(base_url)
             instance.request_logger = logger
-            json = instance.get_json("#{base_url}/business/id/establishment", _limit: 1)
+            json = instance.get_json("#{base_url}/regulated-products/id/feed-additives/additive", _limit: 1)
             _(json).must_be_kind_of Hash
 
             headers = logger.request.headers
@@ -276,7 +280,7 @@ module SapiClient
             mock_active_support.const_set('Notifications', mock_notifications)
             Object.const_set('ActiveSupport', mock_active_support)
 
-            reg_products_base_url = 'https://fsa-rp-test.epimorphics.net/'
+            reg_products_base_url = 'https://fsa-dev-rp.epimorphics.net'
             instance = SapiClient::Instance.new(reg_products_base_url)
             instance.get_json("#{reg_products_base_url}/regulated-products/id/regime.json", _limit: 1)
           ensure
@@ -287,36 +291,37 @@ module SapiClient
         end
 
         it 'should emit ActiveSupport Notification events on failure' do
-          VCR.use_cassette('sapi_active_support_failure_notifications') do
-            mock_env = mock('rails-env')
-            mock_env.expects(:production?).returns(true).at_least(1)
+          mock_env = mock('rails-env')
+          mock_env.expects(:production?).returns(true).at_least(1)
 
-            mock_config = mock('rails-config')
-            mock_config.expects(:config).returns(OpenStruct.new).at_least(1)
+          mock_config = mock('rails-config')
+          mock_config.expects(:config).returns(OpenStruct.new).at_least(1)
 
-            mock_rails = Class.new(Object)
-            mock_rails.define_singleton_method(:logger) { Object.new }
-            mock_rails.define_singleton_method(:env) { mock_env }
-            mock_rails.define_singleton_method(:application) { mock_config }
-            Object.const_set('Rails', mock_rails)
+          mock_rails = Class.new(Object)
+          mock_rails.define_singleton_method(:logger) { Object.new }
+          mock_rails.define_singleton_method(:env) { mock_env }
+          mock_rails.define_singleton_method(:application) { mock_config }
+          Object.const_set('Rails', mock_rails)
 
-            mock_notifications = mock('Notifications')
-            mock_notifications.expects(:instrument).with do |event, _payload|
-              event == 'connection_failure.api'
-            end
-
-            mock_active_support = Module.new
-            mock_active_support.const_set('Notifications', mock_notifications)
-            Object.const_set('ActiveSupport', mock_active_support)
-
-            reg_products_base_url = 'https://nowhere.epimorphics.net/'
-            instance = SapiClient::Instance.new(reg_products_base_url)
-            _(-> { instance.get_json("#{reg_products_base_url}/id/wombles.json", _limit: 1) }).must_raise
-          ensure
-            # clean-up the global `Rails` constant
-            Object.send(:remove_const, 'Rails')
-            Object.send(:remove_const, 'ActiveSupport')
+          mock_notifications = mock('Notifications')
+          mock_notifications.expects(:instrument).with do |event, _payload|
+            event == 'connection_failure.api'
           end
+
+          mock_active_support = Module.new
+          mock_active_support.const_set('Notifications', mock_notifications)
+          Object.const_set('ActiveSupport', mock_active_support)
+
+          reg_products_base_url = 'https://nowhere.epimorphics.net/'
+          instance = SapiClient::Instance.new(reg_products_base_url)
+
+          VCR.turned_off do
+            _(-> { instance.get_json("#{reg_products_base_url}/id/wombles.json", _limit: 1) }).must_raise
+          end
+        ensure
+          # clean-up the global `Rails` constant
+          Object.send(:remove_const, 'Rails')
+          Object.send(:remove_const, 'ActiveSupport')
         end
       end
     end

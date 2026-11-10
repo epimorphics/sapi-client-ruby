@@ -19,12 +19,41 @@ module SapiClient
       nil
     end
 
+    # Normalise a type identifier - which may be a String, a Hash (possibly with
+    # string or symbol keys), a SapiResource wrapping an `@id`, or some other
+    # object - down to a plain String that can be used as a class-name key.
+    # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+    def self.type_string(type)
+      if type.is_a?(String)
+        type
+      elsif type.is_a?(Hash)
+        (type[:@id] || type['@id'] || type[:@value] || type['@value']).to_s
+      elsif type.respond_to?(:resource) && type.resource.is_a?(Hash)
+        (type.resource[:@id] || type.resource['@id']).to_s
+      else
+        type.to_s
+      end
+    end
+    # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+
     def self.de_uri(maybe_uri)
-      maybe_uri.to_s.sub(%r{^https?://.*/}, '').to_sym
+      type_string(maybe_uri).sub(%r{^https?://.*/}, '').to_sym
     end
 
     def self.default_resource_wrapper_type
       SapiClient::SapiResource
+    end
+
+    # Determine the local class name to use for the given type. If the type is
+    # declared in the model spec, use the declared class name, otherwise fall
+    # back to the final segment of the type URI.
+    def self.wrapper_class_name(type)
+      type_name = type_string(type)
+      model_class_names[type_name] || de_uri(type_name)
+    end
+
+    def self.model_class_names
+      SapiClient::SapiResource.model_class_names || {}
     end
 
     # Find the first wrapper type for which there is an existing
@@ -33,7 +62,7 @@ module SapiClient
     # rubocop:disable Metrics/MethodLength
     def self.find_wrapper_type(types)
       all_wrapped = Array(types)
-                    .map { |type| wrapper_class_constant(de_uri(type)) }
+                    .map { |type| wrapper_class_constant(wrapper_class_name(type)) }
                     .compact
       most_specific_wrapped = all_wrapped
                               .filter do |t|

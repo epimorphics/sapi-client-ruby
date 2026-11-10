@@ -10,6 +10,8 @@ jobs:
         # This should correspond to the version range in the gemfile.
         ruby: ['3.3', '3.4']
     runs-on: ubuntu-latest
+    env:
+      BUNDLE_RUBYGEMS__PKG__GITHUB__COM: epimorphics:${{ secrets.EPI_GPR_READ_ACCESS_TOKEN }}
     steps:
     - uses: actions/checkout@v6
     - name: Set up Ruby

@@ -12,8 +12,10 @@ module SapiClient
     attr_accessor :request_logger
     attr_reader :base_url, :logger, :instrumenter
 
-    def initialize(base_url, config = {})
+    def initialize(base_url, parsed_model_spec = {}, config = {}, model_class_names: {})
       @base_url = base_url
+      SapiClient::SapiResource.parsed_model_spec = parsed_model_spec
+      SapiClient::SapiResource.model_class_names = model_class_names
       @logger = config[:logger] || rails_logger
       @instrumenter = config[:instrumenter] || rails_active_support_notifications
     end
@@ -27,12 +29,16 @@ module SapiClient
 
     def get_items(url, options = {})
       wrapper = options.delete(:wrapper)
+      declared_type = options.delete(:declared_type)
       raise(SapiError, "Unexpected relative URL #{url}") unless absolute_url?(url)
 
       json = get_json(url, options)
       items = json['error'] ? [json] : json['items'] || []
 
-      wrapper ? items.map { |item| wrapper.new(item) } : items
+      items = items.map { |item| wrapper.new(item) } if wrapper
+      items.each { |item| set_declared_type(item, declared_type) }
+
+      items
     end
 
     # Get parsed JSON from the given URL
@@ -88,6 +94,12 @@ module SapiClient
     end
 
     private
+
+    def set_declared_type(resource, declared_type)
+      return unless declared_type
+
+      resource.declared_type = declared_type if resource.respond_to?(:declared_type=)
+    end
 
     def permissible_response_code?(response)
       permissible_response_codes.include?(response.status)
